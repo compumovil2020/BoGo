@@ -7,7 +7,7 @@
     <color name="bogoRed">#99050A</color>
     <color name="colorFav">#E3040B</color>
     <color name="visited">#31AB0E</color>
-    <color name="Wishlist">#737373</color>
+    <color name="wishlist">#737373</color>
     <color name="colorBg">#F1F1F1</color>
     <color name="colorBlack">#000000</color>
 </resources>
