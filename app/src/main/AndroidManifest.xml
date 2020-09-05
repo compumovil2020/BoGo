@@ -12,12 +12,17 @@
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".MainMenu" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".BienvenidoActivity" />
+        <activity android:name=".PlaceDescriptionActivity"/>
         <activity android:name=".CalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
