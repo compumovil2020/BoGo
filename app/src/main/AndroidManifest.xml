@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bogo">
+    package="com.example.bogo" >
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".MainMenu" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".BienvenidoActivity" />
+        <activity android:name=".PlaceDescriptionActivity"/>
         <activity android:name=".CalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
