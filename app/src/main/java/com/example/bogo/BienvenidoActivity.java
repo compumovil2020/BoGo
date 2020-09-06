@@ -1,7 +1,6 @@
 package com.example.bogo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class BienvenidoActivity extends AppCompatActivity {
