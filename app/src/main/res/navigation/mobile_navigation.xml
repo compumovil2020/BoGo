@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/mainMenu">
+
+    <fragment
+        android:id="@+id/calendarActivity"
+        android:name="com.example.bogo.CalendarActivity"
+        android:label="activity_calendar"
+        tools:layout="@layout/activity_calendar" />
+    <fragment
+        android:id="@+id/timeLineActivity"
+        android:name="com.example.bogo.TimeLineActivity"
+        android:label="activity_time_line"
+        tools:layout="@layout/activity_time_line" />
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.example.bogo.MainMenu"
+        android:label="activity_main_menu"
+        tools:layout="@layout/activity_main_menu" />
+</navigation>
