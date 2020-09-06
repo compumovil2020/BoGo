@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    tools:context=".MainMenu">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorBg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBg"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnTuristico"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/turistico" />
+
+            <Button
+                android:id="@+id/btnParque"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/parques" />
+
+            <Button
+                android:id="@+id/btnRestaurantes"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/restaurante" />
+
+            <Button
+                android:id="@+id/btnCafes"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/cafes" />
+
+            <Button
+                android:id="@+id/btnEventos"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/eventos" />
+
+            <Button
+                android:id="@+id/btnRumba"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/recomendados" />
+
+            <Button
+                android:id="@+id/btnRecomendados"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rumba" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
