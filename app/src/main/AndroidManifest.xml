@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bogo" >
+    package="com.example.bogo">
 
     <application
         android:allowBackup="true"
@@ -9,17 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimeLineActivity" />
-        <activity android:name=".MainMenu" />
-        <activity android:name=".BienvenidoActivity" />
-        <activity android:name=".PlaceDescriptionActivity"/>
-        <activity android:name=".CalendarActivity">
+        <activity
+            android:name=".DropMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".TimeLineActivity">
+        </activity>-->
+        <activity android:name=".MainMenu">
+        </activity>
+        <activity android:name=".BienvenidoActivity" />
+        <!--<activity android:name=".PlaceDescriptionActivity" />
+        <activity android:name=".CalendarActivity"></activity>-->
     </application>
 
 </manifest>
