@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#FFAF07</color>
+    <color name="colorPrimaryDark">#FA9107</color>
+    <color name="colorAccent">#99050A</color>
+    <color name="bogoYellow">#FFAF07</color>
+    <color name="bogoRed">#99050A</color>
+    <color name="colorFav">#E3040B</color>
+    <color name="visited">#31AB0E</color>
+    <color name="wishlist">#737373</color>
+    <color name="colorBg">#F1F1F1</color>
+    <color name="colorBlack">#000000</color>
 </resources>
