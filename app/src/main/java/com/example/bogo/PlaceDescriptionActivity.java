@@ -24,7 +24,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity {
         {
             View child = getLayoutInflater().inflate(R.layout.review_layout, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params.setMargins(0, 0, 0, 50);
