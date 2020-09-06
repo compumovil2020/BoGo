@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondologin"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
+    android:background="@drawable/fondoregister"
+    android:paddingLeft="10dp"
+    tools:context=".RegisterActivity">
 
     <ImageView
-        android:id="@+id/imgLogoLogin"
+        android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_marginStart="70dp"
@@ -21,50 +21,78 @@
         app:srcCompat="@drawable/bogologo" />
 
     <TextView
-        android:id="@+id/txtLogin"
+        android:id="@+id/txtRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/ic_btnyellow"
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="INICIAR SESIÓN"
-        android:textAlignment="center"
+        android:text="REGISTRARSE"
         android:textColor="@color/bogoRed"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogoLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/edtUser"
+        android:id="@+id/edtNombreRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/edtwhite_svg"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRegister" />
+
+    <EditText
+        android:id="@+id/edtUserRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/edtwhite_svg"
         android:ems="10"
         android:hint="Nombre de usuario"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/edtNombreRegister" />
+
+    <EditText
+        android:id="@+id/edtEmailRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/edtwhite_svg"
+        android:ems="10"
+        android:hint="Correo eléctronico"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtUserRegister" />
 
     <EditText
         android:id="@+id/edtPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/edtwhite_svg"
         android:ems="10"
         android:hint="Contraseña"
@@ -72,105 +100,81 @@
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUser" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEmailRegister" />
+
+    <EditText
+        android:id="@+id/edtConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/edtwhite_svg"
+        android:ems="10"
+        android:hint="Confirmar contraseña"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPasswordRegister" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnred_svg"
         android:text="Go!"
         android:textColor="@color/bogoYellow"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPasswordRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/edtConfirmPassword" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="15dp"
         android:background="@android:color/background_light"
         android:orientation="horizontal"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin">
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:layout_editor_absoluteX="1dp">
 
         <TextView
-            android:id="@+id/txtOpcionesLogin"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="85dp"
             android:layout_marginRight="12dp"
             android:layout_weight="0"
             android:gravity="center"
-            android:text="Inicia sesión con"
+            android:text="Regístrate con"
             android:textAlignment="center"
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btnFBLogin"
+            android:id="@+id/button2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="0"
+            android:adjustViewBounds="true"
             android:background="@drawable/facebook_svg"
-            android:scaleType ="fitXY"
-            android:adjustViewBounds="true"/>
+            android:scaleType="fitXY" />
 
         <Button
-            android:id="@+id/btnGoogleLogin"
+            android:id="@+id/button3"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="8dp"
-            android:scaleType ="fitXY"
             android:layout_weight="0"
             android:adjustViewBounds="true"
-            android:background="@drawable/google_hangouts_svg" />
-
+            android:background="@drawable/google_hangouts_svg"
+            android:scaleType="fitXY" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <TextView
-            android:id="@+id/txtFirstTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:linksClickable="false"
-            android:text="¿Es la primera vez que usas BoGo! ?"
-            android:textAlignment="center"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btnRegisterLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:layout_marginRight="30dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="Regístrate"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
