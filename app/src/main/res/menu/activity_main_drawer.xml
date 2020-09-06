@@ -5,13 +5,33 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/mainMenu"
+            android:icon="@drawable/ic_house"
+            android:title="Menú Principal" />
+        <item
+            android:id="@+id/fullMapActivity"
+            android:icon="@drawable/location_svg"
+            android:title="Mapa General" />
+        <item
             android:id="@+id/calendarActivity"
             android:icon="@drawable/calendar_svg"
             android:title="Calendario" />
         <item
+            android:id="@+id/wishlistActivity"
+            android:icon="@drawable/plus_svg"
+            android:title="Lista de deseos" />
+        <item
+            android:id="@+id/favouriteListActivity"
+            android:icon="@drawable/heart_svg"
+            android:title="Favoritos" />
+        <item
             android:id="@+id/timeLineActivity"
             android:icon="@drawable/visited_svg"
             android:title="Historial" />
+        <item
+            android:id="@+id/addReviewActivity"
+            android:icon="@drawable/ic_lightbulb"
+            android:title="Hacer solicitud" />
 
     </group>
 </menu>
