@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edtUserRegister" />
 
     <EditText
-        android:id="@+id/edtPasswordLogin"
+        android:id="@+id/edtPasswordRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -116,8 +116,9 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPasswordLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPasswordRegister" />
 
     <Button
         android:id="@+id/btnRegister"
