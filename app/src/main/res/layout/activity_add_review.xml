@@ -113,7 +113,7 @@
             app:srcCompat="@drawable/star0_svg" />
 
         <ImageView
-            android:id="@+id/imageStar4"
+            android:id="@+id/imageStar5"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
