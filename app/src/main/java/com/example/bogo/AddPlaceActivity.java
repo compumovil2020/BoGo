@@ -43,7 +43,7 @@ public class AddPlaceActivity extends Fragment {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),MainMenu.class);
+                Intent i = new Intent(view.getContext(),DropMenuActivity.class);
                 startActivity(i);
             }
         });
