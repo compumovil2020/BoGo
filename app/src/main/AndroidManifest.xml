@@ -13,20 +13,21 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PlaceMapActivity" />
-        <activity android:name=".FavoritesList"/>
-        <activity android:name=".TimeLineActivity" />
-        <activity android:name=".MainMenu" />
-        <activity android:name=".CalendarActivity"></activity>
-        <activity android:name=".WishList"></activity>
-        <activity android:name=".PlaceList"></activity>
-        <activity android:name=".PlaceDescriptionActivity" />
+        <activity android:name=".PlaceDescriptionActivity"></activity>
         <activity android:name=".BienvenidoActivity" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DropMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!--<activity android:name=".TimeLineActivity">
+        </activity>-->
+        <!--<activity android:name=".PlaceDescriptionActivity" />
+        <activity android:name=".CalendarActivity"></activity>-->
     </application>
 
 </manifest>

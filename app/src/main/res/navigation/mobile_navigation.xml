@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/mainMenu">
+
+    <fragment
+        android:id="@+id/calendarActivity"
+        android:name="com.example.bogo.CalendarActivity"
+        android:label="activity_calendar"
+        tools:layout="@layout/activity_calendar" />
+    <fragment
+        android:id="@+id/timeLineActivity"
+        android:name="com.example.bogo.TimeLineActivity"
+        android:label="activity_time_line"
+        tools:layout="@layout/activity_time_line" />
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.example.bogo.MainMenu"
+        android:label="activity_main_menu"
+        tools:layout="@layout/activity_main_menu" />
+    <fragment
+        android:id="@+id/wishListActivity"
+        android:name="com.example.bogo.WishList"
+        android:label="WishList"
+        tools:layout="@layout/activity_wish_list"/>
+    <fragment
+        android:id="@+id/favoritesListActivity"
+        android:name="com.example.bogo.FavoritesList"
+        android:label="FavoritesList"
+        tools:layout="@layout/activity_favorites_list"/>
+    <activity
+        android:id="@+id/placeDescriptionActivity"
+        android:name="com.example.bogo.PlaceDescriptionActivity"
+        android:label="activity_place_description"
+        tools:layout="@layout/activity_place_description" />
+    <activity
+        android:id="@+id/placeList"
+        android:name="com.example.bogo.PlaceList"
+        android:label="activity_place_list"
+        tools:layout="@layout/activity_place_list" />
+</navigation>

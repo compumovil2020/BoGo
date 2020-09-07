@@ -1,6 +1,8 @@
 package com.example.bogo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,16 +16,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeLineActivity extends AppCompatActivity {
+public class TimeLineActivity extends Fragment {
 
     ListView listTime;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_line);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.activity_time_line, container, false);
 
-        listTime = findViewById(R.id.listTime);
+        listTime = view.findViewById(R.id.listTime);
         listTime.setDividerHeight(0);
         listTime.setDivider(null);
         ArrayList<ComponentesLista> contenido = new ArrayList<>();
@@ -57,11 +58,13 @@ public class TimeLineActivity extends AppCompatActivity {
 
 
 
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, contenido);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getContext(), contenido);
         listTime.setAdapter(adapter);
 
-
+        return view;
     }
+
+
 
     public class MySimpleArrayAdapter extends ArrayAdapter<ComponentesLista> {
         private final Context context;

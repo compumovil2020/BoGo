@@ -22,7 +22,7 @@ public class PlaceList extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0, 0, 0, 50);
+            params.setMargins(0, 0, 0, 10);
             child.setLayoutParams(params);
             llPlace1.addView(child);
         }

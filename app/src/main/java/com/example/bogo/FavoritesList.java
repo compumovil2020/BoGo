@@ -1,19 +1,22 @@
 package com.example.bogo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class FavoritesList extends AppCompatActivity {
+public class FavoritesList extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites_list);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.activity_favorites_list, container, false);
 
-        LinearLayout llFavorites = findViewById(R.id.llLayoutFavorite);
+        LinearLayout llFavorites = view.findViewById(R.id.llLayoutFavorite);
 
         for(int i = 0; i < 3; i++)
         {
@@ -22,9 +25,11 @@ public class FavoritesList extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0, 0, 0, 50);
+            params.setMargins(0, 0, 0, 10);
             child.setLayoutParams(params);
             llFavorites.addView(child);
         }
+
+        return view;
     }
 }
