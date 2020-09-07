@@ -17,11 +17,11 @@
             android:icon="@drawable/calendar_svg"
             android:title="Calendario" />
         <item
-            android:id="@+id/wishlistActivity"
+            android:id="@+id/wishListActivity"
             android:icon="@drawable/plus_svg"
             android:title="Lista de deseos" />
         <item
-            android:id="@+id/favouriteListActivity"
+            android:id="@+id/favoritesListActivity"
             android:icon="@drawable/heart_svg"
             android:title="Favoritos" />
         <item

@@ -34,7 +34,9 @@ public class DropMenuActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.mainMenu, R.id.timeLineActivity, R.id.calendarActivity
+                R.id.mainMenu, R.id.timeLineActivity, R.id.calendarActivity,
+                R.id.wishListActivity, R.id.favoritesListActivity, R.id.placeDescriptionActivity,
+                R.id.placeList
         )
                 .setDrawerLayout(drawer)
                 .build();

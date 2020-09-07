@@ -20,4 +20,24 @@
         android:name="com.example.bogo.MainMenu"
         android:label="activity_main_menu"
         tools:layout="@layout/activity_main_menu" />
+    <fragment
+        android:id="@+id/wishListActivity"
+        android:name="com.example.bogo.WishList"
+        android:label="WishList"
+        tools:layout="@layout/activity_wish_list"/>
+    <fragment
+        android:id="@+id/favoritesListActivity"
+        android:name="com.example.bogo.FavoritesList"
+        android:label="FavoritesList"
+        tools:layout="@layout/activity_favorites_list"/>
+    <activity
+        android:id="@+id/placeDescriptionActivity"
+        android:name="com.example.bogo.PlaceDescriptionActivity"
+        android:label="activity_place_description"
+        tools:layout="@layout/activity_place_description" />
+    <activity
+        android:id="@+id/placeList"
+        android:name="com.example.bogo.PlaceList"
+        android:label="activity_place_list"
+        tools:layout="@layout/activity_place_list" />
 </navigation>
