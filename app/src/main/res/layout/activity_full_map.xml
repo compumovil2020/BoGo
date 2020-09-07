@@ -32,7 +32,7 @@
         app:srcCompat="@drawable/mapa" />
 
     <Button
-        android:id="@+id/buttonLocation2"
+        android:id="@+id/buttonLocation1"
         android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.473" />
 
     <Button
-        android:id="@+id/buttonLocation3"
+        android:id="@+id/buttonLocation2"
         android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
@@ -56,7 +56,7 @@
         app:layout_constraintVertical_bias="0.754" />
 
     <Button
-        android:id="@+id/buttonLocation"
+        android:id="@+id/buttonLocation3"
         android:layout_width="44dp"
         android:layout_height="66dp"
         android:background="@drawable/btnpincho"
@@ -68,7 +68,7 @@
         app:layout_constraintVertical_bias="0.378" />
 
     <Button
-        android:id="@+id/buttonLocation1"
+        android:id="@+id/buttonLocation4"
         android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
