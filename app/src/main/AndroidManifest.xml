@@ -28,6 +28,13 @@
             android:theme="@style/AppTheme.NoActionBar">
             
         </activity>
+        <!--<activity android:name=".TimeLineActivity">
+        </activity>-->
+        <activity android:name=".MainMenu">
+        </activity>
+        <activity android:name=".BienvenidoActivity" />
+        <!--<activity android:name=".PlaceDescriptionActivity" />
+        <activity android:name=".CalendarActivity"></activity>-->
     </application>
 
 </manifest>
