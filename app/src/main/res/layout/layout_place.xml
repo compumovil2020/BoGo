@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgAmorPerfecto"
+            android:layout_width="242dp"
+            android:layout_height="163dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513"
+            app:srcCompat="@drawable/amorperfecto" />
+
+        <TextView
+            android:id="@+id/textAmorPerfecto"
+            android:layout_width="140dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:text="Amor Perfecto"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toEndOf="@+id/imgAmorPerfecto"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.211" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="148dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toEndOf="@+id/imgAmorPerfecto"
+            app:layout_constraintTop_toBottomOf="@+id/textAmorPerfecto"
+            app:srcCompat="@drawable/stars" />
+
+        <TextView
+            android:id="@+id/txtCafes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="104dp"
+            android:text="Cafés"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgAmorPerfecto"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/txtVerMas2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/ver_mas"
+            android:textColor="@color/bogoRed"
+            android:textColorLink="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout3">
+
+        <ImageView
+            android:id="@+id/imageCafeCultor"
+            android:layout_width="247dp"
+            android:layout_height="173dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cafecultor" />
+
+        <TextView
+            android:id="@+id/txtCafeCultor"
+            android:layout_width="149dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="8dp"
+            android:text="Café Cultor"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.37"
+            app:layout_constraintStart_toEndOf="@+id/imageCafeCultor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.219" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="141dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toEndOf="@+id/imageCafeCultor"
+            app:layout_constraintTop_toBottomOf="@+id/txtCafeCultor"
+            app:srcCompat="@drawable/stars" />
+
+        <TextView
+            android:id="@+id/textCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="104dp"
+            android:text="Cafés"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageCafeCultor"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/ver_mas"
+            android:textColor="@color/bogoRed"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
