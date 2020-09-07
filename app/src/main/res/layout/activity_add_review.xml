@@ -186,7 +186,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageMensajeFinal" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonEnviar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
