@@ -11,8 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".PlaceList" ></activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PlaceMapActivity"></activity>
         <activity android:name=".PlaceDescriptionActivity"></activity>
