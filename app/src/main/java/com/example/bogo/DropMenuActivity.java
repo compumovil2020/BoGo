@@ -35,8 +35,7 @@ public class DropMenuActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.mainMenu, R.id.timeLineActivity, R.id.calendarActivity,
-                R.id.wishListActivity, R.id.favoritesListActivity, R.id.placeDescriptionActivity,
-                R.id.placeList
+                R.id.wishListActivity, R.id.favoritesListActivity, R.id.fullMapActivity2, R.id.addPlaceActivity
         )
                 .setDrawerLayout(drawer)
                 .build();

@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/buttonLocation2"
-        android:layout_width="50dp"
+        android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
 
     <Button
         android:id="@+id/buttonLocation3"
-        android:layout_width="50dp"
+        android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,8 +57,8 @@
 
     <Button
         android:id="@+id/buttonLocation"
-        android:layout_width="50dp"
-        android:layout_height="62dp"
+        android:layout_width="44dp"
+        android:layout_height="66dp"
         android:background="@drawable/btnpincho"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +69,10 @@
 
     <Button
         android:id="@+id/buttonLocation1"
-        android:layout_width="50dp"
+        android:layout_width="44dp"
         android:layout_height="62dp"
         android:background="@drawable/btnpincho"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.641"

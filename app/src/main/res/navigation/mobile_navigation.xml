@@ -30,14 +30,14 @@
         android:name="com.example.bogo.FavoritesList"
         android:label="FavoritesList"
         tools:layout="@layout/activity_favorites_list"/>
-    <activity
-        android:id="@+id/placeDescriptionActivity"
-        android:name="com.example.bogo.PlaceDescriptionActivity"
-        android:label="activity_place_description"
-        tools:layout="@layout/activity_place_description" />
-    <activity
-        android:id="@+id/placeList"
-        android:name="com.example.bogo.PlaceList"
-        android:label="activity_place_list"
-        tools:layout="@layout/activity_place_list" />
+    <fragment
+        android:id="@+id/addPlaceActivity"
+        android:name="com.example.bogo.AddPlaceActivity"
+        android:label="activity_add_place"
+        tools:layout="@layout/activity_add_place" />
+    <fragment
+        android:id="@+id/fullMapActivity2"
+        android:name="com.example.bogo.FullMapActivity"
+        android:label="activity_full_map"
+        tools:layout="@layout/activity_full_map" />
 </navigation>
