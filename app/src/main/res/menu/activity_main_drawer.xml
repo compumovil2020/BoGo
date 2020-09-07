@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_house"
             android:title="Menú Principal" />
         <item
-            android:id="@+id/fullMapActivity"
+            android:id="@+id/fullMapActivity2"
             android:icon="@drawable/location_svg"
             android:title="Mapa General" />
         <item
@@ -29,7 +29,7 @@
             android:icon="@drawable/visited_svg"
             android:title="Historial" />
         <item
-            android:id="@+id/addReviewActivity"
+            android:id="@+id/addPlaceActivity"
             android:icon="@drawable/ic_lightbulb"
             android:title="Hacer solicitud" />
 
