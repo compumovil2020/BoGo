@@ -12,6 +12,7 @@ Bienvenido a Bogo! Una app sencilla e innovadora que te permitirá tener al alca
   - Restaurantes
   - Cafés
   - Eventos
+  - Rumba
 - Buscar de lugares por nombre, cerca a ti, fecha, popularidad, categoría, etc.
 - Calificar lugares y escribir reseñas, subir fotos
 - Ver en un mapa la ubicación del sitio; y cómo ir de un lugar a otro con ubicación

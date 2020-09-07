@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -79,13 +81,22 @@ public class TimeLineActivity extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.adapter_time_line, parent, false);
+            final View rowView = inflater.inflate(R.layout.adapter_time_line, parent, false);
             TextView textNombre = rowView.findViewById(R.id.txtNombreSItio);
             TextView textTipo =  rowView.findViewById(R.id.txtTipo);
             TextView textFecha= rowView.findViewById(R.id.txtDate);
+            Button vermas = rowView.findViewById(R.id.btnVer);
             textNombre.setText(values.get(position).getNombre());
             textTipo.setText(values.get(position).getTipo());
             textFecha.setText(values.get(position).getDate());
+            vermas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(rowView.getContext(), PlaceDescriptionActivity.class);
+                    startActivity(i);
+                }
+            });
+
             return rowView;
         }
     }
