@@ -15,7 +15,8 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PlaceMapActivity"></activity>
-        <activity android:name=".PlaceDescriptionActivity"></activity>
+        <activity android:name=".PlaceDescriptionActivity">
+        </activity>
         <activity android:name=".BienvenidoActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
