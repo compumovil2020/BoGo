@@ -86,6 +86,7 @@ public class TimeLineActivity extends Fragment {
             textNombre.setText(values.get(position).getNombre());
             textTipo.setText(values.get(position).getTipo());
             textFecha.setText(values.get(position).getDate());
+
             return rowView;
         }
     }
