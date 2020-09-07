@@ -30,7 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/buffalo" />
+                app:srcCompat="@drawable/buffalo1" />
 
             <TextView
                 android:id="@+id/txtPlaceTitle"
@@ -203,13 +203,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCalificar" />
 
-            <ListView
-                android:id="@+id/listReseñas"
+            <LinearLayout
+                android:id="@+id/llOtrasResenas"
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtOtrasReseñas" />
+                app:layout_constraintTop_toBottomOf="@id/txtOtrasReseñas">
+
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
