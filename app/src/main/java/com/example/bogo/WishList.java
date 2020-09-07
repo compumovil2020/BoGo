@@ -2,8 +2,10 @@ package com.example.bogo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,24 @@ public class WishList extends Fragment {
             );
             params.setMargins(0, 0, 0, 10);
             child.setLayoutParams(params);
+
+            ConstraintLayout ClWishlist1 = child.findViewById(R.id.constraintLayout5);
+            ClWishlist1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), PlaceDescriptionActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            ConstraintLayout ClWishlist2 = child.findViewById(R.id.ConstraintLayout6);
+            ClWishlist2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), PlaceDescriptionActivity.class);
+                    startActivity(intent);
+                }
+            });
             llWishPlace.addView(child);
         }
 
