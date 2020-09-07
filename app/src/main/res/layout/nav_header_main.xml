@@ -45,6 +45,13 @@
             android:layout_height="wrap_content"
             android:text="monicaleja99"
             android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/txtNumPuntos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99 puntos"
+            android:textColor="@color/bogoYellow"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

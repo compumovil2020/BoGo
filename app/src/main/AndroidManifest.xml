@@ -13,12 +13,15 @@
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
         <activity android:name=".PlaceList"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".PlaceMapActivity"></activity>
         <activity android:name=".PlaceDescriptionActivity"></activity>
-        <activity android:name=".BienvenidoActivity" >
+        <activity android:name=".BienvenidoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
