@@ -25,8 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DropMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.bogo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -43,7 +44,14 @@ public class DropMenuActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        Button btnSearch = findViewById(R.id.btnSearch);
+        Button btnSearch = findViewById(R.id.btnGotoSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
