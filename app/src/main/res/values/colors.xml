@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFAF07</color>
     <color name="colorPrimaryDark">#FA9107</color>
-    <color name="colorAccent">#99050A</color>
+    <color name="colorAccent">#FFAF07</color>
     <color name="bogoYellow">#FFAF07</color>
     <color name="bogoRed">#99050A</color>
     <color name="colorFav">#E3040B</color>

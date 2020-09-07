@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".PlaceMapActivity" />
         <activity android:name=".FavoritesList"/>
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".MainMenu" />
         <activity android:name=".CalendarActivity"></activity>
-        <activity android:name=".WishList">
-        </activity>
+        <activity android:name=".WishList"></activity>
         <activity android:name=".PlaceList"></activity>
         <activity android:name=".PlaceDescriptionActivity" />
         <activity android:name=".BienvenidoActivity" >
@@ -23,7 +26,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-      </activity>
+        </activity>
     </application>
 
 </manifest>
