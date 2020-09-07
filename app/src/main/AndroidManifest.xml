@@ -12,14 +12,14 @@
         <activity android:name=".CalendarActivity2"></activity>
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
-        <activity android:name=".PlaceList" ></activity>
+        <activity android:name=".PlaceList"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PlaceMapActivity"></activity>
         <activity android:name=".PlaceDescriptionActivity"></activity>
         <activity android:name=".BienvenidoActivity" >
-           <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
