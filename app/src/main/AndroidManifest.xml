@@ -16,19 +16,16 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".PlaceMapActivity"></activity>
         <activity android:name=".PlaceDescriptionActivity"></activity>
-        <activity android:name=".BienvenidoActivity" ></activity>
-        <activity android:name=".DropMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".BienvenidoActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".TimeLineActivity">
-        </activity>-->
-        <!--<activity android:name=".PlaceDescriptionActivity" />
-        <activity android:name=".CalendarActivity"></activity>-->
+        <activity android:name=".DropMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
