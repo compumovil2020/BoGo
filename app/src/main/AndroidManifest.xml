@@ -19,6 +19,7 @@
         <activity android:name=".PlaceMapActivity"></activity>
         <activity android:name=".PlaceDescriptionActivity"></activity>
         <activity android:name=".BienvenidoActivity" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
