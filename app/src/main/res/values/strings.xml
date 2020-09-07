@@ -12,4 +12,12 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+	<string-array name="tipos">
+        <item>Sitio Turistico</item>
+        <item>Parques</item>
+        <item>Restaurantes</item>
+        <item>Cafes</item>
+        <item>Rumba</item>
+        <item>Eventos</item>
+    </string-array>
 </resources>
