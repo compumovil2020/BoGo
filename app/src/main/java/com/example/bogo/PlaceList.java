@@ -1,7 +1,9 @@
 package com.example.bogo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,14 +19,36 @@ public class PlaceList extends AppCompatActivity {
 
         for(int i = 0; i < 3; i++)
         {
-            View child = getLayoutInflater().inflate(R.layout.layout_place, null);
+            final View child = getLayoutInflater().inflate(R.layout.layout_place, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params.setMargins(0, 0, 0, 10);
             child.setLayoutParams(params);
+
+            ConstraintLayout Clplace1 = child.findViewById(R.id.constraintLayout3);
+            Clplace1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(),PlaceDescriptionActivity.class);
+                    startActivity(intent);
+                }
+
+            });
+
+            ConstraintLayout Clplace2 = child.findViewById(R.id.constraintLayout4);
+            Clplace2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getBaseContext(), PlaceDescriptionActivity.class);
+                    startActivity(intent);
+                }
+            });
+
             llPlace1.addView(child);
+
+
         }
     }
 }
