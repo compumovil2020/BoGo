@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RedeemPointsActivity"></activity>
+        <activity android:name=".RedeemPointsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".CalendarActivity2" />
         <activity android:name=".AddReviewActivity" />
         <activity android:name=".SeeReview" />
@@ -20,11 +26,7 @@
         <activity android:name=".PlaceMapActivity" />
         <activity android:name=".PlaceDescriptionActivity" />
         <activity android:name=".BienvenidoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".DropMenuActivity"
