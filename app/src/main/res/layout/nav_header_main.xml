@@ -7,6 +7,7 @@
     android:background="@color/bogoRed"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:id="@+id/clProfile"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView

@@ -37,7 +37,8 @@ public class DropMenuActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.mainMenu, R.id.timeLineActivity, R.id.calendarActivity,
-                R.id.wishListActivity, R.id.favoritesListActivity, R.id.fullMapActivity2, R.id.addPlaceActivity
+                R.id.wishListActivity, R.id.favoritesListActivity, R.id.fullMapActivity2, R.id.addPlaceActivity,
+                R.id.redeemPointsActivity
         )
                 .setDrawerLayout(drawer)
                 .build();
@@ -59,6 +60,15 @@ public class DropMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), BienvenidoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        View clProfile = navigationView.getHeaderView(0);
+        clProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), MyRedeemActivity.class);
                 startActivity(intent);
             }
         });

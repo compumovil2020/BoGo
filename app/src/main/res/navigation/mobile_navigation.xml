@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/calendarActivity"
-        android:name="com.example.bogo.CalendarActivity"
+        android:name="com.example.bogo.CalendarActivity2"
         android:label="activity_calendar"
-        tools:layout="@layout/activity_calendar" />
+        tools:layout="@layout/activity_calendar2" />
     <fragment
         android:id="@+id/timeLineActivity"
         android:name="com.example.bogo.TimeLineActivity"
@@ -40,4 +40,9 @@
         android:name="com.example.bogo.FullMapActivity"
         android:label="activity_full_map"
         tools:layout="@layout/activity_full_map" />
+    <fragment
+        android:id="@+id/redeemPointsActivity"
+        android:name="com.example.bogo.RedeemPointsActivity"
+        android:label="activity_redeem_points"
+        tools:layout="@layout/activity_redeem_points" />
 </navigation>

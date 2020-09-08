@@ -3,6 +3,7 @@ package com.example.bogo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -37,17 +38,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
-public class CalendarActivity2 extends AppCompatActivity {
+public class CalendarActivity2 extends Fragment {
 
     public GregorianCalendar cal_month, cal_month_copy;
     private HwAdapter hwAdapter;
     private TextView tv_month;
     private LinearLayout llLayoutEventos;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar2);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.activity_calendar2, container, false);
 
         HomeCollection.date_collection_arr=new ArrayList<HomeCollection>();
         HomeCollection.date_collection_arr.add( new HomeCollection("2017-07-08" ,"Diwali","Holiday","this is holiday"));
@@ -65,22 +65,21 @@ public class CalendarActivity2 extends AppCompatActivity {
 
         cal_month = (GregorianCalendar) GregorianCalendar.getInstance();
         cal_month_copy = (GregorianCalendar) cal_month.clone();
-        hwAdapter = new HwAdapter(this, cal_month,HomeCollection.date_collection_arr);
+        hwAdapter = new HwAdapter(getActivity(), cal_month,HomeCollection.date_collection_arr);
 
-        tv_month = (TextView) findViewById(R.id.tv_month);
+        tv_month = (TextView) view.findViewById(R.id.tv_month);
         tv_month.setText(android.text.format.DateFormat.format("MMMM yyyy", cal_month));
 
-        llLayoutEventos = findViewById(R.id.llLayoutEventos);
+        llLayoutEventos = view.findViewById(R.id.llLayoutEventos);
 
 
-
-        ImageButton previous = findViewById(R.id.ib_prev);
+        ImageButton previous = view.findViewById(R.id.ib_prev);
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cal_month.get(GregorianCalendar.MONTH) == 4&&cal_month.get(GregorianCalendar.YEAR)==2017) {
                     //cal_month.set((cal_month.get(GregorianCalendar.YEAR) - 1), cal_month.getActualMaximum(GregorianCalendar.MONTH), 1);
-                    Toast.makeText(getBaseContext(), "Event Detail is available for current session only.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Event Detail is available for current session only.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     setPreviousMonth();
@@ -90,13 +89,13 @@ public class CalendarActivity2 extends AppCompatActivity {
 
             }
         });
-        ImageButton next = (ImageButton) findViewById(R.id.Ib_next);
+        ImageButton next = (ImageButton) view.findViewById(R.id.Ib_next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cal_month.get(GregorianCalendar.MONTH) == 5&&cal_month.get(GregorianCalendar.YEAR)==2018) {
                     //cal_month.set((cal_month.get(GregorianCalendar.YEAR) + 1), cal_month.getActualMinimum(GregorianCalendar.MONTH), 1);
-                    Toast.makeText(getBaseContext(), "Event Detail is available for current session only.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Event Detail is available for current session only.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     setNextMonth();
@@ -104,9 +103,9 @@ public class CalendarActivity2 extends AppCompatActivity {
                 }
             }
         });
-        GridView gridview = (GridView) findViewById(R.id.gv_calendar);
+        GridView gridview = (GridView) view.findViewById(R.id.gv_calendar);
         gridview.setAdapter(hwAdapter);
-       gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 String selectedGridDate = HwAdapter.day_string.get(position);
@@ -221,7 +220,11 @@ public class CalendarActivity2 extends AppCompatActivity {
             }
 
         });
+
+
+        return view;
     }
+
 
     protected void setNextMonth() {
         if (cal_month.get(GregorianCalendar.MONTH) == cal_month.getActualMaximum(GregorianCalendar.MONTH)) {

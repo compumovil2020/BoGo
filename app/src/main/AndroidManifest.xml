@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MyRedeemActivity"></activity>
-        <activity android:name=".RedeemPointsActivity"></activity>
-        <activity android:name=".CalendarActivity2" />
         <activity android:name=".PlaceList"></activity>
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
