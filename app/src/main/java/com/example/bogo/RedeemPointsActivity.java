@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class RedeemPointsActivity extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(), "Redimido!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(view.getContext(), MyRedeemActivity.class);
+                    startActivity(intent);
                 }
             });
 
@@ -36,7 +39,9 @@ public class RedeemPointsActivity extends Fragment {
             cl12.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Redimido!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Redimido!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(view.getContext(), MyRedeemActivity.class);
+                    startActivity(intent);
                 }
             });
 
@@ -45,6 +50,8 @@ public class RedeemPointsActivity extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(view.getContext(), "Redimido!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(view.getContext(), MyRedeemActivity.class);
+                    startActivity(intent);
                 }
             });
 
