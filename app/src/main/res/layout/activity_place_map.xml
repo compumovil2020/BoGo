@@ -23,6 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="5dp"
             android:paddingBottom="5dp">
@@ -31,8 +32,8 @@
                 android:id="@+id/btnCarOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/caroption_svg" />
 
@@ -40,8 +41,8 @@
                 android:id="@+id/btnBusOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/busoption_svg" />
 
@@ -49,8 +50,8 @@
                 android:id="@+id/btnWalOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/walkoption_svg" />
         </LinearLayout>
@@ -76,6 +77,6 @@
             android:background="@drawable/btnred_svg"
             android:text="Go!"
             android:textColor="@color/bogoYellow"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </LinearLayout>
 </FrameLayout>
