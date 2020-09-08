@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MyRedeemActivity"></activity>
         <activity android:name=".RedeemPointsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +26,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PlaceMapActivity" />
         <activity android:name=".PlaceDescriptionActivity" />
-        <activity android:name=".BienvenidoActivity">
-
-        </activity>
+        <activity android:name=".BienvenidoActivity"></activity>
         <activity
             android:name=".DropMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
