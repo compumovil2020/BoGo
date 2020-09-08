@@ -14,11 +14,13 @@ Bienvenido a Bogo! Una app sencilla e innovadora que te permitirá tener al alca
   - Eventos
   - Rumba
 - Buscar de lugares por nombre, cerca a ti, fecha, popularidad, categoría, etc.
-- Calificar lugares y escribir reseñas, subir fotos
-- Ver en un mapa la ubicación del sitio; y cómo ir de un lugar a otro con ubicación
+- Calificar lugares y escribir reseñas, subir fotos.
+- Ver en un mapa la ubicación del sitio; y cómo ir de un lugar a otro con ubicación.
 - Los organizadores y dueños podrán realizar sugerencias para cada evento o un lugar por medio de formulario.
-- Tener a la mano una lista de deseos de lugares que quiero visitar y saber cuáles has visitado
-- Ver un historial de lugares visitados en línea de tiempo
-- Ver un calendario de eventos programados en la ciudad
-- Tener recordatorios de eventos
-- Enviar mensaje por correo electrónico con ayuda de tu celular
+- Tener a la mano una lista de deseos de lugares que quiero visitar y saber cuáles has visitado.
+- Ver un historial de lugares visitados en línea de tiempo.
+- Ver un calendario de eventos programados en la ciudad.
+- Tener recordatorios de eventos.
+- Enviar mensaje por correo electrónico con ayuda de tu celular.
+- Obtener puntos por visitar lugares.
+- Redimir puntos por cupones de descuento y obtener beneficios en distintos lugares.
