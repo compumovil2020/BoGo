@@ -32,6 +32,9 @@
             android:id="@+id/addPlaceActivity"
             android:icon="@drawable/ic_lightbulb"
             android:title="Hacer solicitud" />
-
+        <item
+            android:id="@+id/redeemPointsActivity"
+            android:icon="@drawable/ic_ticket"
+            android:title="Redimir puntos" />
     </group>
 </menu>
