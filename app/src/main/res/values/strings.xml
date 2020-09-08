@@ -7,7 +7,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-	<string-array name="tipos">
+    <string-array name="tipos">
         <item>Sitio Turístico</item>
         <item>Parques</item>
         <item>Restaurantes</item>

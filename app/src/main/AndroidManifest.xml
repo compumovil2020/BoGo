@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MyRedeemActivity"></activity>
+        <activity android:name=".RedeemPointsActivity"></activity>
+        <activity android:name=".CalendarActivity2" />
         <activity android:name=".PlaceList"></activity>
-        <activity android:name=".DropMenuActivity"></activity>
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
         <activity android:name=".LoginActivity"
@@ -24,10 +26,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DropMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
