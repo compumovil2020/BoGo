@@ -24,7 +24,7 @@
         android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/ic_btnyellow"
         android:gravity="center"
         android:paddingLeft="10dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgLogoLogin" />
 
     <EditText
-        android:id="@+id/edtUser"
+        android:id="@+id/edtUserLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -59,11 +59,11 @@
         app:layout_constraintTop_toBottomOf="@+id/txtLogin" />
 
     <EditText
-        android:id="@+id/edtPasswordRegister"
+        android:id="@+id/edtPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/edtwhite_svg"
         android:ems="10"
@@ -71,32 +71,34 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUser" />
+        app:layout_constraintTop_toBottomOf="@+id/edtUserLogin" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btnred_svg"
         android:text="Go!"
         android:textColor="@color/bogoYellow"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPasswordRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPasswordLogin" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/background_light"
         android:orientation="horizontal"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin">
 
@@ -120,9 +122,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="0"
+            android:adjustViewBounds="true"
             android:background="@drawable/facebook_svg"
-            android:scaleType ="fitXY"
-            android:adjustViewBounds="true"/>
+            android:scaleType="fitXY" />
 
         <Button
             android:id="@+id/btnGoogleLogin"
@@ -130,22 +132,23 @@
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="8dp"
-            android:scaleType ="fitXY"
             android:layout_weight="0"
             android:adjustViewBounds="true"
-            android:background="@drawable/google_hangouts_svg" />
+            android:background="@drawable/google_hangouts_svg"
+            android:scaleType="fitXY" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
