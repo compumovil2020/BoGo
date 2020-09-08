@@ -42,6 +42,7 @@ public class CalendarActivity2 extends AppCompatActivity {
     public GregorianCalendar cal_month, cal_month_copy;
     private HwAdapter hwAdapter;
     private TextView tv_month;
+    private LinearLayout llLayoutEventos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,9 @@ public class CalendarActivity2 extends AppCompatActivity {
 
         tv_month = (TextView) findViewById(R.id.tv_month);
         tv_month.setText(android.text.format.DateFormat.format("MMMM yyyy", cal_month));
+
+        llLayoutEventos = findViewById(R.id.llLayoutEventos);
+
 
 
         ImageButton previous = findViewById(R.id.ib_prev);
@@ -106,7 +110,113 @@ public class CalendarActivity2 extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 String selectedGridDate = HwAdapter.day_string.get(position);
-                Toast.makeText(CalendarActivity2.this, "Es jueves!", Toast.LENGTH_SHORT).show();
+
+                //QUEMADO
+                if(selectedGridDate.equals("2020-09-04"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-07"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-13"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-17"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-19"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-23"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-26"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                if(selectedGridDate.equals("2020-09-29"))
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        View child = getLayoutInflater().inflate(R.layout.layout_events_list, null);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        child.setLayoutParams(params);
+                        llLayoutEventos.addView(child);
+                    }
+                }
+                //FIN QUEMADO
                 //((HwAdapter) parent.getAdapter()).getPositionList(selectedGridDate, MainActivity.this);
             }
 

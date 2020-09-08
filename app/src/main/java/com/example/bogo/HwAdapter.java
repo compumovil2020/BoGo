@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ class HwAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         TextView dayView;
+        TextView eventsNumber;
         ImageView eventos;
         if (convertView == null) { // if it's not recycled, initialize some
             // attributes
@@ -90,11 +92,14 @@ class HwAdapter extends BaseAdapter {
 
         dayView = (TextView) v.findViewById(R.id.date);
         eventos = v.findViewById(R.id.date_icon);
+        eventsNumber = v.findViewById(R.id.txteventos);
+        eventos.setImageResource(0);
+        eventsNumber.setText("");
         String[] separatedTime = day_string.get(position).split("-");
 
 
         gridvalue = separatedTime[2].replaceFirst("^0*", "");
-        if ((Integer.parseInt(gridvalue) > 1) && (position < firstDay)) {
+       if ((Integer.parseInt(gridvalue) > 1) && (position < firstDay)) {
             dayView.setTextColor(Color.parseColor("#A9A9A9"));
             dayView.setClickable(false);
             dayView.setFocusable(false);
@@ -108,20 +113,52 @@ class HwAdapter extends BaseAdapter {
         }
 
 
-        if (day_string.get(position).equals(curentDateString)) {
+      /*  if (day_string.get(position).equals(curentDateString)) {
 
             v.setBackgroundColor(Color.parseColor("#ffffff"));
         } else {
             v.setBackgroundColor(Color.parseColor("#ffffff"));
-        }
+        }*/
 
 
         dayView.setText(gridvalue);
-        if(position==4)
-        eventos.setImageResource(R.drawable.stars);
+        //QUEMADO
+        if(day_string.get(position).equals("2020-09-04")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("18");
+        }
+        if(day_string.get(position).equals("2020-09-07")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("2");
+        }
+        if(day_string.get(position).equals("2020-09-13")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("15");
+        }
+        if(day_string.get(position).equals("2020-09-17")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("6");
+        }
+        if(day_string.get(position).equals("2020-09-19")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("9");
+        }
+        if(day_string.get(position).equals("2020-09-23")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("6");
+        }
+        if(day_string.get(position).equals("2020-09-26")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("18");
+        }
+        if(day_string.get(position).equals("2020-09-29")) {
+            eventos.setImageResource(R.drawable.ic_circuloevento);
+            eventsNumber.setText("2");
+        }
+
 
         // create date string for comparison
-        String date = day_string.get(position);
+      /*  String date = day_string.get(position);
 
         if (date.length() == 1) {
             date = "0" + date;
@@ -129,9 +166,9 @@ class HwAdapter extends BaseAdapter {
         String monthStr = "" + (month.get(GregorianCalendar.MONTH) + 1);
         if (monthStr.length() == 1) {
             monthStr = "0" + monthStr;
-        }
+        }*/
 
-        setEventView(v, position,dayView,eventos);
+        //setEventView(v, position,dayView,eventos);
 
         return v;
     }
@@ -140,6 +177,7 @@ class HwAdapter extends BaseAdapter {
         // clear items
         items.clear();
         day_string.clear();
+
         Locale.setDefault(Locale.US);
         pmonth = (GregorianCalendar) month.clone();
         // month start day. ie; sun, mon, etc
@@ -198,7 +236,6 @@ class HwAdapter extends BaseAdapter {
 
                     } else {
                         v.setBackgroundColor(Color.parseColor("#343434"));
-                        v.setBackgroundResource(R.drawable.bogologo);
                         txt.setTextColor(Color.parseColor("#696969"));
                     }
 
