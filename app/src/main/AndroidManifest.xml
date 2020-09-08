@@ -13,7 +13,6 @@
         <activity android:name=".DropMenuActivity"></activity>
         <activity android:name=".AddReviewActivity"></activity>
         <activity android:name=".SeeReview" ></activity>
-        <activity android:name=".PlaceList"></activity>
         <activity android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".SearchActivity"></activity>
