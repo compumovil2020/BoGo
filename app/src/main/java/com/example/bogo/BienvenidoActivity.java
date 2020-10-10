@@ -54,7 +54,10 @@ public class BienvenidoActivity extends AppCompatActivity {
     {
         if(currentUser != null)
         {
-            startActivity(new Intent(getApplicationContext(), DropMenuActivity.class));
+            Intent intent = new Intent(getApplicationContext(), DropMenuActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         }
     }
 }

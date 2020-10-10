@@ -132,7 +132,9 @@ public class LoginActivity extends AppCompatActivity {
         if(mUser != null)
         {
             Intent intent = new Intent(getBaseContext(), DropMenuActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
         else
         {
