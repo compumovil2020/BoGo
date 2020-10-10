@@ -82,12 +82,25 @@ public class LoginActivity extends AppCompatActivity {
 
         if(!validEmail)
         {
-            edtUser.setError("Required");
+            if(email.isEmpty())
+            {
+                edtUser.setError("Requerido");
+            }else
+            {
+                edtUser.setError("E-mail no válido");
+            }
         }
         else edtUser.setError(null);
         if(!validPass)
         {
-            edtPasswordLogin.setError("Required");
+            if(password.isEmpty())
+            {
+                edtPasswordLogin.setError("Requerido");
+            }else
+            {
+                edtPasswordLogin.setError("6 caracteres mínimos");
+            }
+
         }
         else edtPasswordLogin.setError(null);
 
@@ -105,8 +118,6 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
@@ -125,9 +136,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            /*Toast.makeText(LoginActivity.this,
-                    "El correo electrónico o contraseña que ingresaste no coincide con ninguna cuenta.",
-                    Toast.LENGTH_SHORT).show();*/
             View parentLayout = findViewById(android.R.id.content);
             Snackbar.make(parentLayout,
                     "El correo electrónico o contraseña que ingresaste no coincide con ninguna cuenta.",
