@@ -104,6 +104,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                         mMap.getOverlays().add(locationMarker);
+                        
                     }
                 }
             };
