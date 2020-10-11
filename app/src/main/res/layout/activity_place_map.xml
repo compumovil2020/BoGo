@@ -12,6 +12,7 @@
         android:layout_height="match_parent"/>
 
     <LinearLayout
+        android:id="@+id/layRuta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -34,7 +35,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="0"
-                android:background="@drawable/caroption_svg" />
+                android:background="@drawable/caroption_svg"
+                android:selectAllOnFocus="false" />
 
             <Button
                 android:id="@+id/btnBusOption"
@@ -56,14 +58,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtRouteInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="17 min (6 km)"
+            android:text=""
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -76,6 +78,6 @@
             android:background="@drawable/btnred_svg"
             android:text="Go!"
             android:textColor="@color/bogoYellow"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </LinearLayout>
 </FrameLayout>
