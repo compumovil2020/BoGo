@@ -168,6 +168,8 @@ public class AddPlaceActivity extends Fragment {
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
                     textFotosAgregadas.setText("Imagen agregada!");
                     imgResultado.setImageBitmap(imageBitmap);
+                    imgResultado.getLayoutParams().height = (int) (100.0 * view.getContext().getResources().getDisplayMetrics().density);
+                    imgResultado.requestLayout();
                     break;
                 case PermissionsManager.IMAGE_PICKER_REQUEST:
                     try {
@@ -175,6 +177,8 @@ public class AddPlaceActivity extends Fragment {
                         final InputStream imageStream = this.getActivity().getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imgResultado.setImageBitmap(selectedImage);
+                        imgResultado.getLayoutParams().height = (int) (100.0 * view.getContext().getResources().getDisplayMetrics().density);
+                        imgResultado.requestLayout();
                         textFotosAgregadas.setText("Imagen agregada!");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
