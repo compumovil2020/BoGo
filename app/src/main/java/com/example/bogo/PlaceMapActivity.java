@@ -443,11 +443,20 @@ public class PlaceMapActivity extends AppCompatActivity {
 
             protected void onPostExecute(Road road) {
                 roadFinal = road;
-                BigDecimal dur = BigDecimal.valueOf(road.mDuration/60);
-                dur = dur.setScale(2,RoundingMode.HALF_UP);
+                int dur = (int) Math.ceil(road.mDuration/60);
                 BigDecimal dis = BigDecimal.valueOf(road.mLength);
                 dis = dis.setScale(2, RoundingMode.HALF_UP);
-                String info = dur + " min" + " ("+dis+" km"+")";
+                int h = 0, m = 0;
+                if(dur >= 60)
+                {
+                    h = dur/60;
+                    m = dur%60;
+                }
+                String info = "";
+                if(h > 0)
+                    info = h + " h " + m + " min" + " (" + dis + " km"+")";
+                else
+                    info = dur + " min" + " (" + dis + " km"+")";
                 txtRouteInfo.setText(info);
                 if(drawMap)
                     drawMap();
