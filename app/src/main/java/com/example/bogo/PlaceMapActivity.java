@@ -13,6 +13,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -55,6 +56,7 @@ import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.bonuspack.routing.RoadNode;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
@@ -67,6 +69,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PlaceMapActivity extends AppCompatActivity {
     Button btnCarOption, btnBusOption, btnWalkOption, btnGo;
@@ -174,25 +177,6 @@ public class PlaceMapActivity extends AppCompatActivity {
         btnCarOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*isCar = true;
-                isBus = false;
-                isWalk = false;
-                if(actual!=null) {
-                    RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
-                    roadManager.addRequestOption("unit=k");
-
-                    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                    waypoints.add(actual);
-                    waypoints.add(buffalo);
-
-                    Road road = roadManager.getRoad(waypoints);
-                    BigDecimal dur = BigDecimal.valueOf(road.mDuration/60);
-                    dur = dur.setScale(2,RoundingMode.HALF_UP);
-                    BigDecimal dis = BigDecimal.valueOf(road.mLength);
-                    dis = dis.setScale(2, RoundingMode.HALF_UP);
-                    String info = dur + " min" + " ("+dis+" km"+")";
-                    txtRouteInfo.setText(info);
-                }*/
                 routeManager.getRoad(RouteManager.CAR_OPTION);
             }
         });
@@ -200,26 +184,6 @@ public class PlaceMapActivity extends AppCompatActivity {
         btnBusOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*isCar = false;
-                isBus = true;
-                isWalk = false;
-                if(actual!=null) {
-                    RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
-                    roadManager.addRequestOption("routeType=bicycle");
-                    roadManager.addRequestOption("unit=k");
-
-                    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                    waypoints.add(actual);
-                    waypoints.add(buffalo);
-
-                    Road road = roadManager.getRoad(waypoints);
-                    BigDecimal dur = BigDecimal.valueOf(road.mDuration/60);
-                    dur = dur.setScale(2,RoundingMode.HALF_UP);
-                    BigDecimal dis = BigDecimal.valueOf(road.mLength);
-                    dis = dis.setScale(2, RoundingMode.HALF_UP);
-                    String info = dur + " min" + " ("+dis+" km"+")";
-                    txtRouteInfo.setText(info);
-                }*/
                 routeManager.getRoad(RouteManager.BIKE_OPTION);
             }
         });
@@ -227,26 +191,6 @@ public class PlaceMapActivity extends AppCompatActivity {
         btnWalkOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*isCar = false;
-                isBus = false;
-                isWalk = true;
-                if(actual!=null) {
-                    RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
-                    roadManager.addRequestOption("routeType=pedestrian");
-                    roadManager.addRequestOption("unit=k");
-
-                    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                    waypoints.add(actual);
-                    waypoints.add(buffalo);
-
-                    Road road = roadManager.getRoad(waypoints);
-                    BigDecimal dur = BigDecimal.valueOf(road.mDuration/60);
-                    dur = dur.setScale(2,RoundingMode.HALF_UP);
-                    BigDecimal dis = BigDecimal.valueOf(road.mLength);
-                    dis = dis.setScale(2, RoundingMode.HALF_UP);
-                    String info = (dur) + " min" + " ("+dis+" km"+")";
-                    txtRouteInfo.setText(info);
-                }*/
                 routeManager.getRoad(RouteManager.WALK_OPTION);
             }
         });
@@ -254,31 +198,6 @@ public class PlaceMapActivity extends AppCompatActivity {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if(actual!=null && (isWalk||isBus||isCar))
-                {
-                    layRuta.setVisibility(View.INVISIBLE);
-                    RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
-                    if(isBus)
-                        roadManager.addRequestOption("routeType=bicycle");
-                    if(isWalk)
-                        roadManager.addRequestOption("routeType=pedestrian");
-
-                    roadManager.addRequestOption("unit=k");
-
-                    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                    waypoints.add(actual);
-                    waypoints.add(buffalo);
-
-                    Road road = roadManager.getRoad(waypoints);
-
-                    Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
-                    roadOverlay.setWidth(18);
-                    mMap.getOverlays().add(roadOverlay);
-                    mMap.invalidate();
-                }else
-                {
-                    Toast.makeText(getBaseContext(),"Seleccione algún medio para transportarse",Toast.LENGTH_LONG).show();
-                }*/
                 routeManager.drawMap();
             }
         });
@@ -287,9 +206,32 @@ public class PlaceMapActivity extends AppCompatActivity {
     public void buildMap(Road road)
     {
         Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
-        roadOverlay.setWidth(16);
+        roadOverlay.setWidth(14);
+        roadOverlay.setColor(Color.argb(255, 0, 0, 255));
+        BoundingBox box = computeArea(new GeoPoint[]{ubicacion, actual});
+        mMap.zoomToBoundingBox(box, true, 200);
         mMap.getOverlays().add(roadOverlay);
         mMap.invalidate();
+    }
+
+    public BoundingBox computeArea(GeoPoint[] points) {
+
+        double north = 0, south = 0, west = 0, east = 0;
+
+        for (int i = 0; i < points.length; i++) {
+            if (points[i] == null) continue;
+
+            double lat = points[i].getLatitude();
+            double lon = points[i].getLongitude();
+
+            if ((i == 0) || (lat > north)) north = lat;
+            if ((i == 0) || (lat < south)) south = lat;
+            if ((i == 0) || (lon < west)) west = lon;
+            if ((i == 0) || (lon > east)) east = lon;
+
+        }
+
+        return new BoundingBox(north, east, south, west);
     }
 
     private void usePermission()
@@ -427,12 +369,12 @@ public class PlaceMapActivity extends AppCompatActivity {
 
                         roadGetter = new GetRoad();
                         roadGetter.execute(roadManager);
-                    }
+                    } else Toast.makeText(getBaseContext(),"Ubicación del usuario desconocida",Toast.LENGTH_LONG).show();
                     break;
                 }
                 case BIKE_OPTION:
                 {
-                    if(actual!=null) {
+                    if(actual != null) {
                         RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
                         roadManager.addRequestOption("routeType=bicycle");
                         roadManager.addRequestOption("unit=k");
@@ -443,21 +385,23 @@ public class PlaceMapActivity extends AppCompatActivity {
 
                         roadGetter = new GetRoad();
                         roadGetter.execute(roadManager);
-                    }
+                    } else Toast.makeText(getBaseContext(),"Ubicación del usuario desconocida",Toast.LENGTH_LONG).show();
                     break;
                 }
                 case WALK_OPTION:
                 {
-                    RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
-                    roadManager.addRequestOption("routeType=pedestrian");
-                    roadManager.addRequestOption("unit=k");
+                    if(actual != null) {
+                        RoadManager roadManager = new MapQuestRoadManager("RuY1fPXtqJ54yszAjRfkGYBaAAYaaPwk");
+                        roadManager.addRequestOption("routeType=pedestrian");
+                        roadManager.addRequestOption("unit=k");
 
-                    ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                    waypoints.add(actual);
-                    waypoints.add(ubicacion);
+                        ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                        waypoints.add(actual);
+                        waypoints.add(ubicacion);
 
-                    roadGetter = new GetRoad();
-                    roadGetter.execute(roadManager);
+                        roadGetter = new GetRoad();
+                        roadGetter.execute(roadManager);
+                    } else Toast.makeText(getBaseContext(),"Ubicación del usuario desconocida",Toast.LENGTH_LONG).show();
                 }
                 break;
             }
@@ -480,7 +424,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         class GetRoad extends AsyncTask<RoadManager, Void, Road>
         {
             private Exception exception;
-            boolean drawMap;
+            boolean drawMap = false;
 
             protected Road doInBackground(RoadManager... roadManagers) {
                 Road road = null;
