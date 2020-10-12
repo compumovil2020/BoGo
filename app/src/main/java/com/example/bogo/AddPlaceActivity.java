@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.bogo.Utils.PermissionsManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -84,8 +85,10 @@ public class AddPlaceActivity extends Fragment {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),DropMenuActivity.class);
-                startActivity(i);
+                if(validateForm()) {
+                    Intent i = new Intent(view.getContext(), DropMenuActivity.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -104,6 +107,55 @@ public class AddPlaceActivity extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean validateForm()
+    {
+        boolean valid = true;
+        String message = "";
+        if(editTextNombreLugar.getText().toString().isEmpty()) {
+            valid = false;
+            message = "Es necesario agregar el nombre del lugar";
+            editTextNombreLugar.setError("Required");
+        }
+        if(editTextRangoPrecio.getText().toString().isEmpty())
+        {
+            valid = false;
+            message = (message.equals(""))?"Es necesario agregar el rango de precios":"Es necesario llenar los campos requeridos";
+            editTextRangoPrecio.setError("Required");
+        }
+        if(editTextTimeHoraApertura.getText().toString().isEmpty())
+        {
+            valid = false;
+            message = (message.equals(""))?"Es necesario agregar la hora de apertura":"Es necesario llenar los campos requeridos";
+            editTextTimeHoraApertura.setError("Required");
+        }
+        if(editTextTimeHoraCierre.getText().toString().isEmpty())
+        {
+            valid = false;
+            message = (message.equals(""))?"Es necesario agregar la hora de cierre":"Es necesario llenar los campos requeridos";
+            editTextTimeHoraCierre.setError("Required");
+        }
+        if(editTextDireccion.getText().toString().isEmpty())
+        {
+            valid = false;
+            message = (message.equals(""))?"Es necesario agregar la dirección":"Es necesario llenar los campos requeridos";
+            editTextDireccion.setError("Required");
+        }
+        if(locationSelected == null)
+        {
+            valid = false;
+            message = (message.equals(""))?"Es necesario seleccionar una ubicación":"Es necesario llenar los campos requeridos";
+        }
+
+        if(!valid) {
+            View parentLayout = getActivity().findViewById(android.R.id.content);
+            Snackbar.make(parentLayout,
+                    message,
+                    Snackbar.LENGTH_LONG).show();
+        }
+
+        return valid;
     }
 
     private void addPhotoFromCamera()
@@ -139,7 +191,7 @@ public class AddPlaceActivity extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     addPhotoFromGallery();
                 } else {
-                    //imgResultado.setImageResource(R.drawable.deniedpermission);
+                    textFotosAgregadas.setText("Permiso denegado");
                 }
                 return;
             }
@@ -150,7 +202,7 @@ public class AddPlaceActivity extends Fragment {
                 }
                 else
                 {
-                    //imgResultado.setImageResource(R.drawable.deniedpermission);
+                    textFotosAgregadas.setText("Permiso denegado");
                 }
                 return;
             }
