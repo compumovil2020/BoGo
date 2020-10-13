@@ -1,4 +1,4 @@
-package com.example.bogo;
+package com.example.bogo.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.bogo.Adapters.HomeCollection;
 import com.example.bogo.Adapters.HwAdapter;
+import com.example.bogo.R;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

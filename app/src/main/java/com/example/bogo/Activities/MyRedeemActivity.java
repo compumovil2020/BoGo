@@ -1,10 +1,12 @@
-package com.example.bogo;
+package com.example.bogo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.example.bogo.R;
 
 public class MyRedeemActivity extends AppCompatActivity {
 

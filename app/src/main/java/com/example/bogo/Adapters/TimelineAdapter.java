@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.bogo.PlaceDescriptionActivity;
+import com.example.bogo.Activities.PlaceDescriptionActivity;
 import com.example.bogo.R;
-import com.example.bogo.TimeLineActivity;
+import com.example.bogo.Activities.TimeLineActivity;
 
 import java.util.ArrayList;
 

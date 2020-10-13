@@ -19,22 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyFriendsActivity"/>
-        <activity android:name=".MyRedeemActivity" />
-        <activity android:name=".PlaceList" />
-        <activity android:name=".AddReviewActivity" />
-        <activity android:name=".SeeReview" />
+        <activity android:name=".Activities.MyFriendsActivity"/>
+        <activity android:name=".Activities.MyRedeemActivity" />
+        <activity android:name=".Activities.PlaceList" />
+        <activity android:name=".Activities.AddReviewActivity" />
+        <activity android:name=".Activities.SeeReview" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".Activities.SearchActivity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PlaceMapActivity" />
-        <activity android:name=".PlaceDescriptionActivity" />
+        <activity android:name=".Activities.PlaceMapActivity" />
+        <activity android:name=".Activities.PlaceDescriptionActivity" />
         <activity
-            android:name=".BienvenidoActivity"
+            android:name=".Activities.BienvenidoActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DropMenuActivity"
+            android:name=".Activities.DropMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

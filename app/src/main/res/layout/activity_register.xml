@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondoregister"
     android:paddingLeft="10dp"
-    tools:context=".RegisterActivity">
+    tools:context=".Activities.RegisterActivity">
 
     <ImageView
         android:id="@+id/imgLogoRegister"

@@ -1,4 +1,4 @@
-package com.example.bogo;
+package com.example.bogo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bogo.Adapters.FriendAdapter;
+import com.example.bogo.R;
 
 import java.util.ArrayList;
 

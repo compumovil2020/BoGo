@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBg"
-    tools:context=".AddPlaceActivity">
+    tools:context=".Activities.AddPlaceActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -291,7 +291,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-            <com.example.bogo.CustomMapView
+            <com.example.bogo.Activities.CustomMapView
                 android:id="@+id/addPlaceMapa"
                 android:layout_width="0dp"
                 android:layout_height="300dp"

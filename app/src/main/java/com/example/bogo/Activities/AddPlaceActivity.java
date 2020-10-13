@@ -1,4 +1,4 @@
-package com.example.bogo;
+package com.example.bogo.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.bogo.BuildConfig;
+import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
 import com.google.android.material.snackbar.Snackbar;
 
