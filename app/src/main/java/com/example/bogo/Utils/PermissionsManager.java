@@ -15,6 +15,8 @@ public class PermissionsManager
     public static final int READ_STORAGE_PERMISSION = 3;
     public static final int LOCATION_PERMISSION = 11;
     public static final int REQUEST_CHECK_SETTINGS = 22;
+    public static final int IMAGE_PICKER_REQUEST = 5;
+    public static final int REQUEST_IMAGE_CAPTURE = 4;
 
     public static void requestPermission(Activity context, String permiso, String justificacion, int idCode)
     {
