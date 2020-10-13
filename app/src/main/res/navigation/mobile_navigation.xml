@@ -7,42 +7,42 @@
 
     <fragment
         android:id="@+id/calendarActivity"
-        android:name="com.example.bogo.CalendarActivity2"
+        android:name="com.example.bogo.Activities.CalendarActivity"
         android:label="activity_calendar"
         tools:layout="@layout/activity_calendar2" />
     <fragment
         android:id="@+id/timeLineActivity"
-        android:name="com.example.bogo.TimeLineActivity"
+        android:name="com.example.bogo.Activities.TimeLineActivity"
         android:label="activity_time_line"
         tools:layout="@layout/activity_time_line" />
     <fragment
         android:id="@+id/mainMenu"
-        android:name="com.example.bogo.MainMenu"
+        android:name="com.example.bogo.Activities.MainMenu"
         android:label="activity_main_menu"
         tools:layout="@layout/activity_main_menu" />
     <fragment
         android:id="@+id/wishListActivity"
-        android:name="com.example.bogo.WishList"
+        android:name="com.example.bogo.Activities.WishList"
         android:label="WishList"
         tools:layout="@layout/activity_wish_list"/>
     <fragment
         android:id="@+id/favoritesListActivity"
-        android:name="com.example.bogo.FavoritesList"
+        android:name="com.example.bogo.Activities.FavoritesList"
         android:label="FavoritesList"
         tools:layout="@layout/activity_favorites_list"/>
     <fragment
         android:id="@+id/addPlaceActivity"
-        android:name="com.example.bogo.AddPlaceActivity"
+        android:name="com.example.bogo.Activities.AddPlaceActivity"
         android:label="activity_add_place"
         tools:layout="@layout/activity_add_place" />
     <fragment
         android:id="@+id/fullMapActivity2"
-        android:name="com.example.bogo.FullMapActivity"
+        android:name="com.example.bogo.Activities.FullMapActivity"
         android:label="activity_full_map"
         tools:layout="@layout/activity_full_map" />
     <fragment
         android:id="@+id/redeemPointsActivity"
-        android:name="com.example.bogo.RedeemPointsActivity"
+        android:name="com.example.bogo.Activities.RedeemPointsActivity"
         android:label="activity_redeem_points"
         tools:layout="@layout/activity_redeem_points" />
 </navigation>

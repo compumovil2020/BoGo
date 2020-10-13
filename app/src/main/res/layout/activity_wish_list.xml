@@ -5,7 +5,7 @@
     android:id="@+id/ConstraintLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WishList">
+    tools:context=".Activities.WishList">
 
     <ScrollView
         android:layout_width="match_parent"

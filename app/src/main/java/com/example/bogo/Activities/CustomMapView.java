@@ -1,4 +1,4 @@
-package com.example.bogo;
+package com.example.bogo.Activities;
 
 import android.content.Context;
 import android.os.Handler;
