@@ -73,7 +73,6 @@ import java.util.Arrays;
 
 public class PlaceMapActivity extends AppCompatActivity {
     Button btnCarOption, btnBusOption, btnWalkOption, btnGo;
-    Boolean isCar=false,isBus=false,isWalk=false;
     TextView txtRouteInfo;
     LinearLayout layRuta;
     MapView mMap;
@@ -103,20 +102,16 @@ public class PlaceMapActivity extends AppCompatActivity {
         final Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        Log.i("MAP", "BEFORE REQUEST");
         PermissionsManager.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Para poder cargar el mapa", PermissionsManager.READ_STORAGE_PERMISSION);
-        Log.i("MAP", "AFTER REQUEST");
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
-            Log.i("MAP","READ PERMISSION GRANTED");
             initMap();
         }
 
     }
 
     private void initMap() {
-        Log.i("MAP", "INITIALIZING MAP...");
         ubicacion = new GeoPoint(4.618534, -74.068002);
         mMap = findViewById(R.id.openmapview);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
