@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bogo">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -18,23 +19,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyRedeemActivity"></activity>
-        <activity android:name=".PlaceList"></activity>
-        <activity android:name=".AddReviewActivity"></activity>
-        <activity android:name=".SeeReview" ></activity>
-        <activity android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".PlaceMapActivity"></activity>
-        <activity android:name=".PlaceDescriptionActivity"></activity>
-        <activity android:name=".BienvenidoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MyFriendsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MyRedeemActivity" />
+        <activity android:name=".PlaceList" />
+        <activity android:name=".AddReviewActivity" />
+        <activity android:name=".SeeReview" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SearchActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PlaceMapActivity" />
+        <activity android:name=".PlaceDescriptionActivity" />
+        <activity
+            android:name=".BienvenidoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".DropMenuActivity"
