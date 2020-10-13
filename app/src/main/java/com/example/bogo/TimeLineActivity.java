@@ -1,7 +1,6 @@
 package com.example.bogo;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -15,8 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bogo.Adapters.TimelineAdapter;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class TimeLineActivity extends Fragment {
 
@@ -60,46 +60,13 @@ public class TimeLineActivity extends Fragment {
 
 
 
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(getContext(), contenido);
+        TimelineAdapter adapter = new TimelineAdapter(getContext(), contenido);
         listTime.setAdapter(adapter);
 
         return view;
     }
 
 
-
-    public class MySimpleArrayAdapter extends ArrayAdapter<ComponentesLista> {
-        private final Context context;
-        private final ArrayList<ComponentesLista> values;
-
-        public MySimpleArrayAdapter(Context context, ArrayList<ComponentesLista> values) {
-            super(context, R.layout.adapter_time_line,values);
-            this.context = context;
-            this.values = values;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final View rowView = inflater.inflate(R.layout.adapter_time_line, parent, false);
-            TextView textNombre = rowView.findViewById(R.id.txtNombreSItio);
-            TextView textTipo =  rowView.findViewById(R.id.txtTipo);
-            TextView textFecha= rowView.findViewById(R.id.txtDate);
-            Button vermas = rowView.findViewById(R.id.btnVer);
-            textNombre.setText(values.get(position).getNombre());
-            textTipo.setText(values.get(position).getTipo());
-            textFecha.setText(values.get(position).getDate());
-            vermas.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(rowView.getContext(), PlaceDescriptionActivity.class);
-                    startActivity(i);
-                }
-            });
-
-            return rowView;
-        }
-    }
 
     public class ComponentesLista{
         String nombre;
