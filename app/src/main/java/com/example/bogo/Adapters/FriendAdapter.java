@@ -32,18 +32,11 @@ public class FriendAdapter extends ArrayAdapter<MyFriendsActivity.Friend> {
         TextView txtFriendName = rowView.findViewById(R.id.txtFriendName);
         TextView txtFriendUser =  rowView.findViewById(R.id.txtFriendUser);
         ImageView imgFriend = rowView.findViewById(R.id.imgFotoAmigo);
-        ConstraintLayout friend = rowView.findViewById(R.id.clFriend);
 
         txtFriendName.setText(this.values.get(position).getNombre());
         txtFriendUser.setText(this.values.get(position).getUser());
         imgFriend.setImageResource(R.drawable.ic_profilepic);
 
-        friend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Abriendo Chat!", Toast.LENGTH_LONG).show();
-            }
-        });
 
         return rowView;
     }
