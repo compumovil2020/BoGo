@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -155,22 +156,34 @@ public class PlaceMapActivity extends AppCompatActivity {
         final RouteManager routeManager = new RouteManager();
 
         btnCarOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.carroazul));
+                btnBusOption.setBackground(getDrawable(R.drawable.biciblanco));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkoption_svg));
                 routeManager.getRoad(RouteManager.CAR_OPTION);
             }
         });
 
         btnBusOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.caroption_svg));
+                btnBusOption.setBackground(getDrawable(R.drawable.bici_azul));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkoption_svg));
                 routeManager.getRoad(RouteManager.BIKE_OPTION);
             }
         });
 
         btnWalkOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.caroption_svg));
+                btnBusOption.setBackground(getDrawable(R.drawable.biciblanco));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkazul));
                 routeManager.getRoad(RouteManager.WALK_OPTION);
             }
         });

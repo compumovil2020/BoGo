@@ -173,6 +173,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="76dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/phone"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toTopOf="@+id/btnCorreo"
