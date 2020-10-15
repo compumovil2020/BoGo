@@ -160,6 +160,8 @@ public class AddReviewActivity extends AppCompatActivity {
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imgAddPlace.setImageBitmap(selectedImage);
                         imgAddPlace.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imgAddPlace.getLayoutParams().height = (int) (100.0 * getBaseContext().getResources().getDisplayMetrics().density);
+                        imgAddPlace.getLayoutParams().width = (int) (100.0 * getBaseContext().getResources().getDisplayMetrics().density);
                         imgAddPlace.requestLayout();
                         txtFotosAgregadas.setText("Imagen agregada!");
                     } catch (FileNotFoundException e) {
