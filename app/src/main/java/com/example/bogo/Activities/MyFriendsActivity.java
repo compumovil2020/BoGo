@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -51,6 +52,14 @@ public class MyFriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText( getBaseContext(),"Accediendo a AddFriendActivity!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        listFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getBaseContext(),ChatActivity.class);
+                startActivity(intent);
             }
         });
 

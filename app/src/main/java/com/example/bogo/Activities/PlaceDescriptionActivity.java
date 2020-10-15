@@ -1,8 +1,12 @@
 package com.example.bogo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bogo.R;
+import com.example.bogo.Utils.PermissionsManager;
 
-public class PlaceDescriptionActivity extends AppCompatActivity {
+public class PlaceDescriptionActivity extends AppCompatActivity
+{
 
     LinearLayout llResenas;
     Button btnVerMapa, btnCalificar, btnAddFavorite, btnAddWish, btnAddVisited,
@@ -89,14 +95,23 @@ public class PlaceDescriptionActivity extends AppCompatActivity {
         btnCorreo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Accediendo al correo... (placeholder)", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Accediendo al correo...", Toast.LENGTH_LONG).show();
+                Intent correo = new Intent(Intent.ACTION_SENDTO);
+                correo.setType("text/plain");
+                correo.putExtra(Intent.EXTRA_EMAIL  , new String[]{"buffalo@wings.com"});
+                startActivity(correo);
             }
         });
 
         btnTelefono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Accediendo al telefono... (placeholder)", Toast.LENGTH_LONG).show();
+                PermissionsManager.requestPermission( PlaceDescriptionActivity.this, Manifest.permission.CALL_PHONE,
+                        "Para poder llamar al lugar", PermissionsManager.PHONE_PERMISSION);
+                if(ContextCompat.checkSelfPermission( PlaceDescriptionActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "3108105207"));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -119,5 +134,22 @@ public class PlaceDescriptionActivity extends AppCompatActivity {
             llResenas.addView(child);
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PermissionsManager.PHONE_PERMISSION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "742 7274"));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getBaseContext(),"No se puede acceder al teléfono", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+        }
     }
 }

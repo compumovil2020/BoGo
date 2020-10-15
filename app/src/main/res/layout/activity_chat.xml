@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="6dp"
+    android:orientation="vertical"
+    tools:context=".Activities.ChatActivity">
+
+
+    <include
+        android:id="@+id/chat_toolbar"
+        layout="@layout/chat_bar">
+    </include>
+    <ListView
+        android:id="@+id/lstMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="7dp"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="0.1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.09"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtMessageInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="0.9"
+            android:background="@drawable/message_input"
+            android:hint="Escribe un mensaje..."
+            android:inputType="textCapSentences"
+            android:maxLines="5"
+            android:padding="15dp" />
+
+        <ImageButton
+            android:id="@+id/btnSendMessage"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/icono_enviar"
+            android:elevation="10dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
