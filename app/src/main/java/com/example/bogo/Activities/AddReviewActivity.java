@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bogo.Utils.PermissionsManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -28,7 +29,7 @@ import com.example.bogo.R;
 public class AddReviewActivity extends AppCompatActivity {
 
     Button buttonEnviar, buttonAddPhoto, buttonAddCamera;
-    TextView txtFotosAgregadas;
+    TextView txtFotosAgregadas, edtComentario;
     ImageView imgAddPlace;
 
     @Override
@@ -41,12 +42,15 @@ public class AddReviewActivity extends AppCompatActivity {
         buttonAddCamera = findViewById(R.id.btnAddCamera);
         txtFotosAgregadas = findViewById(R.id.textFotosAgregadas);
         imgAddPlace = findViewById(R.id.imgAddPlace);
+        edtComentario = findViewById(R.id.edtComentario);
 
         buttonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), PlaceDescriptionActivity.class);
-                startActivity(intent);
+                if(validateForm()){
+                    Intent intent = new Intent(getBaseContext(), PlaceDescriptionActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -65,6 +69,23 @@ public class AddReviewActivity extends AppCompatActivity {
         });
     }
 
+    private boolean validateForm()
+    {
+        boolean valid = true;
+        String message = "";
+        if(edtComentario.getText().toString().isEmpty()) {
+            valid = false;
+            message = "Es necesario agregar una pequeña reseña del lugar";
+            edtComentario.setError("Required");
+        }
+        if(!valid) {
+            View parentLayout = this.findViewById(android.R.id.content);
+            Snackbar.make(parentLayout,
+                    message,
+                    Snackbar.LENGTH_LONG).show();
+        }
+        return valid;
+    }
     private void addPhotoFromCamera()
     {
         PermissionsManager.requestPermission((Activity) this, Manifest.permission.CAMERA,
