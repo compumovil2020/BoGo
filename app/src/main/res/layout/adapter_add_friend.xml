@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clAddFriend"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginBottom="8dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="5dp">
+
+        <ImageView
+            android:id="@+id/imgFotoAmigo"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_profilepic" />
+
+        <LinearLayout
+            android:id="@+id/llFriend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="8"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtFriendName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pepe Pérez"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtFriendUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ppperez12" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgAdd"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_plus" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
