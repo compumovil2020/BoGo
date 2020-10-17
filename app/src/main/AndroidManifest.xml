@@ -20,11 +20,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity android:name=".Activities.AddFriendActivity"></activity>
         <activity
-            android:name=".Activities.MyFriendsActivity">
+            android:name=".Activities.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.MyFriendsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.MyRedeemActivity" />
         <activity android:name=".Activities.PlaceList" />
@@ -41,13 +46,7 @@
         <activity android:name=".Activities.PlaceDescriptionActivity" />
         <activity
             android:name=".Activities.BienvenidoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.DropMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
