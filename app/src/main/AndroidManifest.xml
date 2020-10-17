@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.AddFriendActivity"></activity>
+        <activity android:name=".Activities.AddFriendActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
