@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight">
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@color/colorBg">
 
     <TextView
-        android:id="@+id/txtReviewTitle"
+        android:id="@+id/txtReviewTgitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lugar genial!"
