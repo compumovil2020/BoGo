@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         btnFBLogin = (LoginButton) findViewById(R.id.btnFBLogin);
         btnGoogleLogin = (SignInButton) findViewById(R.id.btnGoogleLogin);
 
+
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
 
@@ -67,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
         btnFBLogin.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("Hola", "pepe");
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
@@ -228,9 +228,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         updateUI(currentUser);
     }
 
