@@ -127,7 +127,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                     {
                         actual = new GeoPoint(location);
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.btnpincho));
+                        locationMarker.setIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -139,7 +139,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                         actual.setLatitude(location.getLatitude());
                         actual.setLongitude(location.getLongitude());
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(getDrawable(R.drawable.btnpincho));
+                        locationMarker.setIcon(getDrawable(R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
