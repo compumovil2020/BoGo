@@ -33,7 +33,7 @@ public class AddFriendAdapter extends ArrayAdapter<AddFriendActivity.NewFriend> 
         TextView txtFriendName = rowView.findViewById(R.id.txtFriendName);
         TextView txtFriendUser =  rowView.findViewById(R.id.txtFriendUser);
         ImageView imgFriend = rowView.findViewById(R.id.imgFotoAmigo);
-        ImageButton imgAdd = rowView.findViewById(R.id.imgAdd);
+        final ImageButton imgAdd = rowView.findViewById(R.id.imgAdd);
 
         txtFriendName.setText(this.values.get(position).getNombre());
         txtFriendUser.setText(this.values.get(position).getUser());
@@ -44,6 +44,7 @@ public class AddFriendAdapter extends ArrayAdapter<AddFriendActivity.NewFriend> 
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Amigo agregado", Toast.LENGTH_LONG).show();
+                imgAdd.setImageResource(R.drawable.ic_minus);
 
             }
         });
