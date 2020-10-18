@@ -12,6 +12,11 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +57,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -63,6 +69,9 @@ public class PlaceMapActivity extends AppCompatActivity {
     LinearLayout layRuta;
     MapView mMap;
     IMapController mapController;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    SensorEventListener lightSensorListener;
     private FusedLocationProviderClient mFusedLocationProviderClient = null;
     private LocationRequest mLocationRequest = null;
     private LocationCallback mLocationCallback = null;
@@ -111,6 +120,29 @@ public class PlaceMapActivity extends AppCompatActivity {
         mMap.getOverlays().add(placeMarker);
         mapController.setZoom(20.0);
         mapController.setCenter(ubicacion);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        lightSensorListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                if(mMap != null)
+                {
+                    if(sensorEvent.values[0] < 1)
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+                    }else
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
@@ -321,6 +353,7 @@ public class PlaceMapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startLocationUpdates();
+        sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -328,6 +361,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         super.onPause();
         if(mFusedLocationProviderClient != null)
             stopLocationUpdates();
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     class RouteManager
