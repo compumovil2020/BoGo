@@ -7,7 +7,7 @@
     android:background="@color/colorBg">
 
     <TextView
-        android:id="@+id/txtReviewTgitle"
+        android:id="@+id/txtReviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lugar genial!"
