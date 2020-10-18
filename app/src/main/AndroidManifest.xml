@@ -24,14 +24,8 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Activities.MyFriendsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activities.MyFriendsActivity"/>
         <activity android:name=".Activities.MyRedeemActivity" />
         <activity android:name=".Activities.PlaceList" />
         <activity android:name=".Activities.AddReviewActivity" />
@@ -47,7 +41,13 @@
         <activity android:name=".Activities.PlaceDescriptionActivity" />
         <activity
             android:name=".Activities.BienvenidoActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activities.DropMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
