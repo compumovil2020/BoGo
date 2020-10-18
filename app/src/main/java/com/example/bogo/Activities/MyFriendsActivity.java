@@ -51,7 +51,8 @@ public class MyFriendsActivity extends AppCompatActivity {
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText( getBaseContext(),"Accediendo a AddFriendActivity!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(),AddFriendActivity.class);
+                startActivity(intent);
             }
         });
 
