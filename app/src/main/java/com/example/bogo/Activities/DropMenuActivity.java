@@ -72,7 +72,7 @@ public class DropMenuActivity extends AppCompatActivity {
         clProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), MyRedeemActivity.class);
+                Intent intent = new Intent(getBaseContext(), MyProfileActivity.class);
                 startActivity(intent);
             }
         });

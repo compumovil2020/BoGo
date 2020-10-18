@@ -22,6 +22,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Activities.AddFriendActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.MyProfileActivity"></activity>
         <activity
             android:name=".Activities.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
