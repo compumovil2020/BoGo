@@ -12,6 +12,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -58,6 +62,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.SENSOR_SERVICE;
 
 public class FullMapActivity extends Fragment {
 
@@ -70,6 +75,10 @@ public class FullMapActivity extends Fragment {
     int actualIndex;
     View view = null;
     Activity act = null;
+
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    SensorEventListener lightSensorListener;
 
     String Nombres[] = {"Factory Steak & Lobster Bogotá", "Santa Fe Restaurante", "Restaurante Peruano - El Indio de Machu Picchu", "Los Galenos Restaurante", "Restaurante Black Bear", "El irreverente Bogota"};
     double Lat[] = {4.6594548, 4.6118874, 4.6567465, 4.6803475, 4.672014, 4.6963027};
@@ -113,6 +122,8 @@ public class FullMapActivity extends Fragment {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
                         //do something
+                        Intent n = new Intent(view.getContext(), PlaceDescriptionActivity.class);
+                        startActivity(n);
                         return true;
                     }
                     @Override
@@ -134,6 +145,29 @@ public class FullMapActivity extends Fragment {
 
         mapController.setCenter(new GeoPoint(4.648961,-74.0943807));
         mapController.setZoom(13.0);
+
+        sensorManager = (SensorManager) act.getSystemService(SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        lightSensorListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                if(mMap != null)
+                {
+                    if(sensorEvent.values[0] < 1)
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+                    }else
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
         mLocationRequest = createLocationRequest();
