@@ -105,25 +105,12 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/btnRedimirPuntos"
-                android:layout_width="265dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_btnyellow"
-                android:text="Redimir Puntos"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
                 android:id="@+id/btnPuntosRedimidos"
                 android:layout_width="265dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/btnred_svg"
+                android:background="@drawable/ic_btnyellow"
                 android:text="Puntos Redimidos"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"

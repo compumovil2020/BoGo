@@ -150,7 +150,7 @@ public class FullMapActivity extends Fragment {
                     {
                         actual = new GeoPoint(location);
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(ContextCompat.getDrawable(view.getContext(),R.drawable.btnpincho));
+                        locationMarker.setIcon(ContextCompat.getDrawable(view.getContext(),R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -162,7 +162,7 @@ public class FullMapActivity extends Fragment {
                         actual.setLatitude(location.getLatitude());
                         actual.setLongitude(location.getLongitude());
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(view.getContext().getDrawable(R.drawable.btnpincho));
+                        locationMarker.setIcon(view.getContext().getDrawable(R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);

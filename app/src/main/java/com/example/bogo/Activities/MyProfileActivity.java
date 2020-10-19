@@ -13,8 +13,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     Button btnMesAmies;
     Button btnAjuterAmies;
-    Button btnRedimirPuntos;
     Button btnPuntosRedimidos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
         btnMesAmies = findViewById(R.id.btnMesAmies);
         btnAjuterAmies = findViewById(R.id.btnAjuterAmies);
-        btnRedimirPuntos = findViewById(R.id.btnRedimirPuntos);
         btnPuntosRedimidos = findViewById(R.id.btnPuntosRedimidos);
 
         btnMesAmies.setOnClickListener(new View.OnClickListener() {
@@ -37,15 +36,7 @@ public class MyProfileActivity extends AppCompatActivity {
         btnAjuterAmies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent n =  new Intent(getBaseContext(), MyFriendsActivity.class);
-                //startActivity(n);
-            }
-        });
-
-        btnRedimirPuntos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent n =  new Intent(getBaseContext(), RedeemPointsActivity.class);
+                Intent n =  new Intent(getBaseContext(), AddFriendActivity.class);
                 startActivity(n);
             }
         });
