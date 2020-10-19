@@ -22,10 +22,12 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Activities.AddFriendActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.MyProfileActivity"></activity>
         <activity
             android:name=".Activities.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Activities.MyFriendsActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activities.MyFriendsActivity">
+        </activity>
         <activity android:name=".Activities.MyRedeemActivity" />
         <activity android:name=".Activities.PlaceList" />
         <activity android:name=".Activities.AddReviewActivity" />
