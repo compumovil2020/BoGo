@@ -153,7 +153,7 @@ public class FullMapActivity extends Fragment {
             public void onSensorChanged(SensorEvent sensorEvent) {
                 if(mMap != null)
                 {
-                    if(sensorEvent.values[0] < 1)
+                    if(sensorEvent.values[0] < 10)
                     {
                         mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
                     }else
@@ -307,6 +307,7 @@ public class FullMapActivity extends Fragment {
     public void onResume() {
         super.onResume();
         startLocationUpdates();
+        sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -314,6 +315,7 @@ public class FullMapActivity extends Fragment {
         super.onPause();
         if(mFusedLocationProviderClient != null)
             stopLocationUpdates();
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
 }

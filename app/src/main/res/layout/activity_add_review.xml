@@ -147,10 +147,8 @@
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +162,8 @@
                     android:text="Adjuntar Fotos:"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorBlack"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:layout_gravity="center_vertical"/>
 
                 <Button
                     android:id="@+id/btnAddFoto"
