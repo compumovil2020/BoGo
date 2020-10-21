@@ -163,7 +163,8 @@
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorBlack"
                     android:textSize="15sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="RtlCompat" />
 
                 <Button
                     android:id="@+id/btnAddFoto"
