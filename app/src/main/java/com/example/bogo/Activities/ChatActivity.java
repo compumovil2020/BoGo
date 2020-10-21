@@ -2,6 +2,7 @@ package com.example.bogo.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -66,6 +67,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(),"Abriendo el seguimiento de mi amigo", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(view.getContext(),FriendMapActivity.class);
+                startActivity(i);
             }
         });
     }

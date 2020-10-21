@@ -7,7 +7,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="facebook_app_id">357888998762067</string> <string name="fb_login_protocol_scheme">fb357888998762067</string>
+    <string name="facebook_app_id">357888998762067</string>
+    <string name="fb_login_protocol_scheme">fb357888998762067</string>
 
     <string-array name="tipos">
         <item>Sitio Turístico</item>

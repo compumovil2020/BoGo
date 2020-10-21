@@ -344,8 +344,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         return locationRequest;
     }
 
-    private void stopLocationUpdates()
-    {
+    private void stopLocationUpdates() {
         mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
 
