@@ -59,23 +59,25 @@ public class FriendMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context ctx = getBaseContext();
+        setContentView(R.layout.activity_friend_map);
 
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        final Context ctx = getApplicationContext();
+
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(this));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        /*
+
         PermissionsManager.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Es necesario para visualizar el mapa.", PermissionsManager.READ_STORAGE_PERMISSION);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     initMap();
             }
-         */
+
 
     }
 
     private void initMap() {
         mMap = findViewById(R.id.osmView);
-        ubamigo = new GeoPoint(4.0695814, -76.4457183);
+        ubamigo = new GeoPoint(4.627534, -74.065002);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
         mMap.setMultiTouchControls(true);
@@ -85,7 +87,7 @@ public class FriendMapActivity extends AppCompatActivity {
         friendMarker.setTitle("El Pepe");
         friendMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mMap.getOverlays().add(friendMarker);
-        mapController.setZoom(20.0);
+        mapController.setZoom(13.0);
         mapController.setCenter(ubamigo);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
