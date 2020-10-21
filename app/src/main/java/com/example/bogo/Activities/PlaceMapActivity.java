@@ -128,7 +128,7 @@ public class PlaceMapActivity extends AppCompatActivity {
             public void onSensorChanged(SensorEvent sensorEvent) {
                 if(mMap != null)
                 {
-                    if(sensorEvent.values[0] < 1)
+                    if(sensorEvent.values[0] < 10)
                     {
                         mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
                     }else

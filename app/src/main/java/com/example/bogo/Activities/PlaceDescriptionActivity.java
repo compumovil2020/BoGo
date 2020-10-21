@@ -142,7 +142,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             case PermissionsManager.PHONE_PERMISSION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "742 7274"));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "3108105207"));
                     startActivity(intent);
                 } else {
                     Toast.makeText(getBaseContext(),"No se puede acceder al teléfono", Toast.LENGTH_LONG).show();

@@ -234,7 +234,9 @@
                         android:text="Adjuntar Fotos:"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorBlack"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:layout_gravity="center"
+                        tools:ignore="RtlCompat" />
 
                     <Button
                         android:id="@+id/btnAddFoto"
