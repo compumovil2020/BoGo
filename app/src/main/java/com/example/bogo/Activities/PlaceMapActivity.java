@@ -6,11 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,6 +57,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -62,6 +69,9 @@ public class PlaceMapActivity extends AppCompatActivity {
     LinearLayout layRuta;
     MapView mMap;
     IMapController mapController;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    SensorEventListener lightSensorListener;
     private FusedLocationProviderClient mFusedLocationProviderClient = null;
     private LocationRequest mLocationRequest = null;
     private LocationCallback mLocationCallback = null;
@@ -111,6 +121,29 @@ public class PlaceMapActivity extends AppCompatActivity {
         mapController.setZoom(20.0);
         mapController.setCenter(ubicacion);
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        lightSensorListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                if(mMap != null)
+                {
+                    if(sensorEvent.values[0] < 1)
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+                    }else
+                    {
+                        mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
+
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
 
@@ -126,7 +159,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                     {
                         actual = new GeoPoint(location);
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.btnpincho));
+                        locationMarker.setIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -138,7 +171,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                         actual.setLatitude(location.getLatitude());
                         actual.setLongitude(location.getLongitude());
                         Marker locationMarker = new Marker(mMap);
-                        locationMarker.setIcon(getDrawable(R.drawable.btnpincho));
+                        locationMarker.setIcon(getDrawable(R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(actual);
                         locationMarker.setTitle("Ubicación actual");
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -155,22 +188,34 @@ public class PlaceMapActivity extends AppCompatActivity {
         final RouteManager routeManager = new RouteManager();
 
         btnCarOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.carroazul));
+                btnBusOption.setBackground(getDrawable(R.drawable.biciblanco));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkoption_svg));
                 routeManager.getRoad(RouteManager.CAR_OPTION);
             }
         });
 
         btnBusOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.caroption_svg));
+                btnBusOption.setBackground(getDrawable(R.drawable.bici_azul));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkoption_svg));
                 routeManager.getRoad(RouteManager.BIKE_OPTION);
             }
         });
 
         btnWalkOption.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
+                btnCarOption.setBackground(getDrawable(R.drawable.caroption_svg));
+                btnBusOption.setBackground(getDrawable(R.drawable.biciblanco));
+                btnWalkOption.setBackground(getDrawable(R.drawable.walkazul));
                 routeManager.getRoad(RouteManager.WALK_OPTION);
             }
         });
@@ -299,8 +344,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         return locationRequest;
     }
 
-    private void stopLocationUpdates()
-    {
+    private void stopLocationUpdates() {
         mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
 
@@ -308,6 +352,7 @@ public class PlaceMapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startLocationUpdates();
+        sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -315,6 +360,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         super.onPause();
         if(mFusedLocationProviderClient != null)
             stopLocationUpdates();
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     class RouteManager
