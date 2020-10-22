@@ -77,7 +77,7 @@ public class FriendMapActivity extends AppCompatActivity {
 
     private void initMap() {
         mMap = findViewById(R.id.osmView);
-        ubamigo = new GeoPoint(4.6779623, -109.9675877);
+        ubamigo = new GeoPoint(4.6779676, -74.1104014);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
         mMap.setMultiTouchControls(true);
