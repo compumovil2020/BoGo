@@ -77,12 +77,12 @@ public class FriendMapActivity extends AppCompatActivity {
 
     private void initMap() {
         mMap = findViewById(R.id.osmView);
-        ubamigo = new GeoPoint(4.627534, -74.065002);
+        ubamigo = new GeoPoint(4.6779623, -109.9675877);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
         mMap.setMultiTouchControls(true);
         Marker friendMarker = new Marker(mMap);
-        friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchoyo));
+        friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
         friendMarker.setPosition(ubamigo);
         friendMarker.setTitle("El Pepe");
         friendMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
