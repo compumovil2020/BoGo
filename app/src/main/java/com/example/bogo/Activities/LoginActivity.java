@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnFBLogin = (LoginButton) findViewById(R.id.btnFBLogin);
         btnGoogleLogin = (SignInButton) findViewById(R.id.btnGoogleLogin);
-
+        btnGoogleLogin.setSize(SignInButton.SIZE_ICON_ONLY);
 
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();

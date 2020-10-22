@@ -92,7 +92,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/background_light"
         android:orientation="vertical"
         android:paddingTop="15dp"
@@ -114,20 +114,22 @@
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnGoogleLogin"
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"></com.google.android.gms.common.SignInButton>
+
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btnFBLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp" />
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnGoogleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp" />
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+             />
 
     </LinearLayout>
 
