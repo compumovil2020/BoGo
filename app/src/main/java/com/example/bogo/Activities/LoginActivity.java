@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnFBLogin = (LoginButton) findViewById(R.id.btnFBLogin);
         btnGoogleLogin = (SignInButton) findViewById(R.id.btnGoogleLogin);
-        btnGoogleLogin.setSize(SignInButton.SIZE_ICON_ONLY);
+        btnGoogleLogin.setSize(SignInButton.SIZE_STANDARD);
 
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
@@ -86,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //Google
-        btnGoogleLogin.setSize(SignInButton.SIZE_STANDARD);
         findViewById(R.id.btnGoogleLogin).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -155,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
