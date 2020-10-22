@@ -93,7 +93,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         txtRouteInfo = findViewById(R.id.txtRouteInfo);
         layRuta = findViewById(R.id.layRuta);
 
-
+        sensorManager = (SensorManager)this.getSystemService(SENSOR_SERVICE);
         final Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
@@ -344,8 +344,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         return locationRequest;
     }
 
-    private void stopLocationUpdates()
-    {
+    private void stopLocationUpdates() {
         mFusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
 

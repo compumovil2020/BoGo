@@ -92,9 +92,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/background_light"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,8 +106,7 @@
             android:id="@+id/txtOpcionesLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="85dp"
-            android:layout_marginRight="12dp"
+            android:layout_gravity="center"
             android:layout_weight="0"
             android:gravity="center"
             android:text="Inicia sesión con"
@@ -115,27 +114,23 @@
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnFBLogin"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="0"
-            android:adjustViewBounds="true"
-            android:background="@drawable/facebook_svg"
-            android:scaleType="fitXY" />
-
-        <Button
+        <com.google.android.gms.common.SignInButton
             android:id="@+id/btnGoogleLogin"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="0"
-            android:adjustViewBounds="true"
-            android:background="@drawable/google_hangouts_svg"
-            android:scaleType="fitXY" />
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            ></com.google.android.gms.common.SignInButton>
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btnFBLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+             />
 
     </LinearLayout>
 
