@@ -236,7 +236,8 @@ public class FriendMapActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startLocationUpdates();
-        sensorManager.registerListener(lightSensorListener,lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(sensorManager != null)
+            sensorManager.registerListener(lightSensorListener,lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -244,7 +245,8 @@ public class FriendMapActivity extends AppCompatActivity {
         super.onPause();
         if(mFusedLocationProviderClient != null)
             stopLocationUpdates();
-        sensorManager.unregisterListener(lightSensorListener);
+        if(sensorManager != null)
+            sensorManager.unregisterListener(lightSensorListener);
     }
 
 }

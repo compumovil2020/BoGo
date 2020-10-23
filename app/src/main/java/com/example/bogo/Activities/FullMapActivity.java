@@ -92,7 +92,7 @@ public class FullMapActivity extends Fragment {
         final Context ctx = view.getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        PermissionsManager.requestPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
+        PermissionsManager.requestPermissionforFragment(this, this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Para poder cargar el mapa", PermissionsManager.READ_STORAGE_PERMISSION);
         if(ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
@@ -107,6 +107,9 @@ public class FullMapActivity extends Fragment {
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
         mMap.setMultiTouchControls(true);
+
+        mapController.setZoom(13.0);
+        mapController.setCenter(new GeoPoint(4.648961,-74.0943807));
 
         //your items
         ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
@@ -134,17 +137,6 @@ public class FullMapActivity extends Fragment {
         mOverlay.setFocusItemsOnTap(true);
 
         mMap.getOverlays().add(mOverlay);
-        /*
-        Marker placeMarker = new Marker(mMap);
-        placeMarker.setIcon(ContextCompat.getDrawable(this.view.getContext(), R.drawable.btnpincho));
-        placeMarker.setPosition(ubicacion);
-        placeMarker.setTitle("Lugar seleccionado");
-        placeMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        mMap.getOverlays().add(placeMarker);
-         */
-
-        mapController.setCenter(new GeoPoint(4.648961,-74.0943807));
-        mapController.setZoom(13.0);
 
         sensorManager = (SensorManager) act.getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -171,7 +163,6 @@ public class FullMapActivity extends Fragment {
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
         mLocationRequest = createLocationRequest();
-
 
         mLocationCallback = new LocationCallback(){
             @Override
@@ -307,7 +298,8 @@ public class FullMapActivity extends Fragment {
     public void onResume() {
         super.onResume();
         startLocationUpdates();
-        sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        if( sensorManager != null)
+            sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -315,7 +307,8 @@ public class FullMapActivity extends Fragment {
         super.onPause();
         if(mFusedLocationProviderClient != null)
             stopLocationUpdates();
-        sensorManager.unregisterListener(lightSensorListener);
+        if(sensorManager != null)
+            sensorManager.unregisterListener(lightSensorListener);
     }
 
 }

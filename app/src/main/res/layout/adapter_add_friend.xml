@@ -43,13 +43,17 @@
                 android:layout_height="wrap_content"
                 android:text="Pepe Pérez"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:ellipsize="marquee"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/txtFriendUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ppperez12" />
+                android:text="ppperez12"
+                android:ellipsize="marquee"
+                android:singleLine="true"/>
 
         </LinearLayout>
 

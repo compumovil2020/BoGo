@@ -10,25 +10,33 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.bogo.Adapters.AddFriendAdapter;
 import com.example.bogo.BuildConfig;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.location.GeocoderNominatim;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -38,6 +46,8 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -76,8 +86,8 @@ public class AddPlaceActivity extends Fragment {
         final Context ctx = view.getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        PermissionsManager.requestPermission( this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
-                "Para poder cargar el mapa", PermissionsManager.READ_STORAGE_PERMISSION);
+        PermissionsManager.requestPermissionforFragment( this, this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
+                "Para poder cargar el mapa", PermissionsManager.READ_STORAGE_PERMISSION_FOR_MAP);
 
         if(ContextCompat.checkSelfPermission( this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
@@ -108,7 +118,98 @@ public class AddPlaceActivity extends Fragment {
             }
         });
 
+        editTextDireccion.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH)
+                {
+                    String direccion = editTextDireccion.getText().toString();
+
+                    if(!direccion.isEmpty())
+                    {
+                        getDirectionFromGeocoderNominatim(direccion);
+                    }
+                    else
+                    {
+                        editTextDireccion.setError("Required");
+                    }
+                }
+                return false;
+            }
+        });
+
+        editTextNombreLugar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH)
+                {
+                    String direccion = editTextNombreLugar.getText().toString();
+
+                    if(!direccion.isEmpty())
+                    {
+                        getDirectionFromGeocoderNominatim(direccion);
+                    }
+                    else
+                    {
+                        editTextNombreLugar.setError("Required");
+                    }
+                }
+                return false;
+            }
+        });
+
         return view;
+    }
+
+    private void getDirectionFromGeocoderNominatim(final String direccion)
+    {
+        Log.d("Test", "ENTRE");
+        // Retreive Geocoding data (add this code to an event click listener on a button)
+        new AsyncTask<Void, Void, Address>(){
+            @Override
+            protected Address doInBackground(Void... voids) {
+                Log.d("Test", "ENTRE x2");
+                // Reverse Geocoding
+                GeocoderNominatim geocoder = new GeocoderNominatim(Configuration.getInstance().getUserAgentValue());
+                String theAddress = null;
+                try {
+                    List<Address> addresses = geocoder.getFromLocationName(direccion, 1);
+                    if (addresses.size() > 0) {
+                        Address address = addresses.get(0);
+                        return address;
+                    } else {
+                        theAddress = null;
+                    }
+                } catch (Exception e) {
+                    theAddress = null;
+                }
+                if (theAddress != null) {
+                    Log.d("Test", "Address: " + theAddress);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Address address) {
+                super.onPostExecute(address);
+                if(address != null)
+                {
+                    if(mMap != null)
+                    {
+                        Marker placeMarker = new Marker(mMap);
+                        placeMarker.setIcon(view.getContext().getDrawable(R.drawable.btnpincho));
+                        placeMarker.setPosition(new GeoPoint(address.getLatitude(), address.getLongitude()));
+                        placeMarker.setTitle("Lugar encontrado");
+                        placeMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                        mMap.getOverlays().add(placeMarker);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(view.getContext(), "Lugar no encontrado, seleccione la ubicación en el mapa de modo manual", Toast.LENGTH_LONG).show();
+                }
+            }
+        }.execute();
     }
 
     private boolean validateForm()
@@ -162,7 +263,7 @@ public class AddPlaceActivity extends Fragment {
 
     private void addPhotoFromCamera()
     {
-        PermissionsManager.requestPermission(this.getActivity(), Manifest.permission.CAMERA,
+        PermissionsManager.requestPermissionforFragment(this, this.getActivity(), Manifest.permission.CAMERA,
                 "Para poder mostrar fotos tomadas desde su cámara", PermissionsManager.CAMERA_PERMISSION );
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
         {
@@ -175,7 +276,7 @@ public class AddPlaceActivity extends Fragment {
 
     private void addPhotoFromGallery()
     {
-        PermissionsManager.requestPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
+        PermissionsManager.requestPermissionforFragment(this, this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Para poder mostrar fotos que ya tenga guardadas", PermissionsManager.READ_STORAGE_PERMISSION);
         if(ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
@@ -193,6 +294,17 @@ public class AddPlaceActivity extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     addPhotoFromGallery();
                 } else {
+                    textFotosAgregadas.setText("Permiso denegado");
+                }
+                return;
+            }
+            case PermissionsManager.READ_STORAGE_PERMISSION_FOR_MAP: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    initializeMap();
+                }
+                else
+                {
                     textFotosAgregadas.setText("Permiso denegado");
                 }
                 return;
@@ -238,6 +350,7 @@ public class AddPlaceActivity extends Fragment {
                         e.printStackTrace();
                     }
                     break;
+
             }
         }
     }
