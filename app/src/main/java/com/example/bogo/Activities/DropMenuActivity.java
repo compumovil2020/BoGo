@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.widget.Button;
 
 import com.example.bogo.R;
+import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -61,6 +62,7 @@ public class DropMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
+                LoginManager.getInstance().logOut();
                 Intent intent = new Intent(getBaseContext(), BienvenidoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

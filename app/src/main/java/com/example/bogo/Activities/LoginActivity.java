@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
     GoogleSignInClient mGoogleSignInClient;
+    private boolean intentLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     //Facebook
     private void handleFacebookAccessToken(AccessToken token) {
+        intentLogin = true;
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -151,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //Google
     private void signIn() {
+        intentLogin = true;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -179,8 +181,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Email & password
-
     private void loginUser() {
+        intentLogin = true;
         String email = this.edtUser.getText().toString();
         String password = this.edtPasswordLogin.getText().toString();
 
@@ -255,8 +257,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void updateUI(FirebaseUser mUser) {
         if(mUser != null) {
             Intent intent = new Intent(getBaseContext(), DropMenuActivity.class);
@@ -265,9 +265,12 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         } else {
             View parentLayout = findViewById(android.R.id.content);
-            Snackbar.make(parentLayout,
-                    "El correo electrónico o contraseña que ingresaste no coincide con ninguna cuenta.",
-                    Snackbar.LENGTH_LONG).show();
+            if(intentLogin==true){
+                Snackbar.make(parentLayout,
+                        "El correo electrónico o contraseña que ingresaste no coincide con ninguna cuenta.",
+                        Snackbar.LENGTH_LONG).show();
+            }
+
         }
     }
 }
