@@ -285,6 +285,13 @@ public class FullMapActivity extends Fragment {
                 }
                 return;
             }
+            case PermissionsManager.LOCATION_PERMISSION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    usePermission();
+                } else {
+                    Toast.makeText(view.getContext(), "Sin acceso a GPS, ubicación no disponible!", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 

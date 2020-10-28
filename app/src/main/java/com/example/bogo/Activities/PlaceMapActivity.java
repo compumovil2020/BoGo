@@ -155,7 +155,7 @@ public class PlaceMapActivity extends AppCompatActivity {
                 Location location = locationResult.getLastLocation();
                 if(location!=null)
                 {
-                    if(actual==null)
+                    if(actual == null)
                     {
                         actual = new GeoPoint(location);
                         Marker locationMarker = new Marker(mMap);
@@ -165,6 +165,8 @@ public class PlaceMapActivity extends AppCompatActivity {
                         locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                         mMap.getOverlays().add(locationMarker);
                         actualIndex = mMap.getOverlays().size()-1;
+                        BoundingBox box = computeArea(new GeoPoint[]{actual, ubicacion});
+                        mMap.zoomToBoundingBox(box, true, 200);
                     }else
                     {
                         mMap.getOverlays().remove(actualIndex);
@@ -331,6 +333,13 @@ public class PlaceMapActivity extends AppCompatActivity {
                     Toast.makeText(this, "Sin acceso, mapa no disponible!", Toast.LENGTH_LONG).show();
                 }
                 return;
+            }
+            case PermissionsManager.LOCATION_PERMISSION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    usePermission();
+                } else {
+                    Toast.makeText(this, "Sin acceso a GPS, ubicación no disponible!", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
