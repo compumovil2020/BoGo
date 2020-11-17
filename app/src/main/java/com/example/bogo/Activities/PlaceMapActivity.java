@@ -45,6 +45,9 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
@@ -64,6 +67,10 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class PlaceMapActivity extends AppCompatActivity {
+    private static final String PATH_USERS = "usuarios/";
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     Button btnCarOption, btnBusOption, btnWalkOption, btnGo;
     TextView txtRouteInfo;
     LinearLayout layRuta;
@@ -85,6 +92,9 @@ public class PlaceMapActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_map);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         btnCarOption = findViewById(R.id.btnCarOption);
         btnBusOption = findViewById(R.id.btnBusOption);
@@ -184,6 +194,11 @@ public class PlaceMapActivity extends AppCompatActivity {
                         mMap.getOverlays().add(locationMarker);
                         actualIndex = mMap.getOverlays().size()-1;
                     }
+                    String myUID = mAuth.getUid();
+                    myRef = database.getReference(PATH_USERS + myUID + "/latitud");
+                    myRef.setValue(location.getLatitude());
+                    myRef = database.getReference(PATH_USERS + myUID + "/longitud");
+                    myRef.setValue(location.getLongitude());
                 }
             }
         };
