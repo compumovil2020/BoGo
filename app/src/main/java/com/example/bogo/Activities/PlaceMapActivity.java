@@ -107,7 +107,11 @@ public class PlaceMapActivity extends AppCompatActivity {
     }
 
     private void initMap() {
-        ubicacion = new GeoPoint(4.618534, -74.068002);
+        Intent intent = getIntent();
+        double lLatitud = intent.getDoubleExtra("latitud",0);
+        double lLongitud = intent.getDoubleExtra("longitud",0);
+        String  lNombre = intent.getStringExtra("lugar");
+        ubicacion = new GeoPoint(lLatitud,lLongitud);
         mMap = findViewById(R.id.openmapview);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
@@ -115,7 +119,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         Marker placeMarker = new Marker(mMap);
         placeMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.btnpincho));
         placeMarker.setPosition(ubicacion);
-        placeMarker.setTitle("Lugar seleccionado");
+        placeMarker.setTitle(lNombre);
         placeMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mMap.getOverlays().add(placeMarker);
         mapController.setZoom(20.0);
