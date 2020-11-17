@@ -6,90 +6,149 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bogo.Adapters.TimelineAdapter;
+import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class TimeLineActivity extends Fragment {
 
+    private static final String PATH_VISITADOS = "visitados/";
+    private static final String PATH_LUGARES = "lugares/";
     ListView listTime;
+    TextView cargando;
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_time_line, container, false);
 
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        cargando = view.findViewById(R.id.txtCargandoTime);
         listTime = view.findViewById(R.id.listTime);
         listTime.setDividerHeight(0);
         listTime.setDivider(null);
         ArrayList<ComponentesLista> contenido = new ArrayList<>();
-        ComponentesLista c1 = new ComponentesLista("El Cielo Restaurante","17 Nov","Restaurante");
-        ComponentesLista c2 = new ComponentesLista("Museo del Oro","21 Oct","Sitio turístico");
-        ComponentesLista c3 = new ComponentesLista("Varietale Candelaria","31 Ago","Café");
-        ComponentesLista c4 = new ComponentesLista("Mundo Aventura","03 Jun","Parque");
-        ComponentesLista c5 = new ComponentesLista("Home Burgers","18 May","Restaurante");
-        ComponentesLista c6 = new ComponentesLista("Estéreo Picnic","15 Abr","Evento");
-        ComponentesLista c7 = new ComponentesLista("Buffalo Wings","21 Mar","Restaurante");
-        ComponentesLista c8 = new ComponentesLista("Planetario de Bogotá","09 Mar","Sitio turístico");
-        ComponentesLista c9 = new ComponentesLista("Parque de los Novios","26 Feb","Parque");
-        ComponentesLista c10 = new ComponentesLista("Templo del Té","08 Feb","Restaurante");
-        ComponentesLista c11 = new ComponentesLista("Theatron","30 Ene","Rumba");
-        ComponentesLista c12 = new ComponentesLista("Pinky Restaurante","11 Ene","Restaurante");
-        ComponentesLista c13 = new ComponentesLista("La Fragata Giratoria","5 Ene","Restaurante");
-
-        contenido.add(c1);
-        contenido.add(c2);
-        contenido.add(c3);
-        contenido.add(c4);
-        contenido.add(c5);
-        contenido.add(c6);
-        contenido.add(c7);
-        contenido.add(c8);
-        contenido.add(c9);
-        contenido.add(c10);
-        contenido.add(c11);
-        contenido.add(c12);
-        contenido.add(c13);
-
-
-
-        TimelineAdapter adapter = new TimelineAdapter(getContext(), contenido);
-        listTime.setAdapter(adapter);
+        verLugaresVisitados(contenido, auth.getUid());
 
         return view;
     }
 
+    void verLugaresVisitados(final ArrayList<ComponentesLista> contenido, String uid)
+    {
+        myRef = database.getReference(PATH_VISITADOS +uid);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String,Long> llaveLugar = new HashMap<>();
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    String key= dataSnap.getKey();
+                    Long fecha = dataSnap.getValue(Long.class);
+                    llaveLugar.put(key,fecha);
+                }
+                obtenerLugares(contenido,llaveLugar);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+void obtenerLugares(final ArrayList<ComponentesLista> contenido, final HashMap<String, Long> llaveLugar)
+{
+    myRef = database.getReference(PATH_LUGARES);
+    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                Lugar lugar = dataSnap.getValue(Lugar.class);
+                Long fecha = llaveLugar.get(dataSnap.getKey());
+                if(fecha!=null)
+                {
+                    ComponentesLista nuevo = new ComponentesLista(lugar,fecha,dataSnap.getKey());
+                    contenido.add(nuevo);
+                }
+            }
+            Collections.sort(contenido,Collections.reverseOrder(new ComparadorFechas()));
+            TimelineAdapter adapter = new TimelineAdapter(getContext(), contenido);
+            listTime.setAdapter(adapter);
+            cargando.setVisibility(View.INVISIBLE);
+        }
+
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+}
 
     public class ComponentesLista{
-        String nombre;
-        String date;
-        String tipo;
-        public ComponentesLista(String nombre, String date, String tipo)
-        {
-            this.nombre = nombre;
-            this.date = date;
-            this.tipo = tipo;
+        Lugar visitado;
+        Long fecha;
+        String key;
+
+        public ComponentesLista(Lugar visitado, Long fecha, String key) {
+            this.visitado = visitado;
+            this.fecha = fecha;
+            this.key = key;
         }
 
-        public String getTipo() {
-            return tipo;
+        public Lugar getVisitado() {
+            return visitado;
         }
 
-        public String getNombre() {
-            return nombre;
+        public void setVisitado(Lugar visitado) {
+            this.visitado = visitado;
         }
 
-        public String getDate() {
-            return date;
+        public Long getFecha() {
+            return fecha;
         }
+
+        public void setFecha(Long fecha) {
+            this.fecha = fecha;
+        }
+
+        public String getKey() {
+            return key;
+        }
+    }
+
+    public class ComparadorFechas implements Comparator<ComponentesLista> {
+
+        @Override
+        public int compare(ComponentesLista c1, ComponentesLista c2) {
+            // TODO Auto-generated method stub
+            return  c1.getFecha().compareTo(c2.getFecha());
+        }
+
     }
 }
