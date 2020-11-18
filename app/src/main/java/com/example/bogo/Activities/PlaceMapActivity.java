@@ -45,6 +45,9 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
@@ -64,6 +67,10 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class PlaceMapActivity extends AppCompatActivity {
+    private static final String PATH_USERS = "usuarios/";
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     Button btnCarOption, btnBusOption, btnWalkOption, btnGo;
     TextView txtRouteInfo;
     LinearLayout layRuta;
@@ -86,6 +93,9 @@ public class PlaceMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_map);
 
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
         btnCarOption = findViewById(R.id.btnCarOption);
         btnBusOption = findViewById(R.id.btnBusOption);
         btnWalkOption = findViewById(R.id.btnWalOption);
@@ -107,7 +117,11 @@ public class PlaceMapActivity extends AppCompatActivity {
     }
 
     private void initMap() {
-        ubicacion = new GeoPoint(4.618534, -74.068002);
+        Intent intent = getIntent();
+        double lLatitud = intent.getDoubleExtra("latitud",0);
+        double lLongitud = intent.getDoubleExtra("longitud",0);
+        String  lNombre = intent.getStringExtra("lugar");
+        ubicacion = new GeoPoint(lLatitud,lLongitud);
         mMap = findViewById(R.id.openmapview);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
@@ -115,7 +129,7 @@ public class PlaceMapActivity extends AppCompatActivity {
         Marker placeMarker = new Marker(mMap);
         placeMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.btnpincho));
         placeMarker.setPosition(ubicacion);
-        placeMarker.setTitle("Lugar seleccionado");
+        placeMarker.setTitle(lNombre);
         placeMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mMap.getOverlays().add(placeMarker);
         mapController.setZoom(20.0);
@@ -180,6 +194,11 @@ public class PlaceMapActivity extends AppCompatActivity {
                         mMap.getOverlays().add(locationMarker);
                         actualIndex = mMap.getOverlays().size()-1;
                     }
+                    String myUID = mAuth.getUid();
+                    myRef = database.getReference(PATH_USERS + myUID + "/latitud");
+                    myRef.setValue(location.getLatitude());
+                    myRef = database.getReference(PATH_USERS + myUID + "/longitud");
+                    myRef.setValue(location.getLongitude());
                 }
             }
         };
