@@ -1,16 +1,32 @@
 package com.example.bogo.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,10 +36,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.File;
+import java.io.IOException;
+
 public class DropMenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    StorageReference mStorageRef;
+
+    TextView name, username, points;
+    ImageView profilePicture;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +58,8 @@ public class DropMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -78,6 +106,41 @@ public class DropMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        name = clProfile.findViewById(R.id.txtNameProfile);
+        username = clProfile.findViewById(R.id.txtUsernameProfile);
+        points = clProfile.findViewById(R.id.txtNumPuntosProfile);
+        profilePicture = clProfile.findViewById(R.id.imgDropMenuFoto);
+
+        getUserInfo();
+
+    }
+
+    private void getUserInfo()
+    {
+        String UID = mAuth.getUid();
+        myRef = database.getReference(Utils.PATH_USUARIOS+UID);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usuario = snapshot.getValue(Usuario.class);
+                name.setText(usuario.getNombre());
+                username.setText(usuario.getNombreUsuario());
+                String p = ""+usuario.getPuntos();
+                p = ( usuario.getPuntos() == 1 ) ? ( p + " punto" ) : ( p + " puntos");
+                points.setText(p);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        try {
+            downloadPhoto(Utils.PATH_USUARIOS+UID+"/profile.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,5 +155,21 @@ public class DropMenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void downloadPhoto(String path) throws IOException {
+        final File localFile = File.createTempFile("images", "jpg");
+        StorageReference imageRef = mStorageRef.child(path);
+        imageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                profilePicture.setImageURI(Uri.fromFile(localFile));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }
