@@ -24,11 +24,31 @@
             android:layout_marginRight="24dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgPothoProfile"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_profilepic" />
+                android:layout_height="140dp"
+                app:cardCornerRadius="250dp"
+                app:cardBackgroundColor="#ffffff"
+                android:layout_marginRight="8dp"
+                android:contentDescription="@string/nav_header_desc">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:cardCornerRadius="250dp"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/imgProfilePhoto"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:src="@drawable/ic_profilepic"
+                        android:scaleType="centerCrop"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +57,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtNameDropMenu"
+                    android:id="@+id/txtNameProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mónica Álvarez"
@@ -46,7 +66,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtDropMenuUsername"
+                    android:id="@+id/txtUsernameProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="monicaleja99"
@@ -70,7 +90,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtNumPuntos"
+                android:id="@+id/txtNumPuntosProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

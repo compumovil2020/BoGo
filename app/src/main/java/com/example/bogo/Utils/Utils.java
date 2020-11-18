@@ -2,6 +2,11 @@ package com.example.bogo.Utils;
 
 public class Utils
 {
+
+    public static final String PATH_VISITADOS = "visitados/";
+    public static final String PATH_LUGARES = "lugares/";
+    public static final String PATH_USUARIOS = "usuarios/";
+
     public static boolean validateEmail(String email)
     {
         if(!email.isEmpty())

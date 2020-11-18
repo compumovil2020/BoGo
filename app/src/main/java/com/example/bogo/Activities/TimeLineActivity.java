@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.bogo.Adapters.TimelineAdapter;
 import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +35,6 @@ import java.util.HashMap;
 
 public class TimeLineActivity extends Fragment {
 
-    private static final String PATH_VISITADOS = "visitados/";
-    private static final String PATH_LUGARES = "lugares/";
     ListView listTime;
     TextView cargando;
     FirebaseAuth auth;
@@ -61,7 +60,7 @@ public class TimeLineActivity extends Fragment {
 
     void verLugaresVisitados(final ArrayList<ComponentesLista> contenido, String uid)
     {
-        myRef = database.getReference(PATH_VISITADOS +uid);
+        myRef = database.getReference(Utils.PATH_VISITADOS +uid);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -83,7 +82,7 @@ public class TimeLineActivity extends Fragment {
 
 void obtenerLugares(final ArrayList<ComponentesLista> contenido, final HashMap<String, Long> llaveLugar)
 {
-    myRef = database.getReference(PATH_LUGARES);
+    myRef = database.getReference(Utils.PATH_LUGARES);
     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
