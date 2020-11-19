@@ -16,6 +16,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 import com.example.bogo.BuildConfig;
 import com.example.bogo.Entidades.Usuario;
@@ -107,13 +108,15 @@ public class FriendMapActivity extends AppCompatActivity {
         myRef.setValue( true );
 
         myRef = database.getReference(Utils.PATH_USUARIOS + friendUID );
+        Log.i("LOGLOG", Utils.PATH_USUARIOS + friendUID);
         friendListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Usuario friend = snapshot.getValue(Usuario.class);
                 if(ubamigo != null)
                 {
-                    mMap.getOverlays().remove(actualIndex);
+                    mMap.getOverlays().remove(actualIndexFriend);
+                    mMap.invalidate();
                     ubamigo.setLatitude(friend.getLatitud());
                     ubamigo.setLongitude(friend.getLongitud());
                     Marker friendMarker = new Marker(mMap);
@@ -146,7 +149,6 @@ public class FriendMapActivity extends AppCompatActivity {
             }
         };
         myRef.addValueEventListener(friendListener);
-
 
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -191,6 +193,7 @@ public class FriendMapActivity extends AppCompatActivity {
                         actualIndex = mMap.getOverlays().size()-1;
                     }else {
                         mMap.getOverlays().remove(actualIndex);
+                        mMap.invalidate();
                         ubactual.setLatitude(location.getLatitude());
                         ubactual.setLongitude(location.getLongitude());
                         Marker locationMarker = new Marker(mMap);
