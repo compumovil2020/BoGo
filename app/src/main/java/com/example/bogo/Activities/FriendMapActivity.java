@@ -18,8 +18,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 import com.example.bogo.BuildConfig;
+import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
+import com.example.bogo.Utils.Utils;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -35,6 +37,14 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -53,8 +63,14 @@ public class FriendMapActivity extends AppCompatActivity {
     MapView mMap;
     IMapController mapController;
     SensorEventListener lightSensorListener;
-    GeoPoint ubactual, ubamigo;
-    int actualIndex;
+    GeoPoint ubactual, ubamigo = null;
+    int actualIndex, actualIndexFriend;
+
+    private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    String friendUID;
+    ValueEventListener friendListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +78,14 @@ public class FriendMapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friend_map);
 
         final Context ctx = getApplicationContext();
+        Intent intent = getIntent();
+        friendUID = intent.getStringExtra("idamigo");
 
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(this));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         PermissionsManager.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Es necesario para visualizar el mapa.", PermissionsManager.READ_STORAGE_PERMISSION);
@@ -77,18 +98,56 @@ public class FriendMapActivity extends AppCompatActivity {
 
     private void initMap() {
         mMap = findViewById(R.id.osmView);
-        ubamigo = new GeoPoint(4.6779676, -74.1104014);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mapController = mMap.getController();
         mMap.setMultiTouchControls(true);
-        Marker friendMarker = new Marker(mMap);
-        friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
-        friendMarker.setPosition(ubamigo);
-        friendMarker.setTitle("El Pepe");
-        friendMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        mMap.getOverlays().add(friendMarker);
-        mapController.setZoom(13.0);
-        mapController.setCenter(ubamigo);
+
+        String myUID = mAuth.getUid();
+        myRef = database.getReference(Utils.PATH_OBSERVADORES + friendUID + "/" + myUID);
+        myRef.setValue( true );
+
+        myRef = database.getReference(Utils.PATH_USUARIOS + friendUID );
+        friendListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Usuario friend = snapshot.getValue(Usuario.class);
+                if(ubamigo != null)
+                {
+                    mMap.getOverlays().remove(actualIndex);
+                    ubamigo.setLatitude(friend.getLatitud());
+                    ubamigo.setLongitude(friend.getLongitud());
+                    Marker friendMarker = new Marker(mMap);
+                    friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
+                    friendMarker.setPosition(ubamigo);
+                    friendMarker.setTitle(friend.getNombre());
+                    friendMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    mMap.getOverlays().add(friendMarker);
+                    actualIndexFriend = mMap.getOverlays().size()-1;
+                }
+                else
+                {
+                    ubamigo = new GeoPoint(friend.getLatitud(), friend.getLongitud());
+                    Marker friendMarker = new Marker(mMap);
+                    friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
+                    friendMarker.setPosition(ubamigo);
+                    friendMarker.setTitle(friend.getNombre());
+                    friendMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    mMap.getOverlays().add(friendMarker);
+                    mapController.setZoom(13.0);
+                    mapController.setCenter(ubamigo);
+                    actualIndexFriend = mMap.getOverlays().size()-1;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        myRef.addValueEventListener(friendListener);
+
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -247,6 +306,11 @@ public class FriendMapActivity extends AppCompatActivity {
             stopLocationUpdates();
         if(sensorManager != null)
             sensorManager.unregisterListener(lightSensorListener);
+        if(friendListener != null)
+            myRef.removeEventListener(friendListener);
+        String myUID = mAuth.getUid();
+        myRef = database.getReference(Utils.PATH_OBSERVADORES + friendUID + "/" + myUID);
+        myRef.removeValue();
     }
 
 }

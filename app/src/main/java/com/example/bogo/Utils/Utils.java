@@ -8,6 +8,7 @@ public class Utils
     public static final String PATH_USUARIOS = "usuarios/";
     public static final String PATH_CHATS = "chats/";
     public static final String PATH_MENSAJES = "mensajes/" ;
+    public static final String PATH_OBSERVADORES = "observadores/";
 
     public static boolean validateEmail(String email)
     {
