@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class ChatActivity extends AppCompatActivity {
@@ -66,14 +68,7 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         amigoId = intent.getStringExtra("idAmigo");
         nombre.setText(intent.getStringExtra("nombreAmigo"));
-
-        contenido = new ArrayList<>();
-       /* String mensaje1 = "Hola, ¿Cómo vas?";
-        String mensaje2 = "Bien ¿Y tú qué tal?";
-        Mensaje nuevo1 = new Mensaje(mensaje1,true);
-        Mensaje nuevo2 = new Mensaje(mensaje2,false);
-        contenido.add(nuevo1);
-        contenido.add(nuevo2);*/
+        Log.i("idam", amigoId);
 
         obtenerChat(mAuth.getUid());
 
@@ -139,10 +134,12 @@ public class ChatActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                contenido = new ArrayList<>();
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                    Mensaje mensaje = dataSnap.getValue(Mensaje.class);
                    contenido.add(mensaje);
                 }
+                Collections.sort(contenido,new ComparadorHoras());
                 MensajeAdapter adapter = new MensajeAdapter(getBaseContext(),contenido);
                 lstMensajes.setAdapter(adapter);
             }
@@ -159,6 +156,16 @@ public class ChatActivity extends AppCompatActivity {
         String key = myRef.push().getKey();
         myRef = database.getReference(Utils.PATH_MENSAJES + chatId +"/"+key);
         myRef.setValue(nuevo);
+    }
+
+    public class ComparadorHoras implements Comparator<Mensaje> {
+
+        @Override
+        public int compare(Mensaje m1, Mensaje m2) {
+            // TODO Auto-generated method stub
+            return  m1.getFechaHoraEnviado().compareTo(m2.getFechaHoraEnviado());
+        }
+
     }
 
 }

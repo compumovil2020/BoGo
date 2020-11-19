@@ -46,7 +46,6 @@ public class MensajeAdapter extends ArrayAdapter<Mensaje> {
 
         Calendar cal= Calendar.getInstance();
         cal.setTimeInMillis(values.get(position).getFechaHoraEnviado());
-        Log.i("Adapter",values.get(position).getFechaHoraEnviado() +"");
         String hora = DateFormat.format("HH:mm", cal).toString();
 
         if(values.get(position).getRemitente().equals(mAuth.getUid())) {
