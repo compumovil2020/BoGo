@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.bogo.R;
+import com.example.bogo.Services.ChatJobIntentService;
 
 public class MainMenu extends Fragment {
     Button rumba;
@@ -32,6 +33,9 @@ public class MainMenu extends Fragment {
         restaurantes = view.findViewById(R.id.btnRestaurantes);
         parques = view.findViewById(R.id.btnParque);
         recomendados = view.findViewById(R.id.btnRecomendados);
+
+        Intent intent = new Intent(view.getContext(), ChatJobIntentService.class);
+        ChatJobIntentService.enqueueWork(view.getContext(),intent);
 
         rumba.setOnClickListener(new View.OnClickListener() {
             @Override

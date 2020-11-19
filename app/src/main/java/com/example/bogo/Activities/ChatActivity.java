@@ -65,10 +65,9 @@ public class ChatActivity extends AppCompatActivity {
         edtSend = findViewById(R.id.edtMessageInput);
         nombre = findViewById(R.id.txtNombreChat);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         amigoId = intent.getStringExtra("idAmigo");
         nombre.setText(intent.getStringExtra("nombreAmigo"));
-        Log.i("idam", amigoId);
 
         obtenerChat(mAuth.getUid());
 
@@ -94,6 +93,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(),"Abriendo el seguimiento de mi amigo", Toast.LENGTH_LONG).show();
+                intent.putExtra("idamigo",amigoId);
                 Intent i = new Intent(view.getContext(),FriendMapActivity.class);
                 startActivity(i);
             }
@@ -158,7 +158,7 @@ public class ChatActivity extends AppCompatActivity {
         myRef.setValue(nuevo);
     }
 
-    public class ComparadorHoras implements Comparator<Mensaje> {
+    public static class ComparadorHoras implements Comparator<Mensaje> {
 
         @Override
         public int compare(Mensaje m1, Mensaje m2) {
