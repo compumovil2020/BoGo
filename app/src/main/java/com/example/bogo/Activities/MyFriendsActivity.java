@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,10 @@ public class MyFriendsActivity extends AppCompatActivity {
         listFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView nombre = view.findViewById(R.id.txtFriendName);
                 Intent intent = new Intent(getBaseContext(),ChatActivity.class);
+                intent.putExtra("idAmigo","33YiDJ1KHnhszbso7JdDb7jEdew2");
+                intent.putExtra("nombreAmigo",nombre.getText().toString());
                 startActivity(intent);
             }
         });
