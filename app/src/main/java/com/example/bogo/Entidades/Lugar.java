@@ -1,10 +1,12 @@
 package com.example.bogo.Entidades;
 
+import com.google.firebase.database.Exclude;
+
 public class Lugar {
-    String correo;
-    String descripción;
+    String correoElectronico;
+    String descripcion;
     String direccion;
-    String horaAper;
+    String horaApertura;
     String horaCierre;
     double latitud;
     double longitud;
@@ -12,17 +14,19 @@ public class Lugar {
     double promedio;
     long telefono;
     String tipo;
+    int precioMaximo;
+    int precioMinimo;
 
     public Lugar()
     {
 
     }
 
-    public Lugar(String correo, String descripción, String direccion, String horaAper, String horaCierre, double latitud, double longitud, String nombre, double promedio, long telefono, String tipo) {
-        this.correo = correo;
-        this.descripción = descripción;
+    public Lugar(String correoElectronico, String descripcion, String direccion, String horaApertura, String horaCierre, double latitud, double longitud, String nombre, double promedio, long telefono, String tipo, int precioMaximo, int precioMinimo) {
+        this.correoElectronico = correoElectronico;
+        this.descripcion = descripcion;
         this.direccion = direccion;
-        this.horaAper = horaAper;
+        this.horaApertura = horaApertura;
         this.horaCierre = horaCierre;
         this.latitud = latitud;
         this.longitud = longitud;
@@ -30,22 +34,23 @@ public class Lugar {
         this.promedio = promedio;
         this.telefono = telefono;
         this.tipo = tipo;
+        this.precioMaximo = precioMaximo;
+        this.precioMinimo = precioMinimo;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreoElectronico(String correoElectronico) { this.correoElectronico = correoElectronico;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getDireccion() {
@@ -56,12 +61,12 @@ public class Lugar {
         this.direccion = direccion;
     }
 
-    public String getHoraAper() {
-        return horaAper;
+    public String getHoraApertura() {
+        return horaApertura;
     }
 
-    public void setHoraAper(String horaAper) {
-        this.horaAper = horaAper;
+    public void setHoraApertura(String horaApertura) {
+        this.horaApertura = horaApertura;
     }
 
     public String getHoraCierre() {
@@ -118,5 +123,39 @@ public class Lugar {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public int getPrecioMaximo() {
+        return precioMaximo;
+    }
+
+    public void setPrecioMaximo(int precioMaximo) {
+        this.precioMaximo = precioMaximo;
+    }
+
+    public int getPrecioMinimo() {
+        return precioMinimo;
+    }
+
+    public void setPrecioMinimo(int precioMinimo) {
+        this.precioMinimo = precioMinimo;
+    }
+
+    @Override
+    @Exclude
+    public String toString() {
+        return "Lugar{" +
+                "correo='" + correoElectronico + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", horaApertura='" + horaApertura + '\'' +
+                ", horaCierre='" + horaCierre + '\'' +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", nombre='" + nombre + '\'' +
+                ", promedio=" + promedio +
+                ", telefono=" + telefono +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }

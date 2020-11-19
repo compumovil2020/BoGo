@@ -116,26 +116,26 @@
                     app:layout_constraintTop_toBottomOf="@id/linear2">
 
                     <TextView
-                        android:id="@+id/textRangoPrecio"
+                        android:id="@+id/textPrecioMinimo"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rango de precios:"
+                        android:text="Precio Mínimo:"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorBlack"
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/editTextRangoPrecio"
+                        android:id="@+id/editTextPrecioMinimo"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="number" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linear4"
+                    android:id="@+id/linear3a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -144,22 +144,22 @@
                     app:layout_constraintTop_toBottomOf="@id/linear3">
 
                     <TextView
-                        android:id="@+id/textHoraApertura"
+                        android:id="@+id/textPrecioMaximo"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Hora de Apertura:"
+                        android:text="Precio Máximo:"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorBlack"
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/editTextTimeHoraApertura"
+                        android:id="@+id/editTextPrecioMaximo"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="time" />
+                        android:inputType="number" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -169,25 +169,66 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear4">
+                    app:layout_constraintTop_toBottomOf="@id/linear3a">
 
-                    <TextView
-                        android:id="@+id/textHoraCierre"
-                        android:layout_width="150dp"
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Hora de Cierre:"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="15sp" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/textHoraApertura"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Hora de Apertura:"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="15sp" />
 
-                    <EditText
-                        android:id="@+id/editTextTimeHoraCierre"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="time" />
+                        <!--<EditText
+                            android:id="@+id/editTextTimeHoraApertura"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="time" />-->
+                        <TimePicker
+                            android:id="@+id/editTextTimeHoraApertura"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:timePickerMode="spinner" />
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="8dp">
+
+                            <TextView
+                                android:id="@+id/textHoraCierre"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Hora de Cierre:"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="15sp" />
+
+                            <!--<EditText
+                                android:id="@+id/editTextTimeHoraCierre"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="time" />-->
+                            <TimePicker
+                                android:id="@+id/editTextTimeHoraCierre"
+                                android:layout_width="150dp"
+                                android:layout_height="100dp"
+                                android:timePickerMode="spinner" />
+                        </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -226,7 +267,93 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear6"
+                    app:layout_constraintTop_toBottomOf="@id/linear6">
+
+                    <TextView
+                        android:id="@+id/txtDescription"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Descripción:"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edtDescription"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="3"
+                        android:ems="10"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear7">
+
+                    <TextView
+                        android:id="@+id/txtCorreo"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Email:"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edtCorreo"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textEmailAddress"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear8">
+
+                    <TextView
+                        android:id="@+id/txtTelefono"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Teléfono:"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edtTelefono"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:imeOptions="actionSearch"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear9"
                     >
 
                     <TextView

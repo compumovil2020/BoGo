@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,13 +28,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.bogo.Adapters.AddFriendAdapter;
 import com.example.bogo.BuildConfig;
+import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
+import com.example.bogo.Utils.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.location.GeocoderNominatim;
@@ -44,9 +57,11 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,17 +71,28 @@ public class AddPlaceActivity extends Fragment {
     Button btnGo;
     EditText editTextNombreLugar;
     Spinner spinnerTipo;
-    EditText editTextRangoPrecio;
-    EditText editTextTimeHoraApertura;
-    EditText editTextTimeHoraCierre;
+    EditText editTextPrecioMinimo, editTextPrecioMaximo;
+    TimePicker editTextTimeHoraApertura, editTextTimeHoraCierre;
     EditText editTextDireccion;
+    EditText editTextDescripcion;
+    EditText editTextTelefono;
+    EditText editTextCorreo;
     Button btnAddFoto, btnAddCamera;
     TextView textFotosAgregadas;
+
     CustomMapView mMap;
     IMapController mapController;
     GeoPoint locationSelected = null;
     View view = null;
     ImageView imgResultado;
+
+    Uri miImagenUri;
+    byte[] miImagenBit;
+
+    private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    StorageReference mStorageRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -75,13 +101,24 @@ public class AddPlaceActivity extends Fragment {
         btnGo = view.findViewById(R.id.btnGo);
         editTextNombreLugar = view.findViewById(R.id.editTextNombreLugar);
         spinnerTipo = view.findViewById(R.id.spinnerTipo);
-        editTextRangoPrecio = view.findViewById(R.id.editTextRangoPrecio);
+        editTextPrecioMinimo = view.findViewById(R.id.editTextPrecioMinimo);
+        editTextPrecioMaximo = view.findViewById(R.id.editTextPrecioMaximo);
         editTextTimeHoraApertura = view.findViewById(R.id.editTextTimeHoraApertura);
         editTextTimeHoraCierre = view.findViewById(R.id.editTextTimeHoraCierre);
         editTextDireccion = view.findViewById(R.id.editTextDireccion);
+        editTextDescripcion = view.findViewById(R.id.edtDescription);
+        editTextTelefono = view.findViewById(R.id.edtTelefono);
+        editTextCorreo = view.findViewById(R.id.edtCorreo);
         btnAddFoto = view.findViewById(R.id.btnAddFoto);
         btnAddCamera = view.findViewById(R.id.btnAddCamera);
         textFotosAgregadas = view.findViewById(R.id.textFotosAgregadas);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        editTextTimeHoraApertura.setIs24HourView(true);
+        editTextTimeHoraCierre.setIs24HourView(true);
 
         final Context ctx = view.getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -98,8 +135,7 @@ public class AddPlaceActivity extends Fragment {
             @Override
             public void onClick(View view) {
                 if(validateForm()) {
-                    Intent i = new Intent(view.getContext(), DropMenuActivity.class);
-                    startActivity(i);
+                    createPlace();
                 }
             }
         });
@@ -159,6 +195,38 @@ public class AddPlaceActivity extends Fragment {
         });
 
         return view;
+    }
+
+    private void createPlace()
+    {
+        Lugar lugar = new Lugar();
+        lugar.setCorreoElectronico(editTextCorreo.getText().toString());
+        lugar.setDescripcion(editTextDescripcion.getText().toString());
+        lugar.setDireccion(editTextDireccion.getText().toString());
+        Calendar calApertura = Calendar.getInstance();
+        calApertura.set(0,0,0,editTextTimeHoraApertura.getHour(),editTextTimeHoraApertura.getMinute());
+        String dateApertura = DateFormat.format("hh:mm a", calApertura).toString();
+        lugar.setHoraApertura(dateApertura);
+        Calendar calCierre = Calendar.getInstance();
+        calCierre.set(0,0,0,editTextTimeHoraCierre.getHour(),editTextTimeHoraCierre.getMinute());
+        String dateCierre = DateFormat.format("hh:mm a", calCierre).toString();
+        lugar.setHoraCierre(dateCierre);
+        lugar.setLatitud(locationSelected.getLatitude());
+        lugar.setLongitud(locationSelected.getLongitude());
+        lugar.setNombre(editTextNombreLugar.getText().toString());
+        lugar.setPromedio(0);
+        lugar.setTelefono(Long.parseLong(editTextTelefono.getText().toString()));
+        lugar.setTipo(spinnerTipo.getSelectedItem().toString());
+        lugar.setPrecioMinimo(Integer.parseInt(editTextPrecioMinimo.getText().toString()));
+        lugar.setPrecioMaximo(Integer.parseInt(editTextPrecioMaximo.getText().toString()));
+
+        myRef = database.getReference(Utils.PATH_LUGARES);
+        String key = myRef.push().getKey();
+        myRef = database.getReference(Utils.PATH_LUGARES+key);
+        myRef.setValue(lugar);
+        uploadFile(key);
+        startActivity(new Intent(view.getContext(), DropMenuActivity.class));
+
     }
 
     private void getDirectionFromGeocoderNominatim(final String direccion)
@@ -221,23 +289,17 @@ public class AddPlaceActivity extends Fragment {
             message = "Es necesario agregar el nombre del lugar";
             editTextNombreLugar.setError("Required");
         }
-        if(editTextRangoPrecio.getText().toString().isEmpty())
+        if(editTextPrecioMinimo.getText().toString().isEmpty())
         {
             valid = false;
-            message = (message.equals(""))?"Es necesario agregar el rango de precios":"Es necesario llenar los campos requeridos";
-            editTextRangoPrecio.setError("Required");
+            message = (message.equals(""))?"Es necesario agregar el precio mínimo":"Es necesario llenar los campos requeridos";
+            editTextPrecioMinimo.setError("Required");
         }
-        if(editTextTimeHoraApertura.getText().toString().isEmpty())
+        if(editTextPrecioMaximo.getText().toString().isEmpty())
         {
             valid = false;
-            message = (message.equals(""))?"Es necesario agregar la hora de apertura":"Es necesario llenar los campos requeridos";
-            editTextTimeHoraApertura.setError("Required");
-        }
-        if(editTextTimeHoraCierre.getText().toString().isEmpty())
-        {
-            valid = false;
-            message = (message.equals(""))?"Es necesario agregar la hora de cierre":"Es necesario llenar los campos requeridos";
-            editTextTimeHoraCierre.setError("Required");
+            message = (message.equals(""))?"Es necesario agregar el precio máximo":"Es necesario llenar los campos requeridos";
+            editTextPrecioMaximo.setError("Required");
         }
         if(editTextDireccion.getText().toString().isEmpty())
         {
@@ -336,11 +398,16 @@ public class AddPlaceActivity extends Fragment {
                     imgResultado.setImageBitmap(imageBitmap);
                     imgResultado.getLayoutParams().height = (int) (100.0 * view.getContext().getResources().getDisplayMetrics().density);
                     imgResultado.requestLayout();
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    miImagenBit = baos.toByteArray();
+
                     break;
                 case PermissionsManager.IMAGE_PICKER_REQUEST:
                     try {
-                        final Uri imageUri = data.getData();
-                        final InputStream imageStream = this.getActivity().getContentResolver().openInputStream(imageUri);
+                        miImagenUri = data.getData();
+                        final InputStream imageStream = this.getActivity().getContentResolver().openInputStream(miImagenUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imgResultado.setImageBitmap(selectedImage);
                         imgResultado.getLayoutParams().height = (int) (100.0 * view.getContext().getResources().getDisplayMetrics().density);
@@ -387,5 +454,43 @@ public class AddPlaceActivity extends Fragment {
             }
         };
         mMap.getOverlays().add(new MapEventsOverlay(mReceive));
+    }
+
+    private void uploadFile(String key) {
+        StorageReference userRef = mStorageRef.child(Utils.PATH_LUGARES+key+"/place.jpg");
+        if(miImagenUri != null)
+        {
+            userRef.putFile(miImagenUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }else
+        {
+            userRef.putBytes(miImagenBit)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }
+
     }
 }
