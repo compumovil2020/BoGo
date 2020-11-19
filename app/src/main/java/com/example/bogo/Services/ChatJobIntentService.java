@@ -13,7 +13,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.bogo.Activities.ChatActivity;
+import com.example.bogo.Activities.MainMenu;
 import com.example.bogo.Entidades.Mensaje;
+import com.example.bogo.Entidades.Usuario;
+import com.example.bogo.R;
 import com.example.bogo.Utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -76,10 +79,7 @@ public class ChatJobIntentService extends JobIntentService {
                         for (DataSnapshot mensajes : dataSnapshot.child(chat).getChildren())
                         {
                             Mensaje mensaje = mensajes.getValue(Mensaje.class);
-                            if(!mensaje.getRemitente().equals(mAuth.getUid()))
-                            {
-                                mensajesRecibidos.add(mensaje);
-                            }
+                            mensajesRecibidos.add(mensaje);
 
                         }
                     }
@@ -88,9 +88,11 @@ public class ChatJobIntentService extends JobIntentService {
                 if(!mensajesRecibidos.isEmpty())
                 {
                     Mensaje ultimoRecibido = mensajesRecibidos.get(mensajesRecibidos.size()-1);
-                    if(ultimoRecibido.getFechaHoraEnviado() != ultimo.getFechaHoraEnviado())
-                    {
-                        ultimo = ultimoRecibido;
+                    if(!ultimoRecibido.getRemitente().equals(mAuth.getUid())) {
+                        if (ultimoRecibido.getFechaHoraEnviado() != ultimo.getFechaHoraEnviado()) {
+                            ultimo = ultimoRecibido;
+                            obtenerUsuario(ultimoRecibido);
+                        }
                     }
                 }
 
@@ -103,7 +105,25 @@ public class ChatJobIntentService extends JobIntentService {
         });
     }
 
-    void obtenerChats(final String uid)
+    private void obtenerUsuario(final Mensaje ultimoRecibido)
+    {
+        myRef = database.getReference(Utils.PATH_USUARIOS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Usuario remitente = dataSnapshot.child(ultimoRecibido.getRemitente()).getValue(Usuario.class);
+                buildAndShowNotification(remitente,ultimoRecibido);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void obtenerChats(final String uid)
     {
         myRef = database.getReference(Utils.PATH_CHATS);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -166,26 +186,27 @@ public class ChatJobIntentService extends JobIntentService {
         });
     }
 
-   /* public void  buildAndShowNotification(Usuario disponible)
+    public void  buildAndShowNotification(Usuario remitente, Mensaje mensaje)
     {
-        Log.i("myLoc", disponible.getUI());
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this,HomeActivity.CHANNEL_ID);
-        mBuilder.setSmallIcon(R.drawable.comprobar);
-        mBuilder.setContentTitle(disponible.getNombre() + " "+ disponible.getApellido() + " se encuentra disponible");
-        mBuilder.setContentText("Oprime para verlo en el mapa");
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, MainMenu.CHANNEL_ID);
+        mBuilder.setSmallIcon(R.drawable.bogoround);
+        mBuilder.setContentTitle(remitente.getNombre());
+        mBuilder.setContentText(mensaje.getTexto());
         mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Intent intent = new Intent(this,FriendMapActivity.class);
+        Intent intent = new Intent(this,ChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("UID",disponible.getUI());
+        intent.putExtra("idAmigo",mensaje.getRemitente());
+        intent.putExtra("nombreAmigo",remitente.getNombre());
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
 
-        int notificationid = Integer.parseInt(disponible.getIdentificacion().substring(0,4));
+        String latiud = String.valueOf(remitente.getLatitud());
+        int notificationid = Integer.parseInt(latiud.substring(latiud.length()-4,latiud.length()-1));
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(notificationid,mBuilder.build());
-    }*/
+    }
 
     @Override
     public void onDestroy() {

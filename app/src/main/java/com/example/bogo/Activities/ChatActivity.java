@@ -93,8 +93,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(),"Abriendo el seguimiento de mi amigo", Toast.LENGTH_LONG).show();
-                intent.putExtra("idamigo",amigoId);
                 Intent i = new Intent(view.getContext(),FriendMapActivity.class);
+                i.putExtra("idamigo",amigoId);
                 startActivity(i);
             }
         });
