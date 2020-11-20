@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,6 +65,8 @@ public class ChatActivity extends AppCompatActivity {
         btnSend = findViewById(R.id.btnSendMessage);
         edtSend = findViewById(R.id.edtMessageInput);
         nombre = findViewById(R.id.txtNombreChat);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         final Intent intent = getIntent();
         amigoId = intent.getStringExtra("idAmigo");
