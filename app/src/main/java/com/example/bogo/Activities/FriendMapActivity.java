@@ -72,6 +72,7 @@ public class FriendMapActivity extends AppCompatActivity {
     DatabaseReference myRef;
     String friendUID;
     ValueEventListener friendListener;
+    Marker locationMarker, friendMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +116,11 @@ public class FriendMapActivity extends AppCompatActivity {
                 Usuario friend = snapshot.getValue(Usuario.class);
                 if(ubamigo != null)
                 {
-                    mMap.getOverlays().remove(actualIndexFriend);
+                    mMap.getOverlays().remove(friendMarker);
                     mMap.invalidate();
                     ubamigo.setLatitude(friend.getLatitud());
                     ubamigo.setLongitude(friend.getLongitud());
-                    Marker friendMarker = new Marker(mMap);
+                    friendMarker = new Marker(mMap);
                     friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
                     friendMarker.setPosition(ubamigo);
                     friendMarker.setTitle(friend.getNombre());
@@ -130,7 +131,7 @@ public class FriendMapActivity extends AppCompatActivity {
                 else
                 {
                     ubamigo = new GeoPoint(friend.getLatitud(), friend.getLongitud());
-                    Marker friendMarker = new Marker(mMap);
+                    friendMarker = new Marker(mMap);
                     friendMarker.setIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_btnpinchofriend));
                     friendMarker.setPosition(ubamigo);
                     friendMarker.setTitle(friend.getNombre());
@@ -184,7 +185,7 @@ public class FriendMapActivity extends AppCompatActivity {
                 if(location!=null) {
                     if(ubactual==null) {
                         ubactual = new GeoPoint(location);
-                        Marker locationMarker = new Marker(mMap);
+                        locationMarker = new Marker(mMap);
                         locationMarker.setIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(ubactual);
                         locationMarker.setTitle("Ubicación actual");
@@ -192,11 +193,11 @@ public class FriendMapActivity extends AppCompatActivity {
                         mMap.getOverlays().add(locationMarker);
                         actualIndex = mMap.getOverlays().size()-1;
                     }else {
-                        mMap.getOverlays().remove(actualIndex);
+                        mMap.getOverlays().remove(locationMarker);
                         mMap.invalidate();
                         ubactual.setLatitude(location.getLatitude());
                         ubactual.setLongitude(location.getLongitude());
-                        Marker locationMarker = new Marker(mMap);
+                        locationMarker = new Marker(mMap);
                         locationMarker.setIcon(getDrawable(R.drawable.ic_btnpinchoyo));
                         locationMarker.setPosition(ubactual);
                         locationMarker.setTitle("Ubicación actual");
