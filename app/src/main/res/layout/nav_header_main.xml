@@ -65,7 +65,6 @@
             android:id="@+id/txtNameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mónica Álvarez"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -74,15 +73,13 @@
             android:id="@+id/txtUsernameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="monicaleja99"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/txtNumPuntosProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99 puntos"
-            android:textColor="@color/bogoYellow"
-            />
+            android:textColor="@color/bogoYellow" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.example.bogo.R;
 import com.example.bogo.Services.ChatJobIntentService;
+import com.example.bogo.Services.LocationJobIntentService;
 
 public class MainMenu extends Fragment {
     public static String CHANNEL_ID = "BoGo Chat";
@@ -43,6 +44,9 @@ public class MainMenu extends Fragment {
         createNotificationChannel();
         Intent intent = new Intent(view.getContext(), ChatJobIntentService.class);
         ChatJobIntentService.enqueueWork(view.getContext(),intent);
+
+        Intent intent2 = new Intent(view.getContext(), LocationJobIntentService.class);
+        LocationJobIntentService.enqueueWork(view.getContext(), intent2);
 
         rumba.setOnClickListener(new View.OnClickListener() {
             @Override

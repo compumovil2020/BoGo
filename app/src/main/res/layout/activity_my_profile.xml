@@ -60,7 +60,6 @@
                     android:id="@+id/txtNameProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mónica Álvarez"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -69,7 +68,6 @@
                     android:id="@+id/txtUsernameProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="monicaleja99"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
@@ -86,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="monicaleja99@gmail.com"
                 android:textSize="18sp" />
 
             <TextView
@@ -94,7 +91,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="99 puntos"
                 android:textColor="@color/bogoYellow"
                 android:textSize="18sp" />
 

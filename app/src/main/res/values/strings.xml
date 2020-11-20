@@ -10,11 +10,10 @@
     <string name="facebook_app_id">357888998762067</string>
     <string name="fb_login_protocol_scheme">fb357888998762067</string>
     <string-array name="tipos">
-        <item>Sitio Turístico</item>
-        <item>Parques</item>
-        <item>Restaurantes</item>
+        <item>Sitio Turistico</item>
+        <item>Parque</item>
+        <item>Restaurante</item>
         <item>Cafés</item>
         <item>Rumba</item>
-        <item>Eventos</item>
     </string-array>
 </resources>
