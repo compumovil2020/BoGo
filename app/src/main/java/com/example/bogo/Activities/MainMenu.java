@@ -45,8 +45,8 @@ public class MainMenu extends Fragment {
         Intent intent = new Intent(view.getContext(), ChatJobIntentService.class);
         ChatJobIntentService.enqueueWork(view.getContext(),intent);
 
-        //Intent intent2 = new Intent(view.getContext(), LocationJobIntentService.class);
-        //LocationJobIntentService.enqueueWork(view.getContext(), intent2);
+        Intent intent2 = new Intent(view.getContext(), LocationJobIntentService.class);
+        LocationJobIntentService.enqueueWork(view.getContext(), intent2);
 
         rumba.setOnClickListener(new View.OnClickListener() {
             @Override
