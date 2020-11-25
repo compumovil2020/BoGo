@@ -1,5 +1,6 @@
 package com.example.bogo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,8 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
+import com.example.bogo.Utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PlaceDescriptionActivity extends AppCompatActivity
 {
@@ -28,6 +38,11 @@ public class PlaceDescriptionActivity extends AppCompatActivity
     TextView txtPlaceTitle, txtPlaceDescription, txtHorario, txtPrecios, txtDireccion,
              txtContacto, txtTelefono, txtCorreo;
 
+    String keyLugar;
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    Lugar lugar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +69,13 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         txtContacto = findViewById(R.id.txtContacto);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtCorreo = findViewById(R.id.txtCorreo);
+
+        keyLugar = getIntent().getStringExtra("key");
+        //Toast.makeText(getBaseContext(), "Mostrar: "+keyLugar, Toast.LENGTH_LONG).show();
+
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
 
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,5 +173,24 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             }
 
         }
+    }
+
+    void obtenerLugares()
+    {
+        myRef = database.getReference(Utils.PATH_LUGARES);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    if(dataSnap.getKey().equals(keyLugar)){
+                        lugar = dataSnap.getValue(Lugar.class);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

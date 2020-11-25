@@ -28,9 +28,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bogo.Adapters.TimelineAdapter;
 import com.example.bogo.BuildConfig;
+import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
+import com.example.bogo.Utils.Utils;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -46,6 +49,12 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -59,6 +68,8 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
@@ -80,6 +91,12 @@ public class FullMapActivity extends Fragment {
     private Sensor lightSensor;
     SensorEventListener lightSensorListener;
 
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    ArrayList<Lugar> lugares= new ArrayList<>();
+    ArrayList<String> keyLugares= new ArrayList<>();
+
     String Nombres[] = {"Factory Steak & Lobster Bogotá", "Santa Fe Restaurante", "Restaurante Peruano - El Indio de Machu Picchu", "Los Galenos Restaurante", "Restaurante Black Bear", "El irreverente Bogota"};
     double Lat[] = {4.6594548, 4.6118874, 4.6567465, 4.6803475, 4.672014, 4.6963027};
     double Lon[] = {-74.1089402, -74.0666129, -74.0574461, -74.0575475, -74.049693, -74.0290333};
@@ -90,16 +107,42 @@ public class FullMapActivity extends Fragment {
         view = inflater.inflate(R.layout.activity_full_map, container, false);
         act = this.getActivity();
         final Context ctx = view.getContext();
+
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         PermissionsManager.requestPermissionforFragment(this, this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
                 "Para poder cargar el mapa", PermissionsManager.READ_STORAGE_PERMISSION);
         if(ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
         {
-            initMap();
+            Log.i("agregue", "Entre a init");
+            auth = FirebaseAuth.getInstance();
+            database = FirebaseDatabase.getInstance();
+            obtenerLugares();
+            //initMap();
         }
 
         return view;
+    }
+
+    void obtenerLugares()
+    {
+        myRef = database.getReference(Utils.PATH_LUGARES);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    Lugar lugar = dataSnap.getValue(Lugar.class);
+                    lugares.add(lugar);
+                    keyLugares.add(dataSnap.getKey());
+                    Log.i("agregue", dataSnap.getKey());
+                }
+                initMap();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initMap() {
@@ -113,8 +156,8 @@ public class FullMapActivity extends Fragment {
 
         //your items
         ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-        for(int i = 0; i<Nombres.length; i++){
-            OverlayItem nuevo = new OverlayItem(Nombres[i], "", new GeoPoint(Lat[i], Lon[i]));
+        for(int i = 0; i<lugares.size(); i++){
+            OverlayItem nuevo = new OverlayItem(lugares.get(i).getNombre(), "", new GeoPoint(lugares.get(i).getLatitud(), lugares.get(i).getLongitud()));
             nuevo.setMarker(ContextCompat.getDrawable(this.view.getContext(), R.drawable.btnpincho));
             items.add(nuevo); // Lat/Lon decimal degrees
         }
@@ -125,12 +168,15 @@ public class FullMapActivity extends Fragment {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
                         //do something
-                        Intent n = new Intent(view.getContext(), PlaceDescriptionActivity.class);
-                        startActivity(n);
+                        //Intent n = new Intent(view.getContext(), PlaceDescriptionActivity.class);
+                        //startActivity(n);
                         return true;
                     }
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        Intent n = new Intent(view.getContext(), PlaceDescriptionActivity.class);
+                        n.putExtra("key", keyLugares.get(index));
+                        startActivity(n);
                         return false;
                     }
                 }, view.getContext());
@@ -200,6 +246,7 @@ public class FullMapActivity extends Fragment {
 
         PermissionsManager.requestPermission(this.getActivity(),Manifest.permission.ACCESS_FINE_LOCATION,"Es necesario para tener la ubicación del usuario",PermissionsManager.LOCATION_PERMISSION);
         usePermission();
+        startLocationUpdates();
         //this.mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
     }
 
@@ -304,7 +351,8 @@ public class FullMapActivity extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        startLocationUpdates();
+        if(mFusedLocationProviderClient != null)
+            stopLocationUpdates();
         if( sensorManager != null)
             sensorManager.registerListener(lightSensorListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
