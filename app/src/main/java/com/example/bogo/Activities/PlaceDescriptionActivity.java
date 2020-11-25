@@ -21,12 +21,20 @@ import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
 import com.example.bogo.Utils.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 public class PlaceDescriptionActivity extends AppCompatActivity
 {
@@ -42,6 +50,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    StorageReference mStorageRef;
     Lugar lugar;
 
     @Override
@@ -75,12 +84,16 @@ public class PlaceDescriptionActivity extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        obtenerLugar();
 
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), PlaceMapActivity.class);
+                intent.putExtra("lugar", lugar.getNombre());
+                intent.putExtra("latitud", lugar.getLatitud());
+                intent.putExtra("longitud", lugar.getLongitud());
                 startActivity(intent);
             }
         });
@@ -89,6 +102,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddReviewActivity.class);
+                intent.putExtra("keyLugar", keyLugar);
                 startActivity(intent);
             }
         });
@@ -120,7 +134,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
                 Toast.makeText(getBaseContext(), "Accediendo al correo...", Toast.LENGTH_LONG).show();
                 Intent correo = new Intent(Intent.ACTION_SENDTO);
                 correo.setType("text/plain");
-                correo.putExtra(Intent.EXTRA_EMAIL  , new String[]{"buffalo@wings.com"});
+                correo.putExtra(Intent.EXTRA_EMAIL  , new String[]{lugar.getCorreoElectronico()});
                 startActivity(correo);
             }
         });
@@ -131,7 +145,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
                 PermissionsManager.requestPermission( PlaceDescriptionActivity.this, Manifest.permission.CALL_PHONE,
                         "Para poder llamar al lugar", PermissionsManager.PHONE_PERMISSION);
                 if(ContextCompat.checkSelfPermission( PlaceDescriptionActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "3108105207"));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lugar.getTelefono()));
                     startActivity(intent);
                 }
             }
@@ -164,7 +178,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             case PermissionsManager.PHONE_PERMISSION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "3108105207"));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + lugar.getTelefono()));
                     startActivity(intent);
                 } else {
                     Toast.makeText(getBaseContext(),"No se puede acceder al teléfono", Toast.LENGTH_LONG).show();
@@ -175,7 +189,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         }
     }
 
-    void obtenerLugares()
+    void obtenerLugar()
     {
         myRef = database.getReference(Utils.PATH_LUGARES);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -183,12 +197,42 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                     if(dataSnap.getKey().equals(keyLugar)){
+                        Log.i("LOENCONTRE", dataSnap.getKey());
                         lugar = dataSnap.getValue(Lugar.class);
+                        txtPlaceTitle.setText(lugar.getNombre());
+                        txtPlaceDescription.setText(lugar.getDescripcion());
+                        txtHorario.setText(lugar.getHoraApertura()+" - "+lugar.getHoraCierre());
+                        txtPrecios.setText(lugar.getPrecioMinimo()+ " - "+lugar.getPrecioMaximo()+" COP");
+                        txtDireccion.setText(lugar.getDireccion());
+                        txtTelefono.setText(String.valueOf(lugar.getTelefono()));
+                        txtCorreo.setText(lugar.getCorreoElectronico());
+                        //btnAddFavorite.setEnabled(false);
                     }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        try {
+            downloadPhoto(Utils.PATH_LUGARES+keyLugar+"/place.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadPhoto(String path) throws IOException {
+        final File localFile = File.createTempFile("images", "jpg");
+        StorageReference imageRef = mStorageRef.child(path);
+        imageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                imgPlaceDescription.setImageURI(Uri.fromFile(localFile));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
             }
         });
