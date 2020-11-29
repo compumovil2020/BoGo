@@ -15,7 +15,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.bogo.Entidades.Lugar;
+import com.example.bogo.Entidades.LugarLista;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -29,11 +31,12 @@ import java.util.ArrayList;
 public class PlaceAdapter extends ArrayAdapter<Lugar> {
 
     private final Context context;
-    private final ArrayList<Lugar> values;
-    public final String IMAGE = "lugares/";
+    private final ArrayList<LugarLista> values;
     private StorageReference mStorageRef;
+    String keyLugar;
 
-    public PlaceAdapter(Context context, ArrayList<Lugar> values) {
+
+    public PlaceAdapter(Context context, ArrayList<LugarLista> values) {
         super(context, R.layout.adapter_place, values);
         this.context = context;
         this.values = values;
@@ -49,13 +52,14 @@ public class PlaceAdapter extends ArrayAdapter<Lugar> {
         TextView txtNamePlace = rowView.findViewById(R.id.textNamePlace);
         TextView txtTypePlace = rowView.findViewById(R.id.txtTypePlace);
         ImageView imgPlace = rowView.findViewById(R.id.imgPlace);
-        //Button btnPosition = rowView.findViewById(R.id.btnUbicacion);
 
 
-        txtNamePlace.setText(this.values.get(position).getNombre());
-        txtTypePlace.setText(this.values.get(position).getTipo());
+        txtNamePlace.setText(this.values.get(position).getLugar().getNombre());
+        txtTypePlace.setText(this.values.get(position).getLugar().getTipo());
+        keyLugar = this.values.get(position).getId();
+
         try {
-            downloadFile(this.values.get(position).getId(), imgPlace);
+            downloadFile(Utils.PATH_LUGARES+keyLugar+"/place.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,22 +67,18 @@ public class PlaceAdapter extends ArrayAdapter<Lugar> {
            return rowView;
     }
 
-    private void downloadFile(String id, final ImageView imgUser) throws IOException {
+    public void downloadFile(String path) throws IOException {
         final File localFile = File.createTempFile("images", "jpg");
-        Log.i("TAG ID", id);
-        StorageReference imageRef = mStorageRef.child(IMAGE + id + "/place.jpg");
+        StorageReference imageRef = mStorageRef.child(path);
         imageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                imgUser.setImageURI(Uri.fromFile(localFile));
-                Log.i("FBApp", "succesfully downloaded");
+                imgPlace.setImageURI(Uri.fromFile(localFile));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.i("FBApp", "unsuccesfully downloaded");
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
-    }
-}
+    }}

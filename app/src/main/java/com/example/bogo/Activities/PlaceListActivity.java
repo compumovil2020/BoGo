@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.example.bogo.Adapters.PlaceAdapter;
 import com.example.bogo.Entidades.Lugar;
+import com.example.bogo.Entidades.LugarLista;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,40 +28,39 @@ import java.util.ArrayList;
 
 public class PlaceListActivity extends AppCompatActivity {
 
-    public static final String PLACES = "lugares/";
     DatabaseReference myRef;
     FirebaseDatabase database;
-    ListView listaDisponibles;
+    ListView listaLugares;
     TextView txtPlaces;
-    String tipo = getIntent().getStringExtra("tipo");
-    ArrayList<Lugar> lugares = new ArrayList<>();
+    String tipo;
+    ArrayList<LugarLista> lugares = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_list);
         database = FirebaseDatabase.getInstance();
-        listaDisponibles = findViewById(R.id.listPlaceList);
+        listaLugares = findViewById(R.id.listPlaceList);
         txtPlaces = findViewById(R.id.txtPlaces);
+        tipo = getIntent().getStringExtra("tipo");
         loadPlaces();
     }
 
     public void loadPlaces(){
         txtPlaces.setText(tipo);
-        myRef = database.getReference(PLACES);
+        myRef = database.getReference(Utils.PATH_LUGARES);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Lugar place = singleSnapshot.getValue(Lugar.class);
-                    if(place.getTipo().equals(tipo))
+                    LugarLista place = singleSnapshot.getValue(LugarLista.class);
+                    if(place.getLugar().getTipo().equals(tipo))
                     {
                         lugares.add(place);
                     }
-
-                    PlaceAdapter adapter = new PlaceAdapter(getBaseContext(), lugares);
-                    listaDisponibles.setAdapter(adapter);
                 }
+                PlaceAdapter adapter = new PlaceAdapter(getBaseContext(), lugares);
+                listaLugares.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
