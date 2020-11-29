@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ import com.example.bogo.R;
 import com.example.bogo.Services.ChatJobIntentService;
 import com.example.bogo.Services.LocationJobIntentService;
 
-public class MainMenu extends Fragment {
+public class MainMenuActivity extends Fragment {
     public static String CHANNEL_ID = "BoGo Chat";
     Button rumba;
     Button cafes;
@@ -51,7 +50,8 @@ public class MainMenu extends Fragment {
         rumba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Rumba");
                 startActivity(i);
             }
         });
@@ -59,7 +59,8 @@ public class MainMenu extends Fragment {
         cafes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Cafés");
                 startActivity(i);
             }
         });
@@ -67,7 +68,8 @@ public class MainMenu extends Fragment {
         eventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Sitio Turistico");
                 startActivity(i);
             }
         });
@@ -75,7 +77,8 @@ public class MainMenu extends Fragment {
         turisticos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Sitio Turistico");
                 startActivity(i);
             }
         });
@@ -83,7 +86,8 @@ public class MainMenu extends Fragment {
         restaurantes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Restaurante");
                 startActivity(i);
             }
         });
@@ -91,7 +95,8 @@ public class MainMenu extends Fragment {
         parques.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Parque");
                 startActivity(i);
             }
         });
@@ -99,13 +104,11 @@ public class MainMenu extends Fragment {
         recomendados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),PlaceList.class);
+                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+                i.putExtra("tipo","Sitio Turistico");
                 startActivity(i);
             }
         });
-
-
-
 
         return view;
     }

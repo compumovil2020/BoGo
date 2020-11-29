@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         btnBuscar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent (getBaseContext(), PlaceList.class);
+                Intent intent = new Intent (getBaseContext(), PlaceListActivity.class);
                 startActivity(intent);
             }
         });
