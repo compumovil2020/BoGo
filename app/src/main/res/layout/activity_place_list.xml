@@ -31,22 +31,22 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
-                android:text="Lugares"
+                android:hint="Places"
                 android:textColor="@android:color/black"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/llPlace1"
+            <ListView
+                android:id="@+id/listPlaceList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
-                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtPlaces"></LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/txtPlaces" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
