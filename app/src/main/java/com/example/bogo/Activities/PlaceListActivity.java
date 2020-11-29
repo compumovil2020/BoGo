@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.bogo.Adapters.PlaceAdapter;
 import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,39 +30,40 @@ public class PlaceListActivity extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
     ListView listaDisponibles;
-    ValueEventListener usuario;
-    private FirebaseAuth mAuth;
+    TextView txtPlaces;
+    String tipo = getIntent().getStringExtra("tipo");
     ArrayList<Lugar> lugares = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_list);
-
         database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
         listaDisponibles = findViewById(R.id.listPlaceList);
-        //loadPlaces();
+        txtPlaces = findViewById(R.id.txtPlaces);
+        loadPlaces();
     }
-/*
+
     public void loadPlaces(){
+        txtPlaces.setText(tipo);
         myRef = database.getReference(PLACES);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Lugar place = singleSnapshot.getValue(Lugar.class);
-                    Log.i(TAG, "Encontró usuario: " + myUser.getName());
-                    String name = myUser.getName();
-                    int age = myUser.getAge();
-                    Toast.makeText(MapHomeActivity.this, name + ":" + age, Toast.LENGTH_SHORT).show();
+                    if(place.getTipo().equals(tipo))
+                    {
+                        lugares.add(place);
+                    }
+
+                    PlaceAdapter adapter = new PlaceAdapter(getBaseContext(), lugares);
+                    listaDisponibles.setAdapter(adapter);
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "error en la consulta", databaseError.toException());
             }
         });
-    }*/
+    }
 }

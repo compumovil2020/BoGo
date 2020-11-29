@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imgAmorPerfecto"
+            android:id="@+id/imgPlace"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/txtVerMas"
-            app:layout_constraintStart_toEndOf="@+id/imgAmorPerfecto"
+            app:layout_constraintStart_toEndOf="@+id/imgPlace"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
