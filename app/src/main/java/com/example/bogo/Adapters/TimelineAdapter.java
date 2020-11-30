@@ -53,7 +53,6 @@ public class TimelineAdapter extends ArrayAdapter<TimeLineActivity.ComponentesLi
                 rowView.getContext().startActivity(i);
             }
         });
-
         return rowView;
     }
 }

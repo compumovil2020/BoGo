@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAutor" />
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/imageStarts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,7 +77,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textTitulo"
         app:layout_constraintTop_toTopOf="@+id/textTitulo"
-        app:srcCompat="@drawable/stars" />
+        app:srcCompat="@drawable/stars"
+        android:orientation="horizontal" />
 
     <ImageView
         android:id="@+id/imageReview"

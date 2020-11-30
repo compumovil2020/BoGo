@@ -2,6 +2,8 @@ package com.example.bogo.Entidades;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
+
 public class Lugar {
     String correoElectronico;
     String descripcion;
@@ -16,13 +18,14 @@ public class Lugar {
     String tipo;
     int precioMaximo;
     int precioMinimo;
+    ArrayList<String> resenias;
 
     public Lugar()
     {
 
     }
 
-    public Lugar(String correoElectronico, String descripcion, String direccion, String horaApertura, String horaCierre, double latitud, double longitud, String nombre, double promedio, long telefono, String tipo, int precioMaximo, int precioMinimo) {
+    public Lugar(String correoElectronico, String descripcion, String direccion, String horaApertura, String horaCierre, double latitud, double longitud, String nombre, double promedio, long telefono, String tipo, int precioMaximo, int precioMinimo, ArrayList<String> resenias) {
         this.correoElectronico = correoElectronico;
         this.descripcion = descripcion;
         this.direccion = direccion;
@@ -36,6 +39,7 @@ public class Lugar {
         this.tipo = tipo;
         this.precioMaximo = precioMaximo;
         this.precioMinimo = precioMinimo;
+        this.resenias = resenias;
     }
 
     public String getCorreoElectronico() {
@@ -140,6 +144,10 @@ public class Lugar {
     public void setPrecioMinimo(int precioMinimo) {
         this.precioMinimo = precioMinimo;
     }
+
+    public ArrayList<String> getResenias() { return resenias; }
+
+    public void setResenias(ArrayList<String> resenias) { this.resenias = resenias; }
 
     @Override
     @Exclude

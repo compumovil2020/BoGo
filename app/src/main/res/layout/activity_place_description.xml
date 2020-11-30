@@ -29,8 +29,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/buffalo1" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtPlaceTitle"
@@ -44,13 +43,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgPlaceDescription" />
 
-            <ImageView
+            <LinearLayout
                 android:id="@+id/imgStars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtPlaceTitle"
-                app:srcCompat="@drawable/stars" />
+                android:orientation="horizontal" />
 
             <TextView
                 android:id="@+id/txtPlaceDescription"
@@ -59,7 +58,7 @@
                 android:layout_marginTop="16dp"
                 android:text="BW® ha logrado posicionarse como líder en categoría de alitas en la ciudad de Bogotá. ¡Los Expertos en servir las famosas ‘Buffalo Wings’ con un estilo tan propio que logra marcar la diferencia!"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgStars" />
+                    app:layout_constraintTop_toBottomOf="@+id/imgStars" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -205,7 +204,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCalificar" />
 
-            <LinearLayout
+            <ListView
                 android:id="@+id/llOtrasResenas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,9 +213,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtOtrasReseñas">
-
-
-            </LinearLayout>
+            </ListView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

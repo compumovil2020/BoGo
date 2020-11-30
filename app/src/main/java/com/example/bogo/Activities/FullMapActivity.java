@@ -175,7 +175,7 @@ public class FullMapActivity extends Fragment {
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
                         Intent n = new Intent(view.getContext(), PlaceDescriptionActivity.class);
-                        n.putExtra("key", keyLugares.get(index));
+                        n.putExtra("keyLugar", keyLugares.get(index));
                         startActivity(n);
                         return false;
                     }

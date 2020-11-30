@@ -2,6 +2,7 @@ package com.example.bogo.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -14,10 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bogo.Adapters.ReviewAdapter;
+import com.example.bogo.Adapters.TimelineAdapter;
 import com.example.bogo.Entidades.Lugar;
+import com.example.bogo.Entidades.Resenia;
 import com.example.bogo.R;
 import com.example.bogo.Utils.PermissionsManager;
 import com.example.bogo.Utils.Utils;
@@ -35,16 +40,18 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PlaceDescriptionActivity extends AppCompatActivity
 {
 
-    LinearLayout llResenas;
+    LinearLayout  imgStars;
     Button btnVerMapa, btnCalificar, btnAddFavorite, btnAddWish, btnAddVisited,
            btnCorreo, btnTelefono;
     ImageView imgPlaceDescription;
     TextView txtPlaceTitle, txtPlaceDescription, txtHorario, txtPrecios, txtDireccion,
              txtContacto, txtTelefono, txtCorreo;
+    ListView llResenas;
 
     String keyLugar;
     FirebaseAuth auth;
@@ -52,6 +59,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
     DatabaseReference myRef;
     StorageReference mStorageRef;
     Lugar lugar;
+    ArrayList<listaReviews> contenido = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +87,9 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         txtTelefono = findViewById(R.id.txtTelefono);
         txtCorreo = findViewById(R.id.txtCorreo);
 
-        keyLugar = getIntent().getStringExtra("key");
+        imgStars = findViewById(R.id.imgStars);
+
+        keyLugar = getIntent().getStringExtra("keyLugar");
         //Toast.makeText(getBaseContext(), "Mostrar: "+keyLugar, Toast.LENGTH_LONG).show();
 
         auth = FirebaseAuth.getInstance();
@@ -151,24 +161,6 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             }
         });
 
-        for(int i = 0; i < 10; i++)
-        {
-            View child = getLayoutInflater().inflate(R.layout.review_layout, null);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 0, 0, 50);
-            child.setLayoutParams(params);
-            child.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getBaseContext(), SeeReview.class);
-                    startActivity(intent);
-                }
-            });
-            llResenas.addView(child);
-        }
 
     }
 
@@ -206,7 +198,19 @@ public class PlaceDescriptionActivity extends AppCompatActivity
                         txtDireccion.setText(lugar.getDireccion());
                         txtTelefono.setText(String.valueOf(lugar.getTelefono()));
                         txtCorreo.setText(lugar.getCorreoElectronico());
+                        imgStars.addView(Utils.getStarRate(lugar.getPromedio(), getBaseContext()));
+                        if(lugar.getResenias()!=null){
+                            obtenerReviews();
+                        }
+
+                        //imgStars = Utils.getStarRate(lugar.getPromedio(), getBaseContext());
                         //btnAddFavorite.setEnabled(false);
+                        Log.i("keyPlace", keyLugar);
+                        try {
+                            downloadPhoto(Utils.PATH_LUGARES+keyLugar+"/place.jpg");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -215,11 +219,31 @@ public class PlaceDescriptionActivity extends AppCompatActivity
 
             }
         });
-        try {
-            downloadPhoto(Utils.PATH_LUGARES+keyLugar+"/place.jpg");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
+
+    void obtenerReviews()
+    {
+        myRef = database.getReference(Utils.PATH_RESENIAS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    Resenia r = dataSnap.getValue(Resenia.class);
+                    for (String aux: lugar.getResenias()) {
+                        if(aux.equals(dataSnap.getKey())){
+                            listaReviews nuevo = new listaReviews(r, dataSnap.getKey(), lugar.getNombre());
+                            contenido.add(nuevo);
+                        }
+                    }
+                }
+                ReviewAdapter adapter = new ReviewAdapter(getBaseContext(), contenido);
+                llResenas.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void downloadPhoto(String path) throws IOException {
@@ -236,5 +260,41 @@ public class PlaceDescriptionActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    public class listaReviews{
+        Resenia rese;
+        String key;
+        String lieu;
+
+        public listaReviews(Resenia rese, String key, String lieu) {
+            this.rese = rese;
+            this.key = key;
+            this.lieu = lieu;
+        }
+
+        public Resenia getRese() {
+            return rese;
+        }
+
+        public void setRese(Resenia rese) {
+            this.rese = rese;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getLieu() {
+            return lieu;
+        }
+
+        public void setLieu(String lieu) {
+            this.lieu = lieu;
+        }
     }
 }
