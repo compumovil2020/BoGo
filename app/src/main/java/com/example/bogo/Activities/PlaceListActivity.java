@@ -54,6 +54,7 @@ public class PlaceListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     LugarLista place = singleSnapshot.getValue(LugarLista.class);
+                    Log.i("LugarLista" + place.getLugar().getTipo(), "Tipo" + tipo);
                     if(place.getLugar().getTipo().equals(tipo))
                     {
                         lugares.add(place);

@@ -28,13 +28,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PlaceAdapter extends ArrayAdapter<Lugar> {
+public class PlaceAdapter extends ArrayAdapter<LugarLista> {
 
     private final Context context;
     private final ArrayList<LugarLista> values;
     private StorageReference mStorageRef;
     String keyLugar;
-
+    TextView txtNamePlace;
+    TextView txtTypePlace;
+    ImageView imgPlace;
 
     public PlaceAdapter(Context context, ArrayList<LugarLista> values) {
         super(context, R.layout.adapter_place, values);
@@ -49,9 +51,9 @@ public class PlaceAdapter extends ArrayAdapter<Lugar> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.adapter_place, parent, false);
 
-        TextView txtNamePlace = rowView.findViewById(R.id.textNamePlace);
-        TextView txtTypePlace = rowView.findViewById(R.id.txtTypePlace);
-        ImageView imgPlace = rowView.findViewById(R.id.imgPlace);
+        txtNamePlace = rowView.findViewById(R.id.textNamePlace);
+        txtTypePlace = rowView.findViewById(R.id.txtTypePlace);
+        imgPlace = rowView.findViewById(R.id.imgPlace);
 
 
         txtNamePlace.setText(this.values.get(position).getLugar().getNombre());
