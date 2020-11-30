@@ -137,7 +137,6 @@ public class DropMenuActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("TEMPERATURA", ""+(response != null));
                         if( response != null)
                         {
                             try {
