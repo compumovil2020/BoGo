@@ -23,10 +23,15 @@
         app:menu="@menu/activity_main_drawer">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+            <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:padding="16dp">
 
             <ImageView
@@ -51,6 +56,19 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ivInferior"
                 app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txtWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/cl_logout"
+                android:ellipsize="none"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:maxLines="100"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

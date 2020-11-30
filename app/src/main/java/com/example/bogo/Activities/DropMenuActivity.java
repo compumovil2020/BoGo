@@ -3,12 +3,19 @@ package com.example.bogo.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
 import com.example.bogo.Utils.Utils;
@@ -36,6 +43,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -47,7 +57,7 @@ public class DropMenuActivity extends AppCompatActivity {
     DatabaseReference myRef;
     StorageReference mStorageRef;
 
-    TextView name, username, points;
+    TextView name, username, points, txtWeather;
     ImageView profilePicture;
     private Usuario usuario;
 
@@ -111,9 +121,55 @@ public class DropMenuActivity extends AppCompatActivity {
         username = clProfile.findViewById(R.id.txtUsernameProfile);
         points = clProfile.findViewById(R.id.txtNumPuntosProfile);
         profilePicture = clProfile.findViewById(R.id.imgDropMenuFoto);
+        txtWeather = findViewById(R.id.txtWeather);
 
         getUserInfo();
+        getWeatherInfo();
 
+    }
+
+    private void getWeatherInfo()
+    {
+        Log.i("TEMPERATURA", "ENTRE A F");
+        String requestURL = "http://api.weatherapi.com/v1/current.json?key=b0f85ca5e6d54127bd6134426203011&q=Bogota&lang=es";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, requestURL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("TEMPERATURA", ""+(response != null));
+                        if( response != null)
+                        {
+                            try {
+                                double temp_c = response.getJSONObject("current").getDouble("temp_c");
+                                String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
+
+                                String mensaje = "";
+                                if(temp_c > 18)
+                                {
+                                    mensaje = "Estamos a "+((int)temp_c)+" °C! Mejor lleva algo fresco. El tiempo es "+condition;
+                                }
+                                else
+                                {
+                                    mensaje = "Estamos a "+((int)temp_c)+" °C! Mejor ponte un suéter. El tiempo es "+condition;
+                                }
+                                txtWeather.setText(mensaje);
+
+                            } catch (JSONException e) {
+                                Log.i("TEMPERATURA", "ERROR: "+e.getLocalizedMessage());
+                            }
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("TEMPERATURA", "Error handling rest invocation"+error.getCause());
+                    }
+                }
+        );
+        queue.add(req);
     }
 
     private void getUserInfo()
