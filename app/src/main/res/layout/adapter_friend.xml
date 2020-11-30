@@ -51,5 +51,12 @@
             android:text="ppperez12"
             android:ellipsize="marquee"
             android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/txtKEY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="invisible" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

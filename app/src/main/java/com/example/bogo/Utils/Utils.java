@@ -18,6 +18,8 @@ public class Utils
     public static final String PATH_MENSAJES = "mensajes/" ;
     public static final String PATH_OBSERVADORES = "observadores/";
     public static final String PATH_RESENIAS = "resenias/";
+    public static final String PATH_SEGUIDORES = "seguidores/";
+
     public static final int RADIUS_OF_EARTH_KM = 6371;
     public static final String PATH_CUPONES ="cupones/" ;
 

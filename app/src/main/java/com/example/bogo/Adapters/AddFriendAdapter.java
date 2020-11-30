@@ -13,14 +13,16 @@ import android.widget.Toast;
 
 import com.example.bogo.Activities.AddFriendActivity;
 import com.example.bogo.Activities.MyFriendsActivity;
+import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
 import java.util.ArrayList;
 
-public class AddFriendAdapter extends ArrayAdapter<AddFriendActivity.NewFriend> {
+public class AddFriendAdapter extends ArrayAdapter<Usuario> {
     private final Context context;
-    private final ArrayList<AddFriendActivity.NewFriend> values;
+    private final ArrayList<Usuario> values;
 
-    public AddFriendAdapter(Context context, ArrayList<AddFriendActivity.NewFriend> values) {
+
+    public AddFriendAdapter(Context context, ArrayList<Usuario> values) {
         super(context, R.layout.adapter_add_friend,values);
         this.context = context;
         this.values = values;
@@ -36,7 +38,7 @@ public class AddFriendAdapter extends ArrayAdapter<AddFriendActivity.NewFriend> 
         final ImageButton imgAdd = rowView.findViewById(R.id.imgAdd);
 
         txtFriendName.setText(this.values.get(position).getNombre());
-        txtFriendUser.setText(this.values.get(position).getUser());
+        txtFriendUser.setText(this.values.get(position).getNombreUsuario());
         imgFriend.setImageResource(R.drawable.ic_profilepic);
         imgAdd.setImageResource(R.drawable.ic_plus);
 
