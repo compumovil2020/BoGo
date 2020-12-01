@@ -11,25 +11,29 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginHorizontal="10dp"
+        android:paddingVertical="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgPlace"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/adding_svg" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/txtVerMas"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgPlace"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,14 +45,6 @@
                 android:hint="Name Place"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/stars" />
 
             <TextView
                 android:id="@+id/txtTypePlace"

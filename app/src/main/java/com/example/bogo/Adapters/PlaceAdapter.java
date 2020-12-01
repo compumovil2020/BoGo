@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.bogo.Activities.PlaceDescriptionActivity;
 import com.example.bogo.Entidades.Lugar;
 import com.example.bogo.Entidades.LugarLista;
 import com.example.bogo.R;
@@ -53,7 +54,8 @@ public class PlaceAdapter extends ArrayAdapter<LugarLista> {
 
         txtNamePlace = rowView.findViewById(R.id.textNamePlace);
         txtTypePlace = rowView.findViewById(R.id.txtTypePlace);
-        imgPlace = rowView.findViewById(R.id.imgPlace);
+        ImageView imgLugar = rowView.findViewById(R.id.imgPlace);
+        TextView verMas = rowView.findViewById(R.id.txtVerMas);
 
 
         txtNamePlace.setText(this.values.get(position).getLugar().getNombre());
@@ -61,21 +63,32 @@ public class PlaceAdapter extends ArrayAdapter<LugarLista> {
         keyLugar = this.values.get(position).getId();
 
         try {
-            downloadFile(Utils.PATH_LUGARES+keyLugar+"/place.jpg");
+            downloadFile(imgLugar,Utils.PATH_LUGARES+this.values.get(position).getId()+"/place.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        verMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PlaceDescriptionActivity.class);
+                intent.putExtra("keyLugar",values.get(position).getId());
+                getContext().startActivity(intent);
+            }
+        });
+
+
+
            return rowView;
     }
 
-    public void downloadFile(String path) throws IOException {
+    public void downloadFile(final ImageView imgLugar, String path) throws IOException {
         final File localFile = File.createTempFile("images", "jpg");
         StorageReference imageRef = mStorageRef.child(path);
         imageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                imgPlace.setImageURI(Uri.fromFile(localFile));
+                imgLugar.setImageURI(Uri.fromFile(localFile));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

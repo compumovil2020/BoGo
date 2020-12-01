@@ -47,10 +47,13 @@ public class MainMenuActivity extends Fragment {
         Intent intent2 = new Intent(view.getContext(), LocationJobIntentService.class);
         LocationJobIntentService.enqueueWork(view.getContext(), intent2);
 
+        final Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+        i.putExtra("caller","main");
+
         rumba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
+
                 i.putExtra("tipo","Rumba");
                 startActivity(i);
             }
@@ -59,7 +62,6 @@ public class MainMenuActivity extends Fragment {
         cafes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
                 i.putExtra("tipo","Cafés");
                 startActivity(i);
             }
@@ -68,7 +70,6 @@ public class MainMenuActivity extends Fragment {
         eventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
                 i.putExtra("tipo","Sitio Turistico");
                 startActivity(i);
             }
@@ -77,7 +78,6 @@ public class MainMenuActivity extends Fragment {
         turisticos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
                 i.putExtra("tipo","Sitio Turistico");
                 startActivity(i);
             }
@@ -86,7 +86,6 @@ public class MainMenuActivity extends Fragment {
         restaurantes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
                 i.putExtra("tipo","Restaurante");
                 startActivity(i);
             }
@@ -95,7 +94,6 @@ public class MainMenuActivity extends Fragment {
         parques.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
                 i.putExtra("tipo","Parque");
                 startActivity(i);
             }
@@ -104,8 +102,7 @@ public class MainMenuActivity extends Fragment {
         recomendados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), PlaceListActivity.class);
-                i.putExtra("tipo","Sitio Turistico");
+                i.putExtra("tipo","Recomendados");
                 startActivity(i);
             }
         });
