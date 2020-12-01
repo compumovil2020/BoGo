@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageCuadro" />
 
             <TextView
-                android:id="@+id/textNombre"
+                android:id="@+id/textNombreRes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -60,6 +60,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageCuadro" />
 
             <EditText
+                android:id="@+id/edtTituloResenia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Título"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/edtComentario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textNombreRes" />
+
+            <EditText
                 android:id="@+id/edtComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,8 +81,9 @@
                 android:hint="Escribe aquí..."
                 android:lines="4"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textNombre" />
+                app:layout_constraintTop_toBottomOf="@+id/edtTituloResenia" />
 
             <TextView
                 android:id="@+id/textCalificacion"
@@ -94,40 +108,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textCalificacion">
 
-                <ImageView
-                    android:id="@+id/imageStar1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                <Spinner
+                    android:id="@+id/spnCal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/star0_svg" />
-
-                <ImageView
-                    android:id="@+id/imageStar2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/star0_svg" />
-
-                <ImageView
-                    android:id="@+id/imageStar3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/star0_svg" />
-
-                <ImageView
-                    android:id="@+id/imageStar4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/star0_svg" />
-
-                <ImageView
-                    android:id="@+id/imageStar5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/star0_svg" />
+                    android:entries="@array/calificaciones"
+                    />
             </LinearLayout>
 
 
