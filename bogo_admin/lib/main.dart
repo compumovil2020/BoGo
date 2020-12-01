@@ -1,4 +1,4 @@
-import 'package:bogo_admin/review.dart';
+import 'review.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,12 @@ import 'Utils/colors.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-void main()  {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+void main()
+{
+  runApp(Login());
 }
 
-class MyApp extends StatelessWidget {
+class Login extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -69,6 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
+      FirebaseAuth.instance.onAuthStateChanged.listen((firebaseUser) {
+        if(firebaseUser != null)
+        {
+          Navigator.push( context,
+            MaterialPageRoute<void>(builder: (_) => ReviewActivity()),
+          );
+        }
+      });
       setState(() {
         _initialized = true;
       });
@@ -86,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
     tecCorreo = TextEditingController();
     tecPassword = TextEditingController();
     initializeFlutterFire();
+
+
     super.initState();
   }
 
@@ -94,16 +104,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // Show error message if initialization failed
     if(_error) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Text(msg)
-            ],
+          appBar: AppBar(
+            title: Text(widget.title),
           ),
-        )
+          body: Center(
+            child: Column(
+              children: [
+                Text(msg)
+              ],
+            ),
+          )
       );
     }
 
@@ -135,52 +145,52 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset("assets/images/bogologo.png"),
-            Text(
-              'Iniciar Sesión',
-              style: Theme.of(context).textTheme.headline4.merge( TextStyle( color: Colors.black, fontWeight: FontWeight.bold)),
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("assets/images/bogologo.png"),
+              Text(
+                'Iniciar Sesión',
+                style: Theme.of(context).textTheme.headline4.merge( TextStyle( color: Colors.black, fontWeight: FontWeight.bold)),
 
-            ),
-            TextField(
-              controller: tecCorreo,
-              decoration: InputDecoration(
-                hintText: "Correo electrónico",
               ),
-            ),
-            TextField(
-              controller: tecPassword,
-              decoration: InputDecoration(
-                hintText: "Contraseña",
+              TextField(
+                controller: tecCorreo,
+                decoration: InputDecoration(
+                  hintText: "Correo electrónico",
+                ),
               ),
-              obscureText: true,
-            ),
-            RaisedButton(
+              TextField(
+                controller: tecPassword,
+                decoration: InputDecoration(
+                  hintText: "Contraseña",
+                ),
+                obscureText: true,
+              ),
+              RaisedButton(
                 onPressed: _signInWithEmailAndPassword,
                 child: Text("Iniciar sesión"),
                 color: CustomColors.createMaterialColor(CustomColors.BogoRed),
-            )
-          ],
+              )
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -194,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
       )).user;
 
       Navigator.push( context,
-        MaterialPageRoute<void>(builder: (_) => ReviewActivity(upperLimit: 20,)),
+        MaterialPageRoute<void>(builder: (_) => ReviewActivity()),
       );
     } catch (e) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
