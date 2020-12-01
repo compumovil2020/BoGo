@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import com.example.bogo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+
+import okhttp3.internal.Util;
 
 public class AddReviewActivity extends AppCompatActivity {
 
@@ -157,13 +160,22 @@ public class AddReviewActivity extends AppCompatActivity {
                 keyUser,
                 user.getNombreUsuario(),
                 edtTitulo.getText().toString());
-        if(!res.equals(null)){
+        if(res.equals(null)){
             Log.i("RESEÑA", "Mi reseña está nula :(");
         }
-        myRef = database.getReference(Utils.PATH_RESENIAS + keyLugar + "/");
+
+        myRef = database.getReference(Utils.PATH_RESENIAS + "/");
         String keyRes = myRef.push().getKey();
-        Log.i("RESEÑA AGREAGADA","agregué la reseña con ID: " +keyRes);
+        myRef = database.getReference(Utils.PATH_RESENIAS + "/"+ keyRes);
+        Log.i("RESEÑA AGREAGADA","agregué la reseña con ID: " + keyRes);
         myRef.setValue(res);
+
+        ArrayList<String> a = lugar.getResenias();
+        a.add(keyRes);
+        lugar.setResenias(a);
+        myRef = database.getReference(Utils.PATH_LUGARES + "/" + keyLugar);
+        myRef.setValue(lugar);
+        
     }
 
     private boolean validateForm()
