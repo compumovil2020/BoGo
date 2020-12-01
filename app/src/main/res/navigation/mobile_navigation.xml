@@ -17,7 +17,7 @@
         tools:layout="@layout/activity_time_line" />
     <fragment
         android:id="@+id/mainMenu"
-        android:name="com.example.bogo.Activities.MainMenu"
+        android:name="com.example.bogo.Activities.MainMenuActivity"
         android:label="activity_main_menu"
         tools:layout="@layout/activity_main_menu" />
     <fragment

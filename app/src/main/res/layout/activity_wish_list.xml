@@ -8,47 +8,56 @@
     tools:context=".Activities.WishList"
     android:background="@color/colorBg">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/txtNoDeseos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista de deseos está vacía"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtListaDeseos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Lista de Deseos"
+            android:textColor="@color/colorBlack"
+            android:textSize="28sp" />
 
-            <TextView
-                android:id="@+id/txtListaDeseos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Lista de Deseos"
-                android:textColor="@color/colorBlack"
-                android:textSize="28sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imgDropMenuFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:foregroundGravity="clip_vertical"
+            app:srcCompat="@drawable/ic_btnwishlist" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgDropMenuFoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtListaDeseos"
-                app:layout_constraintStart_toEndOf="@+id/txtListaDeseos"
-                app:layout_constraintTop_toTopOf="@+id/txtListaDeseos"
-                app:srcCompat="@drawable/ic_btnwishlist" />
-
-            <LinearLayout
-                android:id="@+id/llWishList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtListaDeseos"></LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    <ListView
+        android:id="@+id/lstWish"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

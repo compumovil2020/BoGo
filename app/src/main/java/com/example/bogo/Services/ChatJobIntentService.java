@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.bogo.Activities.ChatActivity;
-import com.example.bogo.Activities.MainMenu;
+import com.example.bogo.Activities.MainMenuActivity;
 import com.example.bogo.Entidades.Mensaje;
 import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
@@ -28,7 +27,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
 /**
@@ -188,7 +186,7 @@ public class ChatJobIntentService extends JobIntentService {
 
     public void  buildAndShowNotification(Usuario remitente, Mensaje mensaje)
     {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, MainMenu.CHANNEL_ID);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, MainMenuActivity.CHANNEL_ID);
         mBuilder.setSmallIcon(R.drawable.bogoround);
         mBuilder.setContentTitle(remitente.getNombre());
         mBuilder.setContentText(mensaje.getTexto());

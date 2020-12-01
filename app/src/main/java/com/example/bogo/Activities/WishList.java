@@ -10,49 +10,90 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.bogo.Adapters.PlaceAdapter;
+import com.example.bogo.Entidades.Lugar;
+import com.example.bogo.Entidades.LugarLista;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class WishList extends Fragment {
-
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    FirebaseAuth mAuth;
+    ListView listWish;
+    TextView txtNoDes;
+    ArrayList<LugarLista> lugares;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_wish_list, container, false);
 
-        LinearLayout llWishPlace = view.findViewById(R.id.llWishList);
-
-        for(int i = 0; i < 3; i++)
-        {
-            View child = getLayoutInflater().inflate(R.layout.layout_wish_list, null);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 0, 0, 10);
-            child.setLayoutParams(params);
-
-            ConstraintLayout ClWishlist1 = child.findViewById(R.id.constraintLayout5);
-            ClWishlist1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), PlaceDescriptionActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            ConstraintLayout ClWishlist2 = child.findViewById(R.id.ConstraintLayout6);
-            ClWishlist2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), PlaceDescriptionActivity.class);
-                    startActivity(intent);
-                }
-            });
-            llWishPlace.addView(child);
-        }
-
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        listWish = view.findViewById(R.id.lstWish);
+        txtNoDes = view.findViewById(R.id.txtNoDeseos);
+        lugares = new ArrayList<>();
+        loadMisDes(mAuth.getUid());
 
         return view;
+    }
+
+    public void loadMisDes(String uid){
+        myRef = database.getReference(Utils.PATH_DESEOS+uid);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> keyLugares = new ArrayList<>();
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    keyLugares.add(singleSnapshot.getValue(String.class));
+                }
+                loadPlaces(keyLugares);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void loadPlaces(final ArrayList<String> keyLugares) {
+        myRef = database.getReference(Utils.PATH_LUGARES);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Lugar lugar = singleSnapshot.getValue(Lugar.class);
+                    LugarLista des = new LugarLista(lugar,singleSnapshot.getKey());
+                    for (String lug:keyLugares)
+                    {
+                        if(des.getId().equals(lug))
+                        {
+                            lugares.add(des);
+                        }
+                    }
+                }
+                if(lugares.isEmpty())
+                {
+                    txtNoDes.setVisibility(View.VISIBLE);
+                }
+                PlaceAdapter adapter = new PlaceAdapter(getContext(), lugares);
+                listWish.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
 }

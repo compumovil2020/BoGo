@@ -1,5 +1,7 @@
 package com.example.bogo.Entidades;
 
+import java.util.ArrayList;
+
 public class Usuario
 {
     private double latitud;
@@ -7,16 +9,26 @@ public class Usuario
     private String nombre;
     private String nombreUsuario;
     private int puntos;
+    private ArrayList<String> cupones;
 
     public Usuario() {
     }
 
-    public Usuario(double latitud, double longitud, String nombre, String nombreUsuario, int puntos) {
+    public Usuario(double latitud, double longitud, String nombre, String nombreUsuario, int puntos,ArrayList<String>cupones) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.puntos = puntos;
+        this.cupones = cupones;
+    }
+
+    public ArrayList<String> getCupones() {
+        return cupones;
+    }
+
+    public void setCupones(ArrayList<String> cupones) {
+        this.cupones = cupones;
     }
 
     public double getLatitud() {
