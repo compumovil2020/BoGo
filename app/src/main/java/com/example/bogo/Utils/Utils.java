@@ -20,6 +20,7 @@ public class Utils
     public static final String PATH_RESENIAS = "resenias/";
     public static final int RADIUS_OF_EARTH_KM = 6371;
     public static final String PATH_CUPONES ="cupones/" ;
+    public static final String PATH_LUGARES_PENDIENTES = "lugaresPendientes/";
 
     public static boolean validateEmail(String email)
     {

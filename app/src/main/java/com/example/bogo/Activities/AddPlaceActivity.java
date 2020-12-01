@@ -220,9 +220,9 @@ public class AddPlaceActivity extends Fragment {
         lugar.setPrecioMinimo(Integer.parseInt(editTextPrecioMinimo.getText().toString()));
         lugar.setPrecioMaximo(Integer.parseInt(editTextPrecioMaximo.getText().toString()));
 
-        myRef = database.getReference(Utils.PATH_LUGARES);
+        myRef = database.getReference(Utils.PATH_LUGARES_PENDIENTES);
         String key = myRef.push().getKey();
-        myRef = database.getReference(Utils.PATH_LUGARES+key);
+        myRef = database.getReference(Utils.PATH_LUGARES_PENDIENTES+key);
         myRef.setValue(lugar);
         uploadFile(key);
         startActivity(new Intent(view.getContext(), DropMenuActivity.class));
