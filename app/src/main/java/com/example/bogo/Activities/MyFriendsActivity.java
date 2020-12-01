@@ -135,8 +135,8 @@ public class MyFriendsActivity extends AppCompatActivity {
             return usuario;
         }
 
-        public void setUsuario(Usuario visitado) {
-            this.usuario = visitado;
+        public void setUsuario(Usuario usuario) {
+            this.usuario = usuario;
         }
 
         public String getKey() {
