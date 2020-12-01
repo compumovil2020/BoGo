@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "937608487681",
+    "firebase_url": "https://bogo-e818d.firebaseio.com",
+    "project_id": "bogo-e818d",
+    "storage_bucket": "bogo-e818d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937608487681:android:deb5c4a9214d4c897eb100",
+        "android_client_info": {
+          "package_name": "com.example.bogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937608487681-25mk7ahhc8jvfmug2p7rogn653e5b8l7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bogo",
+            "certificate_hash": "cdd145212a4573bef10409f4d525e9c2f7c5b9cd"
+          }
+        },
+        {
+          "client_id": "937608487681-lb3oqrpnrj80kee954cg07ucuu4re5ht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bogo",
+            "certificate_hash": "e150994b91a37a5c171ca033892f881183566c93"
+          }
+        },
+        {
+          "client_id": "937608487681-atcm9kd42omsso0ihgsc05djg5fse29i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1CiHTX7ze_9BXihVtagh541QblOCJk_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937608487681-atcm9kd42omsso0ihgsc05djg5fse29i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937608487681:android:383a37801405fd787eb100",
+        "android_client_info": {
+          "package_name": "com.example.bogo_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937608487681-58avpnvlpi0ake1j2uacgjalas8oipq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bogo_admin",
+            "certificate_hash": "cdd145212a4573bef10409f4d525e9c2f7c5b9cd"
+          }
+        },
+        {
+          "client_id": "937608487681-atcm9kd42omsso0ihgsc05djg5fse29i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1CiHTX7ze_9BXihVtagh541QblOCJk_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937608487681-atcm9kd42omsso0ihgsc05djg5fse29i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
