@@ -198,22 +198,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Otras Reseñas:"
+                android:text="Reseñas:"
                 android:textColor="@color/bogoYellow"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCalificar" />
 
-            <ListView
-                android:id="@+id/llOtrasResenas"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtOtrasReseñas">
-            </ListView>
+
+                <ListView
+                    android:id="@+id/llOtrasResenas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"></ListView>
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
