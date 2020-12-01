@@ -14,38 +14,49 @@ class ReviewActivity extends StatefulWidget
   @override
   ReviewState createState() => ReviewState();
 }
-var pepe = [];
+var places = [];
 class ReviewState extends State<ReviewActivity>
 {
-  final myRef = FirebaseDatabase.instance.reference().child("lugares");
-  var _loaded;
+  final myRef = FirebaseDatabase.instance.reference().child("lugaresPendientes");
+  bool _loaded, _empty;
   @override
   void initState() {
     _loaded = false;
-    myRef.once().then((DataSnapshot dataSnapshot)
+    _empty = false;
+    myRef.onValue.listen((event)
     {
+      DataSnapshot dataSnapshot = event.snapshot;
       setState(() {
         _loaded = true;
-        Map<dynamic, dynamic> map = dataSnapshot.value;
-        for(var entry in map.entries)
-        {
-          var place = entry.value;
-          Lugar l = Lugar();
-          l.descripcion = place["descripcion"];
-          l.nombre = place["nombre"];
-          l.correoElectronico = place["correoElectronico"];
-          l.direccion = place["direccion"];
-          l.horaApertura = place["horaApertura"];
-          l.horaCierre = place["horaCierre"];
-          l.latitud = place["latitud"];
-          l.longitud = place["longitud"];
-          l.precioMaximo = place["precioMaximo"];
-          l.precioMinimo = place["precioMinimo"];
-          l.promedio = place["promedio"].toDouble();
-          l.telefono = place["telefono"];
-          l.tipo = place["tipo"];
-          l.key = entry.key;
-          pepe.add(l);
+        _empty = false;
+        print(dataSnapshot.value);
+        if(dataSnapshot.value != null) {
+          Map<dynamic, dynamic> map = dataSnapshot.value;
+          places = [];
+          for (var entry in map.entries) {
+            var place = entry.value;
+            Lugar l = Lugar();
+            l.descripcion = place["descripcion"];
+            l.nombre = place["nombre"];
+            l.correoElectronico = place["correoElectronico"];
+            l.direccion = place["direccion"];
+            l.horaApertura = place["horaApertura"];
+            l.horaCierre = place["horaCierre"];
+            l.latitud = place["latitud"];
+            l.longitud = place["longitud"];
+            l.precioMaximo = place["precioMaximo"];
+            l.precioMinimo = place["precioMinimo"];
+            l.promedio = place["promedio"].toDouble();
+            l.telefono = place["telefono"];
+            l.tipo = place["tipo"];
+            l.key = entry.key;
+            places.add(l);
+          }
+        }
+        else {
+          setState(() {
+            _empty = true;
+          });
         }
       });
     });
@@ -60,7 +71,10 @@ class ReviewState extends State<ReviewActivity>
           backgroundColor: CustomColors.createMaterialColor(CustomColors.BogoRed),
         ),
         body:
-          (_loaded==true ? BodyLayout() : Text("Loading...")),
+        (_loaded == true ?
+          ( _empty != true ? BodyLayout()
+              : Center( child: Text("No hay lugares pendientes", style: Theme.of(context).textTheme.headline5.merge( TextStyle( color: Colors.black, fontWeight: FontWeight.bold))))
+          ) : Text("Loading...", style: Theme.of(context).textTheme.headline4,)),
             );
   }
 }
@@ -75,11 +89,11 @@ class BodyLayout extends StatelessWidget {
 // replace this function with the code in the examples
 Widget _buildItem(BuildContext context) {
   return ListView.builder(
-    itemCount: pepe.length,
+    itemCount: places.length,
     itemBuilder: (context, index) {
       return ListTile(
-        title: Text(pepe[index].nombre, overflow: TextOverflow.fade,),
-        subtitle: Text(pepe[index].descripcion, overflow: TextOverflow.fade, maxLines: 2,),
+        title: Text(places[index].nombre, overflow: TextOverflow.fade,),
+        subtitle: Text(places[index].descripcion, overflow: TextOverflow.fade, maxLines: 2,),
         isThreeLine: true,
         onTap: (){ goToPlaceDescription(context, index); },
       );
@@ -90,6 +104,6 @@ Widget _buildItem(BuildContext context) {
 void goToPlaceDescription(BuildContext context, int index)
 {
   Navigator.push( context,
-    MaterialPageRoute<void>(builder: (_) => PlaceDescriptionActivity( pepe[index] )),
+    MaterialPageRoute<void>(builder: (_) => PlaceDescriptionActivity( places[index] )),
   );
 }
