@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,10 +55,11 @@ public class PlaceAdapter extends ArrayAdapter<LugarLista> {
 
         txtNamePlace = rowView.findViewById(R.id.textNamePlace);
         txtTypePlace = rowView.findViewById(R.id.txtTypePlace);
+        LinearLayout stars = rowView.findViewById(R.id.llstarsPlaceList);
         ImageView imgLugar = rowView.findViewById(R.id.imgPlace);
         TextView verMas = rowView.findViewById(R.id.txtVerMas);
 
-
+        stars.addView(Utils.getStarRate(values.get(position).getLugar().getPromedio(), getContext()));
         txtNamePlace.setText(this.values.get(position).getLugar().getNombre());
         txtTypePlace.setText(this.values.get(position).getLugar().getTipo());
         keyLugar = this.values.get(position).getId();

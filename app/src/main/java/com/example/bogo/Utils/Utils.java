@@ -19,8 +19,6 @@ public class Utils
     public static final String PATH_OBSERVADORES = "observadores/";
     public static final String PATH_RESENIAS = "resenias/";
     public static final int RADIUS_OF_EARTH_KM = 6371;
-    public static final String PATH_FAVORITOS = "favoritos/";
-    public static final String PATH_DESEOS = "deseos/";
     public static final String PATH_CUPONES ="cupones/" ;
 
     public static boolean validateEmail(String email)

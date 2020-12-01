@@ -363,7 +363,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                     //Log.i("visitado", dataSnap.getKey());
-                    deseos.add(dataSnap.getKey());
+                    deseos.add(dataSnap.getValue(String.class));
                 }
             }
             @Override
@@ -378,7 +378,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
                     //Log.i("visitado", dataSnap.getKey());
-                    favoritos.add(dataSnap.getKey());
+                    favoritos.add(dataSnap.getValue(String.class));
                 }
             }
             @Override
