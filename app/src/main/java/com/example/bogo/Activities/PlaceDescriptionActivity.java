@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PlaceDescriptionActivity extends AppCompatActivity
 {
@@ -54,12 +59,16 @@ public class PlaceDescriptionActivity extends AppCompatActivity
     ListView llResenas;
 
     String keyLugar;
+    String keyUser;
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference myRef;
     StorageReference mStorageRef;
     Lugar lugar;
     ArrayList<listaReviews> contenido = new ArrayList<>();
+    ArrayList<String> favoritos = new ArrayList<>();
+    ArrayList<String> deseos = new ArrayList<>();
+    ArrayList<String> visitados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +105,8 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         obtenerLugar();
+        llenarListas();
+
 
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,21 +131,52 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         btnAddFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Agregado a Favoritos!", Toast.LENGTH_LONG).show();
+                if(favoritos.contains(keyLugar)){
+                    Toast.makeText(getBaseContext(), "Ya se encuentra en la Lista de Favoritos!", Toast.LENGTH_LONG).show();
+                }else{
+
+                    //long epoch = new Date().getTime();
+                    //Log.i("Horale", ""+epoch);
+                    favoritos.add(keyLugar);
+                    myRef = database.getReference(Utils.PATH_FAVORITOS+keyUser);
+                    myRef.setValue(favoritos);
+                    //myRef.setValue(epoch);
+                    Toast.makeText(getBaseContext(), "Agregado a Favoritos!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         btnAddWish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Agregado a Lista de Deseos!", Toast.LENGTH_LONG).show();
+                if(deseos.contains(keyLugar)){
+                    Toast.makeText(getBaseContext(), "Ya se encuentra en la Lista de Deseos!", Toast.LENGTH_LONG).show();
+                }else{
+
+                    //long epoch = new Date().getTime();
+                    //Log.i("Horale", ""+epoch);
+                    deseos.add(keyLugar);
+                    myRef = database.getReference(Utils.PATH_DESEOS+keyUser);
+                    myRef.setValue(deseos);
+                    //myRef.setValue(epoch);
+                    Toast.makeText(getBaseContext(), "Agregado a Lista de Deseos!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         btnAddVisited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Agregado a Historial!", Toast.LENGTH_LONG).show();
+                if(visitados.contains(keyLugar)){
+                    Toast.makeText(getBaseContext(), "Ya se encuentra en el Historial!", Toast.LENGTH_LONG).show();
+                }else{
+
+                    long epoch = new Date().getTime();
+                    //Log.i("Horale", ""+epoch);
+                    myRef = database.getReference(Utils.PATH_VISITADOS+keyUser+"/"+keyLugar);
+                    myRef.setValue(epoch);
+                    Toast.makeText(getBaseContext(), "Agregado a Historial!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -296,5 +338,53 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         public void setLieu(String lieu) {
             this.lieu = lieu;
         }
+    }
+
+    void llenarListas(){
+        keyUser = auth.getCurrentUser().getUid();
+        myRef = database.getReference(Utils.PATH_VISITADOS+keyUser);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    //Log.i("visitado", dataSnap.getKey());
+                    visitados.add(dataSnap.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef = database.getReference(Utils.PATH_DESEOS+keyUser);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    //Log.i("visitado", dataSnap.getKey());
+                    deseos.add(dataSnap.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef = database.getReference(Utils.PATH_FAVORITOS+keyUser);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    //Log.i("visitado", dataSnap.getKey());
+                    favoritos.add(dataSnap.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

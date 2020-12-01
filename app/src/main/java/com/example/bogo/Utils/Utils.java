@@ -10,6 +10,8 @@ public class Utils
 {
 
     public static final String PATH_VISITADOS = "visitados/";
+    public static final String PATH_FAVORITOS = "favoritos/";
+    public static final String PATH_DESEOS = "deseos/";
     public static final String PATH_LUGARES = "lugares/";
     public static final String PATH_USUARIOS = "usuarios/";
     public static final String PATH_CHATS = "chats/";
