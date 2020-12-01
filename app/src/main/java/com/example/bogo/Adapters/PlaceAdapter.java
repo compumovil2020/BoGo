@@ -75,6 +75,7 @@ public class PlaceAdapter extends ArrayAdapter<LugarLista> {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PlaceDescriptionActivity.class);
                 intent.putExtra("keyLugar",values.get(position).getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);
             }
         });
