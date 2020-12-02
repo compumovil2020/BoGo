@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 /**
@@ -58,6 +59,9 @@ public class ChatJobIntentService extends JobIntentService {
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        Calendar cal =Calendar.getInstance();
+        ultimo = new Mensaje("ultimo","alguien",cal.getTimeInMillis());
+
         mChats = new ArrayList<>();
         obtenerChats(mAuth.getUid());
 
