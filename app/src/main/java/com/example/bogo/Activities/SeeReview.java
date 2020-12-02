@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class SeeReview extends AppCompatActivity {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 imageReview.setImageURI(Uri.fromFile(localFile));
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
