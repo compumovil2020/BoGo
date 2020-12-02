@@ -67,7 +67,7 @@ class ReviewState extends State<ReviewActivity>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Guess Game"),
+          title: Text("Revisión de lugares"),
           backgroundColor: CustomColors.createMaterialColor(CustomColors.BogoRed),
         ),
         body:
