@@ -124,14 +124,15 @@
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/btnred_svg"
         android:text="Go!"
         android:textColor="@color/bogoYellow"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtConfirmPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -172,5 +173,38 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorBg"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfirmPassword">
+
+        <Button
+            android:id="@+id/btnGalProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0"
+            android:background="@drawable/adding_svg" />
+
+        <Button
+            android:id="@+id/btnCamProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0"
+            android:background="@drawable/ic_camera" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
