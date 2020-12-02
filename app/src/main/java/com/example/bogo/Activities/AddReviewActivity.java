@@ -99,6 +99,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 if(validateForm()){
                     addResenia();
                     Intent intent = new Intent(getBaseContext(), PlaceDescriptionActivity.class);
+                    intent.putExtra("keyLugar", keyLugar);
                     startActivity(intent);
                 }
             }
