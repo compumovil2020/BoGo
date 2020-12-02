@@ -12,6 +12,7 @@ public class Usuario
     private ArrayList<String> cupones;
 
     public Usuario() {
+        this.cupones = new ArrayList<>();
     }
 
     public Usuario(double latitud, double longitud, String nombre, String nombreUsuario, int puntos,ArrayList<String>cupones) {
