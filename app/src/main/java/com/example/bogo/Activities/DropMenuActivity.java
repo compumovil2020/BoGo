@@ -175,7 +175,7 @@ public class DropMenuActivity extends AppCompatActivity {
     {
         String UID = mAuth.getUid();
         myRef = database.getReference(Utils.PATH_USUARIOS+UID);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usuario = snapshot.getValue(Usuario.class);

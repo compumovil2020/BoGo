@@ -3,6 +3,7 @@ package com.example.bogo.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class CuponRedimirAdapter extends ArrayAdapter<Cupon>
             @Override
             public void onClick(View view) {
                 String keyCupon = values.get(position).getId();
+                //Log.i("CUPON", ""+actual.getCupones().size());
                 if(actual.getCupones().contains(keyCupon))
                 {
                     Toast.makeText(getContext(),"Cupon ya redimido",Toast.LENGTH_LONG).show();

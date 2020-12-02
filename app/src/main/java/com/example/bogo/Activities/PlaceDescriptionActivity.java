@@ -69,6 +69,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
     ArrayList<String> favoritos = new ArrayList<>();
     ArrayList<String> deseos = new ArrayList<>();
     ArrayList<String> visitados = new ArrayList<>();
+    int puntos=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         mStorageRef = FirebaseStorage.getInstance().getReference();
         obtenerLugar();
         llenarListas();
-
+        obtenerPuntos();
 
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,12 +171,15 @@ public class PlaceDescriptionActivity extends AppCompatActivity
                 if(visitados.contains(keyLugar)){
                     Toast.makeText(getBaseContext(), "Ya se encuentra en el Historial!", Toast.LENGTH_LONG).show();
                 }else{
-
+                    puntos += 40;
                     long epoch = new Date().getTime();
                     //Log.i("Horale", ""+epoch);
                     myRef = database.getReference(Utils.PATH_VISITADOS+keyUser+"/"+keyLugar);
                     myRef.setValue(epoch);
                     Toast.makeText(getBaseContext(), "Agregado a Historial!", Toast.LENGTH_LONG).show();
+                    keyUser = auth.getCurrentUser().getUid();
+                    myRef = database.getReference(Utils.PATH_USUARIOS+keyUser+"/puntos");
+                    myRef.setValue(puntos);
                 }
             }
         });
@@ -299,6 +303,21 @@ public class PlaceDescriptionActivity extends AppCompatActivity
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    void obtenerPuntos(){
+        keyUser = auth.getCurrentUser().getUid();
+        myRef = database.getReference(Utils.PATH_USUARIOS+keyUser+"/puntos");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    puntos = dataSnapshot.getValue(Integer.class);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
