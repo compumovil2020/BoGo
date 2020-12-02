@@ -128,7 +128,7 @@ public class ChatJobIntentService extends JobIntentService {
     public void obtenerChats(final String uid)
     {
         myRef = database.getReference(Utils.PATH_CHATS);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChats.clear();
