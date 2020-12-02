@@ -1,25 +1,27 @@
 package com.example.bogo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bogo.Adapters.FriendAdapter;
+import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,27 +29,24 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     ListView listFriends;
     Button btnAddFriend;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    private String UidCurrent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_my_friends);
-
+        currentUser = mAuth.getCurrentUser();
+        UidCurrent = currentUser.getUid();
         listFriends = findViewById(R.id.listFriends);
         btnAddFriend = findViewById(R.id.btnAddFriend);
 
-        ArrayList<Friend> contenido = new ArrayList<>();
-        Friend f1 = new Friend("Pepe Pérez", "ppperez12");
-        Friend f2 = new Friend("Julian Parada", "JulianParada");
-        Friend f3 = new Friend("Sebastián Gutiérrez", "sebasgut1");
-        Friend f4 = new Friend("Mónica Álvarez", "monicaleja99");
-        Friend f5 = new Friend("Laura Jiménez", "LauraMJimenezx2");
-        Friend f6 = new Friend("Sergio Mejia", "iSergioMejia");
-        contenido.add(f1); contenido.add(f2); contenido.add(f3);
-        contenido.add(f4); contenido.add(f5); contenido.add(f6);
-
-        FriendAdapter adapter = new FriendAdapter(getBaseContext(), contenido);
-        listFriends.setAdapter(adapter);
+        final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido = new ArrayList<>();
 
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,30 +60,91 @@ public class MyFriendsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView nombre = view.findViewById(R.id.txtFriendName);
+                TextView key = view.findViewById(R.id.txtKEY);
                 Intent intent = new Intent(getBaseContext(),ChatActivity.class);
-                intent.putExtra("idAmigo","33YiDJ1KHnhszbso7JdDb7jEdew2");
-                intent.putExtra("nombreAmigo",nombre.getText().toString());
+                intent.putExtra("idAmigo", key.getText());
+                intent.putExtra("nombreAmigo", nombre.getText());
                 startActivity(intent);
             }
         });
 
+        verAmigos(contenido, UidCurrent);
+
     }
 
-    public class Friend{ //ESTO DEBE REEMPLAZARSE POR UNA CLASE DEL MODELO
-        String nombre;
-        String user;
+    void verAmigos(final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido, String UidCurrent) {
+        myRef = database.getReference(Utils.PATH_SEGUIDORES + UidCurrent);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> llaveAmigo = new ArrayList<>();
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    String key= dataSnap.getKey();
+                    llaveAmigo.add(key);
+                }
+                obtenerAmigos(contenido,llaveAmigo);
+            }
 
-        public Friend(String nombre, String user) {
-            this.nombre = nombre;
-            this.user = user;
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void obtenerAmigos(final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido, final ArrayList<String> llaveAmigo) {
+        myRef = database.getReference(Utils.PATH_USUARIOS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    String key = dataSnap.getKey();
+                    for (String k : llaveAmigo){
+                        if(k.equals(key)){
+                            Usuario usuario = dataSnap.getValue(Usuario.class);
+                            MyFriendsActivity.ComponentesUsuario nuevo = new MyFriendsActivity.ComponentesUsuario(usuario, key);
+                            contenido.add(nuevo);
+
+                        }
+                    }
+
+                }
+                FriendAdapter adapter = new FriendAdapter(getBaseContext(), contenido);
+                listFriends.setAdapter(adapter);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    public class ComponentesUsuario{
+        Usuario usuario;
+        String key;
+
+        public ComponentesUsuario(Usuario usuario, String key) {
+            this.usuario = usuario;
+            this.key = key;
         }
 
-        public String getNombre() {
-            return nombre;
+        public Usuario getUsuario() {
+            return usuario;
         }
 
-        public String getUser() {
-            return user;
+        public void setUsuario(Usuario usuario) {
+            this.usuario = usuario;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
         }
     }
 

@@ -125,6 +125,7 @@ public class PlaceDescriptionActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddReviewActivity.class);
                 intent.putExtra("keyLugar", keyLugar);
+                intent.putExtra("keyUser", keyUser);
                 startActivity(intent);
             }
         });

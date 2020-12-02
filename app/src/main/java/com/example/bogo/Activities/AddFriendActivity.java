@@ -1,5 +1,6 @@
 package com.example.bogo.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,8 +14,18 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bogo.Adapters.FriendAdapter;
+import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.Adapters.AddFriendAdapter;
 import com.example.bogo.R;
+import com.example.bogo.Utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,86 +33,146 @@ public class AddFriendActivity extends AppCompatActivity {
 
     ListView lstNewFriends;
     EditText edtSearchFriend;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    ArrayList<AddFriendActivity.ComponentesUsuario> contenido = new ArrayList<>();
+    ArrayList<String> seguidores = new ArrayList<>();
+    ArrayList<AddFriendActivity.ComponentesUsuario> contenidoAux = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         lstNewFriends = findViewById(R.id.lstFindFriends);
         edtSearchFriend = findViewById(R.id.edtSearchFriend);
 
-        final ArrayList<AddFriendActivity.NewFriend> contenido = new ArrayList<>();
-        AddFriendActivity.NewFriend f1 = new AddFriendActivity.NewFriend("Aldemar Ramirez", "aldemar_avila");
-        AddFriendActivity.NewFriend f2 = new AddFriendActivity.NewFriend("Sebastián Balaguera", "sebasbala");
-        AddFriendActivity.NewFriend f3 = new AddFriendActivity.NewFriend("Héctor Rodriguez", "hectoren96");
-        AddFriendActivity.NewFriend f4 = new AddFriendActivity.NewFriend("Santiago Palacios", "santiagopalaciosl");
-        AddFriendActivity.NewFriend f5 = new AddFriendActivity.NewFriend("Juan Camacho", "thejuanshow");
-        AddFriendActivity.NewFriend f6 = new AddFriendActivity.NewFriend("Johan Ortegon", "ortegonjohan");
-        AddFriendActivity.NewFriend f7 = new AddFriendActivity.NewFriend("David Halaby", "dmhalaby");
-        AddFriendActivity.NewFriend f8 = new AddFriendActivity.NewFriend("Camilo Moreno", "camilomoreno13");
-        AddFriendActivity.NewFriend f9 = new AddFriendActivity.NewFriend("Camilo Cruz", "crz");
-        AddFriendActivity.NewFriend f10 = new AddFriendActivity.NewFriend("Camilo Ruiz", "stickyruiz");
-        contenido.add(f1);
-        contenido.add(f2);
-        contenido.add(f3);
-        contenido.add(f4);
-        contenido.add(f5);
-        contenido.add(f6);
-        contenido.add(f7);
-        contenido.add(f8);
-        contenido.add(f9);
-        contenido.add(f10);
-
-        AddFriendAdapter adapter = new AddFriendAdapter(getBaseContext(), contenido);
-        lstNewFriends.setAdapter(adapter);
-
         edtSearchFriend.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH)
-                {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
                     String nameFriend = edtSearchFriend.getText().toString();
 
-                    if(!nameFriend.isEmpty())
-                    {
-                        ArrayList<AddFriendActivity.NewFriend> contenidoAct = new ArrayList<>();
-                        for (AddFriendActivity.NewFriend friend: contenido) {
-                            if((friend.user.contains(nameFriend.toLowerCase()))||(friend.nombre.toLowerCase().contains(nameFriend.toLowerCase())))
-                            {
+                    if (!nameFriend.isEmpty()) {
+                        ArrayList<AddFriendActivity.ComponentesUsuario> contenidoAct = new ArrayList<>();
+                        for (AddFriendActivity.ComponentesUsuario friend : contenido) {
+                            if ((friend.getUsuario().getNombre().contains(nameFriend.toLowerCase())) || (friend.getUsuario().getNombre().toLowerCase().contains(nameFriend.toLowerCase()))) {
                                 contenidoAct.add(friend);
                             }
                         }
                         AddFriendAdapter newadapter = new AddFriendAdapter(getBaseContext(), contenidoAct);
                         lstNewFriends.setAdapter(newadapter);
                         onStop();
-                    }
-                    else
-                    {
+                    } else {
                         edtSearchFriend.setError("Required");
                     }
                 }
-                    return false;
+                return false;
             }
 
         });
+
+        validarAmistad();
+
+    }
+    public void validar(){
+
+        for(AddFriendActivity.ComponentesUsuario u : contenido){
+            Log.i("LISTA CONTENIDO", "U: " + u.getKey());
+        }
+
+        for(String u : seguidores){
+            Log.i("LISTA SEGUIDORES", "U: " + u);
+        }
+
+        for (AddFriendActivity.ComponentesUsuario u : contenido ){
+            if(!seguidores.contains(u.getKey())){
+                contenidoAux.add(u);
+            }
+        }
+
+        for(AddFriendActivity.ComponentesUsuario u : contenidoAux){
+            Log.i("LISTA AUX", "U: " + u.getKey());
+        }
+
+        AddFriendAdapter adapter = new AddFriendAdapter(getBaseContext(), contenidoAux);
+        lstNewFriends.setAdapter(adapter);
     }
 
-    public class NewFriend{ //ESTO DEBE REEMPLAZARSE POR UNA CLASE DEL MODELO
-        String nombre;
-        String user;
+    public void obtenerUsuarios() {
+        myRef = database.getReference(Utils.PATH_USUARIOS);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnap : dataSnapshot.getChildren()) {
+                    String key = dataSnap.getKey();
+                    if(!key.equals(currentUser.getUid())){
+                        Usuario usuario = dataSnap.getValue(Usuario.class);
+                        AddFriendActivity.ComponentesUsuario nuevo = new AddFriendActivity.ComponentesUsuario(usuario, key);
+                        contenido.add(nuevo);
+                    }
+                }
+                Log.i("USUARIOS", "tengo " + contenido.size());
+                validar();
+            }
 
-        public NewFriend(String nombre, String user) {
-            this.nombre = nombre;
-            this.user = user;
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void validarAmistad(){
+        myRef = database.getReference(Utils.PATH_SEGUIDORES + "/" + currentUser.getUid());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnap : dataSnapshot.getChildren()){
+                    String key = dataSnap.getKey();
+                    seguidores.add(key);
+                }
+                Log.i("SEGUIDORES", "sigo a " + seguidores.size() + "personas");
+                obtenerUsuarios();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public class ComponentesUsuario{
+        Usuario usuario;
+        String key;
+
+        public ComponentesUsuario(Usuario usuario, String key) {
+            this.usuario = usuario;
+            this.key = key;
         }
 
-        public String getNombre() {
-            return nombre;
+        public Usuario getUsuario() {
+            return usuario;
         }
 
-        public String getUser() {
-            return user;
+        public void setUsuario(Usuario usuario) {
+            this.usuario = usuario;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
         }
     }
 }
+

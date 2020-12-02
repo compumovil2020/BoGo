@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.bogo.R;
@@ -34,7 +32,7 @@ public class SeeReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_review);
 
-        textNombre = findViewById(R.id.textNombre);
+        textNombre = findViewById(R.id.textNombreRes);
         textTitulo = findViewById(R.id.textTitulo);
         textAutor = findViewById(R.id.textAutor);
         textComentario = findViewById(R.id.textComentario);
