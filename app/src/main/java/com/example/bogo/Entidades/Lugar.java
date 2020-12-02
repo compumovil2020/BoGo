@@ -22,7 +22,7 @@ public class Lugar {
 
     public Lugar()
     {
-
+        this.resenias = new ArrayList<>();
     }
 
     public Lugar(String correoElectronico, String descripcion, String direccion, String horaApertura, String horaCierre, double latitud, double longitud, String nombre, double promedio, long telefono, String tipo, int precioMaximo, int precioMinimo, ArrayList<String> resenias) {

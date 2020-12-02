@@ -27,8 +27,11 @@ import com.example.bogo.Entidades.Resenia;
 import com.example.bogo.Entidades.Usuario;
 import com.example.bogo.Utils.PermissionsManager;
 import com.example.bogo.Utils.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,7 +44,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import okhttp3.internal.Util;
 
@@ -59,6 +64,8 @@ public class AddReviewActivity extends AppCompatActivity {
     Usuario user;
     Lugar lugar;
     private StorageReference mStorageRef;
+    Uri miImagenUri;
+    byte[] miImagenBit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         final Intent intent = getIntent();
         keyLugar = intent.getStringExtra("keyLugar");
@@ -172,10 +180,15 @@ public class AddReviewActivity extends AppCompatActivity {
 
         ArrayList<String> a = lugar.getResenias();
         a.add(keyRes);
+        int n = a.size();
+        double prom = (n * lugar.getPromedio() + cal)/(n+1);
+        //newAvg = (size * average + value) / (size + 1);
+        lugar.setPromedio(prom);
         lugar.setResenias(a);
         myRef = database.getReference(Utils.PATH_LUGARES + "/" + keyLugar);
         myRef.setValue(lugar);
-        
+
+        uploadFile(keyRes);
     }
 
     private boolean validateForm()
@@ -205,6 +218,44 @@ public class AddReviewActivity extends AppCompatActivity {
         return valid;
     }
 
+    private void uploadFile(String key) {
+        StorageReference userRef = mStorageRef.child(Utils.PATH_RESENIAS+ key +"/review.jpg");
+        if(miImagenUri != null)
+        {
+            userRef.putFile(miImagenUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }else
+        {
+            userRef.putBytes(miImagenBit)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }
+
+    }
+
     private void addPhotoFromCamera()
     {
         PermissionsManager.requestPermission((Activity) this, Manifest.permission.CAMERA,
@@ -216,7 +267,6 @@ public class AddReviewActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, PermissionsManager.REQUEST_IMAGE_CAPTURE);
             }
         }
-
 
     }
 
@@ -271,11 +321,14 @@ public class AddReviewActivity extends AppCompatActivity {
                     txtFotosAgregadas.setText("Imagen agregada!");
                     imgAddPlace.setImageBitmap(imageBitmap);
                     imgAddPlace.requestLayout();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    miImagenBit = baos.toByteArray();
                     break;
                 case PermissionsManager.IMAGE_PICKER_REQUEST:
                     try {
-                        final Uri imageUri = data.getData();
-                        final InputStream imageStream = this.getContentResolver().openInputStream(imageUri);
+                        miImagenUri = data.getData();
+                        final InputStream imageStream = this.getContentResolver().openInputStream(miImagenUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         imgAddPlace.setImageBitmap(selectedImage);
                         imgAddPlace.setScaleType(ImageView.ScaleType.FIT_XY);
