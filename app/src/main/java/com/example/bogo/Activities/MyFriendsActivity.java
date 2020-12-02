@@ -46,7 +46,6 @@ public class MyFriendsActivity extends AppCompatActivity {
         listFriends = findViewById(R.id.listFriends);
         btnAddFriend = findViewById(R.id.btnAddFriend);
 
-        final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido = new ArrayList<>();
 
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +67,13 @@ public class MyFriendsActivity extends AppCompatActivity {
             }
         });
 
-        verAmigos(contenido, UidCurrent);
+        verAmigos(UidCurrent);
 
     }
 
-    void verAmigos(final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido, String UidCurrent) {
+    void verAmigos(String UidCurrent) {
         myRef = database.getReference(Utils.PATH_SEGUIDORES + UidCurrent);
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> llaveAmigo = new ArrayList<>();
@@ -82,7 +81,7 @@ public class MyFriendsActivity extends AppCompatActivity {
                     String key= dataSnap.getKey();
                     llaveAmigo.add(key);
                 }
-                obtenerAmigos(contenido,llaveAmigo);
+                obtenerAmigos(llaveAmigo);
             }
 
             @Override
@@ -92,7 +91,8 @@ public class MyFriendsActivity extends AppCompatActivity {
         });
     }
 
-    void obtenerAmigos(final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido, final ArrayList<String> llaveAmigo) {
+    void obtenerAmigos(final ArrayList<String> llaveAmigo) {
+        final ArrayList<MyFriendsActivity.ComponentesUsuario> contenido = new ArrayList<>();
         myRef = database.getReference(Utils.PATH_USUARIOS);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

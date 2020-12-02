@@ -180,8 +180,8 @@ public class AddReviewActivity extends AppCompatActivity {
         myRef.setValue(res);
 
         ArrayList<String> a = lugar.getResenias();
-        a.add(keyRes);
         int n = a.size();
+        a.add(keyRes);
         double prom = (n * lugar.getPromedio() + cal)/(n+1);
         //newAvg = (size * average + value) / (size + 1);
         lugar.setPromedio(prom);
